@@ -13,6 +13,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatMenuModule} from "@angular/material/menu";
 import { DashboardEnseignantComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-enseignant/dashboard-enseignant.component';
 import { DashboardEleveComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-eleve/dashboard-eleve.component';
+import { ListClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/list-classe/list-classe.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DashboardEleveComponent } from './EduSchoolBackOffice/Components/Dashbo
     DashboardComponent,
     HomePageComponent,
     DashboardEnseignantComponent,
-    DashboardEleveComponent
+    DashboardEleveComponent,
+    ListClasseComponent
   ],
   imports: [
     BrowserModule,

@@ -65,11 +65,11 @@
           <span>Accueil</span>
       </button>
       <mat-divider></mat-divider>
-      <button mat-button class="menu-button" [matMenuTriggerFor]="menu1">
+      <button mat-button class="menu-button"  [matMenuTriggerFor]="menu1">
           <mat-icon>school</mat-icon>
           <span>Gestion Pédagogique</span>
           <mat-menu #menu1="matMenu">
-              <button mat-menu-item routerLink="classe">Classe</button>
+              <button mat-menu-item routerLink="class"  >Classe</button>
               <button mat-menu-item routerLink="emplois">Emplois du temps</button>
               <button mat-menu-item routerLink="matiere">Matière</button>
               <button mat-menu-item routerLink="homework">HomeWork</button>
@@ -101,7 +101,7 @@
           <span>Gestion Cantine</span>
       </button>
       <mat-divider></mat-divider>
-      <button mat-button class="menu-button" routerLink="comptes">
+      <button mat-button class="menu-button" >
         <mat-icon>person_outline</mat-icon>
           <span>Gestion Comptes</span>
       </button>

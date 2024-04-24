@@ -1,0 +1,21 @@
+<table>
+  <thead>
+  <tr>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let t of leaveType">
+    <td>{{t.type}}</td>
+    <td>{{t.description}}</td>
+    <td>
+      <!-- Icône pour la mise à jour -->
+      <i class="fas fa-edit icon" (click)="updateleave(t.id)"></i>
+      <!-- Icône pour la suppression -->
+      <i class="fas fa-trash-alt icon" (click)="deleteleave(t.id)"></i>
+    </td>
+  </tr>
+  </tbody>
+</table>

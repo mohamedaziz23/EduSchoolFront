@@ -1,0 +1,24 @@
+<h3>Ajouter un nouveau type de congé</h3>
+<form [formGroup]="leaveTypeForm">
+  <div class="form-group">
+    <label for="newLeaveType">Nom du type de congé :</label>
+    <input type="text" id="newLeaveType" name="newLeaveType" formControlName="type" >
+    <label for="description">description :</label>
+    <textarea id="description" formControlName="description"></textarea>
+  </div>
+  <button type="submit" (click)="addLeaveType(leaveTypeForm.value)">Ajouter</button>
+</form>
+
+<!-- form.component.html -->
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Nom">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Message"></textarea>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary">Envoyer</button>
+</form>
+

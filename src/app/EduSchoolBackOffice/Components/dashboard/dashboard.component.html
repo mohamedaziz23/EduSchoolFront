@@ -67,11 +67,10 @@
     </mat-icon>
   </button>
 
-
-
-
-
 </mat-toolbar>
+
+
+
 
 <mat-sidenav-container>
   <ng-content></ng-content>
@@ -105,27 +104,22 @@
         <button mat-menu-item >Ajouter enseignant</button>
         <button mat-menu-item routerLink="gestionpre">gestion des candidatures</button>
       </mat-menu>
-
-
-
-
-
     </button>
     <mat-divider></mat-divider>
-    <button mat-button class="menu-button" routerLink="gestiongroup">
+    <button mat-button class="menu-button" routerLink="My-request">
       <mat-icon>groups</mat-icon>
-      <span>Gestion des groupes</span>
+      <span>my request</span>
     </button>
     <mat-divider></mat-divider>
-    <button mat-button class="menu-button" routerLink="gestionabsenceeleve">
+    <button mat-button class="menu-button" routerLink="Leave-list">
       <mat-icon>groups</mat-icon>
-      <span>Gestion absences élèves</span>
+      <span>liste leave/span></span>
     </button>
     <mat-divider></mat-divider>
 
-    <button mat-button class="menu-button" routerLink="gestionnoteeleve">
+    <button mat-button class="menu-button" routerLink="Leave-type">
       <mat-icon>groups</mat-icon>
-      <span>Gestion note élèves</span>
+      <span>LEAVE TYPE</span>
     </button>
     <mat-divider></mat-divider>
 
@@ -141,18 +135,18 @@
     </button>
     <mat-divider></mat-divider>
 
-    <button mat-button class="menu-button" [matMenuTriggerFor]="menu2" routerLink="gestionconges">
+    <button mat-button class="menu-button" [matMenuTriggerFor]="menu2" routerLink="Request-Leave">
       <mat-icon>flight</mat-icon>
       <span>Gestion des congés</span>
       <mat-menu #menu2="matMenu">
-        <button mat-menu-item>liste des demandes de congés</button>
+        <button mat-menu-item >leave-type</button>
 
       </mat-menu>
     </button>
     <mat-divider></mat-divider>
     <button mat-button class="menu-button" [matMenuTriggerFor]="menu3">
       <mat-icon>paid</mat-icon>
-      <span>Gestion de paiment</span>
+      <span>leave type</span>
       <mat-menu #menu3="matMenu">
         <button mat-menu-item routerLink="listpaye">liste des élèves payées</button>
 

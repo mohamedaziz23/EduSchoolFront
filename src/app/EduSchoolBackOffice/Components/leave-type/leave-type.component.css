@@ -1,0 +1,21 @@
+/* form.component.css */
+.example-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.example-full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.submit-button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .example-form {
+    padding: 20px;
+  }
+}

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {LeaveRequestService} from "../../Services/leave-request.service";
+import {LeaveRequestService} from "../../../Services/leave-request.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({

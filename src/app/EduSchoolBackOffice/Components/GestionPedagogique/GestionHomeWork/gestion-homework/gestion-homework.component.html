@@ -1,86 +1,76 @@
 <div class="registration-form">
-    <form 
-    
-    >
+    <form [formGroup] ="homeworkForm"  (ngSubmit)="AddHomework()">
         <div class="form-icon">
             <img src="assets/img/cour.png">
-        </div><!-- [formGroup]="courForm" -->
-
-
-        <div class="form-group">
-
-            <select class="form-select" id="validationCustom04" placeholder=" choisir nom Module *"
-            >
-                <option>...Select...</option>
-                <option ></option>
-
-            </select>
-            <!-- formControlName="idModule" [ngClass]="{ 'is-invalid': submitted && f.idModule.errors }"  (change)="onSelect($event)" -->
-            <!-- *ngFor="let s of subjects" value="{{s._id}}" -->
-            <div >
-                <!-- *ngIf="submitted && f.idModule.errors" class="invalid-feedback" {{s.nomModule}} -->
-                <div >
-                <!-- *ngIf="f.idModule.errors.required" style="color: rgb(32, 124, 124);" -->
-                    Nom de Module est Obligatoire
-                </div>
+        </div>
+        <!-- input sujet -->
+        <div class="form-row">
+            <input type="text" formControlName="sujet" name=""  placeholder="Sujet"  >
+            <div *ngIf="homeworkForm.get('sujet')?.errors?.['required']" class="invalid-feedback" >
+                <div >Nom du sujet est Obligatoire</div>
             </div>
-
         </div>
-
-        <div class="form-group">
-            <select class="form-select" id="validationCustom04" placeholder="Nom Matiere *"
-            >
-            <!-- formControlName="idMatiere" [ngClass]="{ 'is-invalid': submitted && f.idMatiere.errors } -->
-                <option>....Select...</option>
-                <option ></option>
-
+        <!-- list nom matiere -->
+        <div class="form-row">
+            <select formControlName="matiereHomework"  class="form-select" id="validationCustom04" name="idMatiere" placeholder="Nom Matiere"  required>
+              <option value="">....Select...</option>
+              <option *ngFor="let matiere of matieres" [value]="matiere.id">{{ matiere.nom }}</option>
             </select>
-            <!-- *ngFor="let m of matiere" value="{{m._id}}" {{m.nomMatiere}}-->
-            <div >
-                <!-- *ngIf="submitted && f.idMatiere.errors" class="invalid-feedback" -->
-                <!-- *ngIf="f.idMatiere.errors.required" style="color: rgb(32, 124, 124);" -->
-                <div >Nom de Matiere est Obligatoire</div>
+            <div *ngIf="submitted && homeworkForm.get('matiere')?.errors?.['required']" class="invalid-feedback">
+              <div>Nom de Matiere est Obligatoire</div>
             </div>
+        </div>
+        <!-- importation fichier -->
+        <div class="form-row">
+              <mat-label>Importer un fichier</mat-label>
+              <input  type="file" #fileInput (change)="onFileSelected($event)">
+          </div>
+        <!-- date remise -->  
+        <div class="form-row">
+            <div class="col-md-12" >
+                <input formControlName="dateRemise" type="date"  placeholder="Date de Remise" > 
+            </div>
+      
+        </div>
 
+        <!-- date recu --> 
+        <div class="form-row">
+            <div class="col-md-12" >
+                    <input formControlName="dateRecu" type="date"  placeholder="Date de Réception" >
+            </div>
         </div>
-        <div class="form-group">
-            <input type="file" #filePicker >
-                <!--  (change)='onImageSelected($event)' class="form-control " id="description"
-                placeholder=" liencours "  [ngClass]="{ 'is-invalid': submitted && f.img.errors }" -->
-                <div class="invalid-feedback">
-                    <!-- *ngIf="submitted && f.img.errors"  -->
-                    <div  style="color: rgb(32, 124, 124);">Nom de Matiere est Obligatoire</div>
-                    <!-- *ngIf="f.img.errors.required"  -->
-                </div>
-        </div>
+          
         <div class="form-row">
             <div class="col-md-12">
-                <label for="validationCustom04" class="form-label" >Quelle niveau le cours est concerné *</label>
-                <!-- [ngClass]="{ 'is-invalid': submitted && f.niveau.errors }"  -->
+                <label for="validationCustom04" class="form-label" >Quelle niveau le homework est concerné *</label>
                 <select class="form-select"  required formControlName="niveau"  >
                     <option  selected="true">...</option>
-                    <option value="1er" >1er anneé</option>
-                    <option value="2eme"  >2eme année</option>
-                    <option value="3eme" >3eme année</option>
-                    <option value="4eme"  >4eme année</option>
-                    <option value="5eme">5eme année</option>
-                    <option value="6eme"  >6eme année</option>
+                    <option value="PREMIERE" >1er anneé</option>
+                    <option value="DEUXIEME"  >2eme année</option>
+                    <option value="TROISIEME" >3eme année</option>
+                    <option value="QUATRIEME"  >4eme année</option>
+                    <option value="CINQUIEME">5eme année</option>
+                    <option value="SIXIEME"  >6eme année</option>
                     
                 </select>
-                <div class="invalid-feedback">
-                    <!--   *ngIf="submitted && f.niveau.errors"  -->
+                <div *ngIf="submitted && homeworkForm.get('niveau')?.errors?.['required']" class="invalid-feedback">
+                    
                     <div >niveau est Obligatoire</div>
-                    <!--  *ngIf="f.niveau.errors.required" -->
                     
                 </div> 
                
             </div>
         </div>
-
+        <label class="form-group">
+            <textarea name="" id="" placeholder="Description " required="required"
+                formControlName="description" ></textarea>
+           
+            <span class="border"></span>
+        </label>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-block create-account" >Ajouter Cours</button>
-            <!-- (click)="Addcour(courForm.value)" -->
+            <button type="submit" class="btn btn-block create-account" >Ajouter Homework</button>
+            <!--  -->
         </div>
     </form>
 

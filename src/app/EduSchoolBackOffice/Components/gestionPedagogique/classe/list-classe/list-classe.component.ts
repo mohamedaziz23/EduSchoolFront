@@ -14,16 +14,17 @@ export class ListClasseComponent {
 
 
   constructor(
+    private classeService:ClasseServiceService,
     private activatedroute: ActivatedRoute,
     private router: Router,
    ) { }
 
    ngOnInit(): void {
-   /*  this.classeService.getclasses().subscribe(
+     this.classeService.getclasses().subscribe(
       (data) => {
-        console.log(data.classes);
-        this.classes = data.classes;
-      }); */
+        console.log(data);
+        this.classes = data;
+      });
 
   }
 

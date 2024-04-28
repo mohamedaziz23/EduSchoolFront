@@ -2,42 +2,27 @@
 <div class="content">
 
   <div class="container">
-    <h2 class="mb-5">Listes des classe </h2>
-
-    <div class="table-responsive">
-
-      <table class="table table-striped custom-table">
-        <thead>
-          <tr>
-            <th scope="col">Nom</th>
-
-            <th scope="col">Niveau</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <tr *ngFor="let c of classes t">
-            <td class="pl-0">
-              {{c.nom}} {{c.prenom}}
-            </td>
-            <td>{{c.niveau}}</td>
-            <td>
-
-              <button mat-fab color="second" aria-label="Example icon button with a delete icon"
-                (click)="editerClasse(c.id)" matTooltip="Modifier classe">
-                <mat-icon>check_circle</mat-icon>
-              </button>
-
-              <button mat-fab color="warn" aria-label="Example icon button with a delete icon"
-                (click)="deleteClasse(c._id)"  matTooltip="Supprimer classe">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="container">
+      <div class="title-and-button">
+        <h1 class="title">Listes des classe</h1>
+        <button id="btnAdd" type="button" class="btn btn-info" routerLink="../addClasse" >Ajouter classe</button>
+      </div>
     </div>
+    <div class="table-responsive">
+    <app-table [tableData]="classes"
+              [tableColumns]="classesTableColumns"
+              [isFilterable]="true"
+              [isPageable]="true"
+              [paginationSizes]="[2,4,6]"
+              [defaultPageSize]="4"
+              (sort)="sortData($event)"
+              [rowActionEditIcon]="'edit'"
+              [rowActionDeleteIcon]="'delete'"
+              (rowEditAction)="editerClasse($event)"
+              (rowDeleteAction)="deleteClasse($event)">
+</app-table>
+ </div>
+
 
 
   </div>

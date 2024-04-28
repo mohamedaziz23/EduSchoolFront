@@ -15,6 +15,16 @@ import { DashboardEnseignantComponent } from './EduSchoolBackOffice/Components/D
 import { DashboardEleveComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-eleve/dashboard-eleve.component';
 import { ListClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/list-classe/list-classe.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TableComponent } from './EduSchoolBackOffice/table/table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { AddClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/add-classe/add-classe.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UpdateClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/update-classe/update-classe.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +33,10 @@ import { HttpClientModule } from '@angular/common/http';
     HomePageComponent,
     DashboardEnseignantComponent,
     DashboardEleveComponent,
-    ListClasseComponent
+    ListClasseComponent,
+    TableComponent,
+    AddClasseComponent,
+    UpdateClasseComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +47,19 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatButtonModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule
+
+
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

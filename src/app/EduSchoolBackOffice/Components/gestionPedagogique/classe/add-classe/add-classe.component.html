@@ -1,0 +1,43 @@
+<div class="registration-form">
+  <form  [formGroup]="classeForm">
+
+      <div class="form-icon">
+          <img src="assets/img/class.png">
+      </div>
+      <div class="form-row">
+        <div class="col-md-12">
+            <label for="validationCustom04" class="form-label" >Nom du classe <span style="color: red;">*</span></label>
+          <input type="text" class="form-control" formControlName="nom" >
+        <div *ngIf="validateError('nom','required') && submitted"  >
+          <div  class="alert alert-danger">Nom du classe est Obligatoire </div>
+        </div>
+        <div *ngIf="validateError('nom','minlength') && submitted"  >
+          <div  class="alert alert-danger">saisir au minimum 2 carractére</div>
+        </div>
+        </div>
+
+      </div>
+      <div class="form-row">
+        <div class="col-md-12">
+            <label for="validationCustom04" class="form-label" >Niveau de la classe <span style="color: red;">*</span></label>
+            <select class="form-select" required formControlName="niveau">
+              <option value="-- Sélectionner un niveau --"  selected>-- Sélectionner un niveau --</option>
+              <option value="PREMIERE">PREMIERE</option>
+              <option value="DEUXIEME">DEUXIEME</option>
+              <option value="TROISIEME">TROISIEME</option>
+              <option value="QUATRIEME">QUATRIEME</option>
+              <option value="CINQUIEME">CINQUIEME</option>
+              <option value="SIXIEME">SIXIEME</option>
+            </select>
+            <div *ngIf="classeForm.get('niveau')?.value==='-- Sélectionner un niveau --' && submitted"  >
+              <div  class="alert alert-danger">selectionner un niveau</div>
+            </div>
+        </div>
+    </div>
+
+      <div class="form-group">
+          <button type="submit" class="btn btn-block create-account" [disabled]="classeForm.invalid" (click)="AddClasse()">Ajouter</button>
+      </div>
+  </form>
+
+</div>

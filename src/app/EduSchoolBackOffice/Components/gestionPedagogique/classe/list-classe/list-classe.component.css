@@ -1,0 +1,38 @@
+table {
+  width: 50%;
+
+}
+
+mat-table {
+  background-color: transparent;
+}
+
+th, td {
+  padding: 10px !important;
+}
+
+mat-form-field {
+  width: 40%;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.container {
+  width: 100%; /* Ajustez la largeur selon vos besoins */
+}
+
+.title-and-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  margin-right: auto; /* Aligne le titre à gauche en poussant le bouton vers la droite */
+}
+#btnAdd{
+  background-color: #06BBCC;
+  color:white
+}
+

@@ -15,3 +15,7 @@ th {
   margin-right: 5px;
   cursor: pointer;
 }
+::ng-deep .mat-mdc-unelevated-button.mat-primary {
+  --mdc-filled-button-container-color:#18383D;
+
+}

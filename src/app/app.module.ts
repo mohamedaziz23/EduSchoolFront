@@ -12,7 +12,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatMenuModule} from "@angular/material/menu";
 import { LeaveRequestComponent } from './EduSchoolBackOffice/Components/gestionPresence/leave-request/leave-request.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { LeaveTypeComponent } from './EduSchoolBackOffice/Components/gestionPresence/leave-type/leave-type.component';
 import { LeaveListComponent } from './EduSchoolBackOffice/Components/gestionPresence/leave-list/leave-list.component';
@@ -26,6 +26,7 @@ import { DashboardEleveComponent } from './EduSchoolBackOffice/Components/Dashbo
 import { ListClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/list-classe/list-classe.component';
 import {DashboardComponent} from "./EduSchoolBackOffice/Components/Dashboards/dashboard/dashboard.component";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -45,13 +46,17 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule,
+    FormsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

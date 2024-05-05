@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LeaveRequestService} from "../../../Services/leave-request.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-leave-type',
@@ -14,7 +15,10 @@ export class LeaveTypeComponent implements OnInit{
   leave:any
   constructor(private formbuilder: FormBuilder,
               private leaveTypeService:LeaveRequestService,
-              private ar:ActivatedRoute) {
+              private ar:ActivatedRoute,
+              private router:Router,
+              private dialogRef: MatDialogRef<any>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
   ngOnInit() {
@@ -24,7 +28,7 @@ export class LeaveTypeComponent implements OnInit{
     })
     this.id=this.ar.snapshot.params['id'];
 
-    this.leaveTypeService.getLeaveTypeById(this.id).subscribe((res:any)=>{
+    this.leaveTypeService.getLeaveTypeById(this.data.id).subscribe((res:any)=>{
       this.leave=res
       this.leaveTypeForm.patchValue(this.leave)
 
@@ -37,12 +41,16 @@ export class LeaveTypeComponent implements OnInit{
 
   addLeaveType(leaveType:any) {
     if(this.leave){
-      this.leaveTypeService.updateLeaveType(this.id,leaveType).subscribe((res:any)=>{
+      this.leaveTypeService.updateLeaveType(this.data.id,leaveType).subscribe((res:any)=>{
         console.log(res);
+
       })
+
     }else{
       this.leaveTypeService.addLeaveType(leaveType).subscribe((res:any)=>{
         console.log(res);
+        this.leaveTypeForm.reset();
+
       })
 
 

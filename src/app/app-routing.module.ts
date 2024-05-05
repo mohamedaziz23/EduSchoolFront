@@ -7,22 +7,35 @@ import {LeaveListComponent} from "./EduSchoolBackOffice/Components/gestionPresen
 import {MyRequestLeaveComponent} from "./EduSchoolBackOffice/Components/gestionPresence/my-request-leave/my-request-leave.component";
 import {LeaveTypeListComponent} from "./EduSchoolBackOffice/Components/gestionPresence/leave-type-list/leave-type-list.component";
 import {DashboardComponent} from "./EduSchoolBackOffice/Components/Dashboards/dashboard/dashboard.component";
+import {
+  DashboardEnseignantComponent
+} from "./EduSchoolBackOffice/Components/Dashboards/dashboard-enseignant/dashboard-enseignant.component";
+import {
+  DashboardEleveComponent
+} from "./EduSchoolBackOffice/Components/Dashboards/dashboard-eleve/dashboard-eleve.component";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
+  {path:"Dashboard-enseignant",component:DashboardEnseignantComponent,children:
+    [
+      {path:"Request-leave",component: LeaveRequestComponent},
+      {path:"My-request",component:MyRequestLeaveComponent}
+    ]
+  },
+  {path:"Dashboard-eleve",component:DashboardEleveComponent},
   {path:"Dashboard",component:DashboardComponent,children:
       [
-        {path:"Request-Leave",component:LeaveRequestComponent},
         {path:"Leave-type" , component:LeaveTypeComponent},
         {path:"Leave-list",component:LeaveListComponent},
-        {path:"My-request",component:MyRequestLeaveComponent},
-        {path:"Leave-type-list",component:LeaveTypeListComponent},
+        {path:"Leave-type-list",component:LeaveTypeListComponent}
+
 
 
 
     ]
   },
-  {path:"Leave-type/:id",component:LeaveTypeComponent}
+  {path:"Leave-type/:id",component:LeaveTypeComponent},
+
 
 ];
 

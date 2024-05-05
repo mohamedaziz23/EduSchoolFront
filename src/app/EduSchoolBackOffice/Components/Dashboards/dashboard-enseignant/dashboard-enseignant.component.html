@@ -9,7 +9,7 @@
                         <span class="badge ml-5 mb-2" *ngIf="badgeCount >= 0"  (click)="reload()">{{badgeCount}}</span>
                         <span   (click)="reload()">Notifications   </span>
                     </div>
-                    
+
                 </a>
                 <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                     <a class="dropdown-item">
@@ -47,7 +47,7 @@
         </mat-icon>
     </button>
 
-    
+
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
@@ -62,10 +62,10 @@
             <mat-icon>person</mat-icon>
             <span>Profile</span>
         </button>
-        
-        
+
+
         <mat-divider></mat-divider>
-       
+
         <button mat-button class="menu-button" [matMenuTriggerFor]="menu1">
             <mat-icon>school</mat-icon>
             <span>Gestion Pédagogique</span>
@@ -80,8 +80,8 @@
             <mat-icon>domain_disabled</mat-icon>
             <span>Gestion des congés</span>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item routerLink="statuscongesens">Mes Congés</button>
-                <button mat-menu-item routerLink="addconges">Ajouter congés</button>
+                <button mat-menu-item routerLink="My-request">Mes Congés</button>
+                <button mat-menu-item routerLink="Request-leave">Ajouter congés</button>
             </mat-menu>
         </button>
         <mat-divider></mat-divider>

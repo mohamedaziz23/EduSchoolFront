@@ -81,10 +81,23 @@
           <mat-icon>no_meeting_room</mat-icon>
           <span>Gestion des Présence</span>
           <mat-menu #menu="matMenu">
-              <button mat-menu-item routerLink="statuscongesens">Gestion des abscences</button>
-              <button mat-menu-item routerLink="addconges">Gestion des congés</button>
+              <button mat-menu-item routerLink="">Gestion des abscences</button>
           </mat-menu>
       </button>
+    <mat-divider></mat-divider>
+
+    <button mat-button class="menu-button" [matMenuTriggerFor]="menu2">
+      <mat-icon>no_meeting_room</mat-icon>
+      <span>Gestion Des Congés</span>
+      <mat-menu #menu2="matMenu">
+        <button mat-menu-item routerLink="Leave-list">
+          Liste des Congés
+        </button>
+        <button mat-menu-item routerLink="Leave-type-list">
+          Gestion des Types
+        </button>
+      </mat-menu>
+    </button>
       <mat-divider></mat-divider>
       <button mat-button class="menu-button" routerLink="calender">
           <mat-icon>calendar_today</mat-icon>

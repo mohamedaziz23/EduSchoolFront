@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {LeaveRequestService} from "../../../Services/leave-request.service";
 import {Router} from "@angular/router";
+import {LeaveTypeComponent} from "../leave-type/leave-type.component";
+import {MatDialog} from "@angular/material/dialog";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-leave-type-list',
@@ -9,7 +12,9 @@ import {Router} from "@angular/router";
 })
 export class LeaveTypeListComponent implements OnInit{
   leaveType:any=[];
-  constructor(private leaveService:LeaveRequestService,private router:Router) {
+  constructor(private leaveService:LeaveRequestService,
+              private router:Router,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(){
@@ -26,8 +31,18 @@ export class LeaveTypeListComponent implements OnInit{
   }
 
   updateleave(id: any) {
-    this.router.navigateByUrl(`/Leave-type/${id}`);
+    // Pass the ID to the dialog component
+    const dialogRef = this.dialog.open(LeaveTypeComponent, {
+      height: '400px',
+      width: '600px',
+      data: { id: id } // Pass the id to the dialog component
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllLeaveType();
+    });
+
+    //this.router.navigateByUrl(`/Leave-type/${id}`);
   }
 
   deleteleave(id: any) {
@@ -35,7 +50,24 @@ export class LeaveTypeListComponent implements OnInit{
       console.log(res);
       this.getAllLeaveType();
 
+
     })
+
+  }
+
+  openDialog() {
+
+    const dialogRef = this.dialog.open(LeaveTypeComponent, {
+      height: '400px',
+      width: '600px',
+
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllLeaveType();
+
+    });
 
   }
 }

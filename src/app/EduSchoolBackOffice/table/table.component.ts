@@ -21,14 +21,17 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() isPageable = false;
   @Input() isSortable = false;
   @Input() isFilterable = false;
+  @Input() isDetailIcon = false;
   @Input() tableColumns: TableColumn[] = [];
   @Input() rowActionEditIcon!: string;
+  @Input() rowActionDetailIcon!: string;
   @Input() rowActionDeleteIcon!: string;
   @Input() paginationSizes: number[] = [5, 10, 15];
   @Input() defaultPageSize = this.paginationSizes[1];
   @Output() sort: EventEmitter<Sort> = new EventEmitter();
   @Output() rowEditAction: EventEmitter<any> = new EventEmitter<any>();
   @Output() rowDeleteAction: EventEmitter<any> = new EventEmitter<any>();
+  @Output() rowDetailAction: EventEmitter<any> = new EventEmitter<any>();
 
 
   @Input() set tableData(data: any[]) {
@@ -41,8 +44,12 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     const columnNames = this.tableColumns.map((tableColumn: TableColumn) => tableColumn.name);
-    if (this.rowActionEditIcon && this.rowActionDeleteIcon) {
+    if (this.rowActionEditIcon && this.rowActionDeleteIcon && this.rowActionDetailIcon) {
       this.displayedColumns = [...columnNames, this.rowActionEditIcon,this.rowActionDeleteIcon]
+      if(this.isDetailIcon) {
+           this.displayedColumns.push(this.rowActionDetailIcon);
+
+      }
     } else {
       this.displayedColumns = columnNames;
     }
@@ -76,13 +83,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     if (column) {
       // Définir la propriété active du tri sur la clé de données de la colonne trouvée
       sortParameters.active = column.dataKey;
-    } else {
-      // Si aucune colonne correspondante n'a été trouvée, afficher un message d'erreur ou effectuer un autre traitement
-      console.error(`La colonne avec le nom '${sortParameters.active}' n'a pas été trouvée.`);
-      // Vous pouvez également définir une valeur par défaut ou ignorer le tri
-      // sortParameters.active = ''; // par exemple
     }
-
     // Émettre l'événement de tri avec les paramètres mis à jour
     this.sort.emit(sortParameters);
   }
@@ -91,13 +92,17 @@ export class TableComponent implements OnInit, AfterViewInit {
   emitRowEditAction(row: any) {
     this.rowEditAction.emit(row);
   }
+  emitRowDetailAction(row: any) {
+    this.rowDetailAction.emit(row);
+  }
   emitRowDeleteAction(row: any) {
     Swal.fire({
       position: 'center',
       icon: 'question',
       title: "Etes-vous sûr de vouloir le supprimer ?",
       showCancelButton: true,
-      confirmButtonText: 'OK',
+      confirmButtonText: 'OUI',
+      cancelButtonText: 'NON'
     }).then((result) => {
       if (result.isConfirmed) {
         this.rowDeleteAction.emit(row);

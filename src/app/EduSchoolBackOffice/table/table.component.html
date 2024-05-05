@@ -53,6 +53,15 @@
         </button>
       </td>
     </ng-container>
+    <ng-container *ngIf=" isDetailIcon && rowActionDetailIcon?.length" [matColumnDef]="rowActionDetailIcon">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element" [id]="rowActionDetailIcon" (click)="emitRowDetailAction(element)">
+        <button mat-button>
+          <mat-icon>{{rowActionDetailIcon}}</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
 
 
   </table>

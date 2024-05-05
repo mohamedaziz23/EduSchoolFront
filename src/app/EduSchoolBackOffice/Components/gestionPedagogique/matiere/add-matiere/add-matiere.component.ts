@@ -1,46 +1,47 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { ClasseServiceService } from '../../service/ClasseService/classe-service.service';
-import { Niveau } from 'src/app/EduSchoolBackOffice/Tools/Niveau';
-import Swal from 'sweetalert2'
+import { MatiereService } from '../../service/matiereService/matiere.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { Niveau } from 'src/app/EduSchoolBackOffice/Tools/Niveau';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-add-classe',
-  templateUrl: './add-classe.component.html',
-  styleUrls: ['./add-classe.component.css']
+  selector: 'app-add-matiere',
+  templateUrl: './add-matiere.component.html',
+  styleUrls: ['./add-matiere.component.css']
 })
-export class AddClasseComponent {
+export class AddMatiereComponent {
 
 
-  classeForm !: FormGroup;
-  classe: any = {};
+  matiereForm !: FormGroup;
+  matiere: any = {};
   submitted = false;
 
   niveaux = Object.values(Niveau);
 selectedNiveau: string="----selectionner niveau----";
 
   constructor(
-    private classeService: ClasseServiceService,
+    private matiereService: MatiereService,
     private route:Router
    ) {
 
     }
 
   ngOnInit(): void {
-   this.classeForm=new FormGroup({
-      nom:new FormControl('',[Validators.required,Validators.minLength(2)]),
+   this.matiereForm=new FormGroup({
+      nom:new FormControl('',[Validators.required,Validators.minLength(3)]),
+      nbHeure:new FormControl(0,[Validators.required,Validators.pattern(/^[0-9]+$/)]),
+      ressources:new FormControl('',[Validators.required]),
       niveau:new FormControl('-- Sélectionner un niveau --',[Validators.required])
 
    });
   }
 
 
-  AddClasse() {
+  AddMatiere() {
     this.submitted=true;
-    if(this.classeForm.valid){
-      this.classeService.createclasse(this.classeForm.value).subscribe(
+    if(this.matiereForm.valid){
+      this.matiereService.creatematiere(this.matiereForm.value).subscribe(
         (response: any) => {
           console.log(response);
           if (response && response.response === 'success') {
@@ -51,7 +52,7 @@ selectedNiveau: string="----selectionner niveau----";
               showConfirmButton: false,
               timer: 1500
             }).then(() => {
-              this.route.navigateByUrl('Dashboard/classe');
+              this.route.navigateByUrl('Dashboard/matiere');
             });
           }
           else{
@@ -67,7 +68,7 @@ selectedNiveau: string="----selectionner niveau----";
   }
 
   validateError(name: string, typeErr: string): boolean {
-    return this.classeForm.get(name)!.hasError(typeErr);
+    return this.matiereForm.get(name)!.hasError(typeErr);
   }
 
 

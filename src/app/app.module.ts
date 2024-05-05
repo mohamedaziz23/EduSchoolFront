@@ -25,6 +25,27 @@ import { MatInputModule } from '@angular/material/input';
 import { AddClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/add-classe/add-classe.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/update-classe/update-classe.component';
+import { ListMatiereComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/matiere/list-matiere/list-matiere.component';
+import { AddMatiereComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/matiere/add-matiere/add-matiere.component';
+import { UpdateMatiereComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/matiere/update-matiere/update-matiere.component';
+import { DetailClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/detail-classe/detail-classe.component';
+import { EnseignantClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/enseignant-classe/enseignant-classe.component';
+import { EmploisTempsComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/emplois-temps/emplois-temps.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
+import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
+
+/* FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  timeGridPlugin,
+  interactionPlugin,
+  listPlugin,
+  resourceTimelinePlugin
+
+]); */
 
 @NgModule({
   declarations: [
@@ -36,7 +57,13 @@ import { UpdateClasseComponent } from './EduSchoolBackOffice/Components/gestionP
     ListClasseComponent,
     TableComponent,
     AddClasseComponent,
-    UpdateClasseComponent
+    UpdateClasseComponent,
+    ListMatiereComponent,
+    AddMatiereComponent,
+    UpdateMatiereComponent,
+    DetailClasseComponent,
+    EnseignantClasseComponent,
+    EmploisTempsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +82,10 @@ import { UpdateClasseComponent } from './EduSchoolBackOffice/Components/gestionP
     MatButtonModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FullCalendarModule,
+
+
 
 
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ClasseServiceService } from '../service/ClasseService/classe-service.service';
+import { ClasseServiceService } from '../../service/ClasseService/classe-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Niveau } from 'src/app/EduSchoolBackOffice/Tools/Niveau';
 import Swal from 'sweetalert2';
@@ -22,7 +22,6 @@ selectedNiveau: string="----selectionner niveau----";
   constructor(
     private classeService: ClasseServiceService,
     private route:Router,
-    private r:ActivatedRoute
    ) {
 
     }
@@ -60,8 +59,7 @@ selectedNiveau: string="----selectionner niveau----";
               position: 'center',
               icon: 'error',
               title: response.response,
-              confirmButtonText: 'ok',
-              showCancelButton: true,
+              confirmButtonText: 'D\'accord',
             });
           }
       });

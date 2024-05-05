@@ -1,20 +1,19 @@
-import { ClasseServiceService } from '../../service/ClasseService/classe-service.service';
 import { Component } from '@angular/core';
-import { Sort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
 import { TableColumn } from 'src/app/EduSchoolBackOffice/Tools/TableColumn';
+import { ClasseServiceService } from '../../service/ClasseService/classe-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Sort } from '@angular/material/sort';
 
 @Component({
-  selector: 'app-list-classe',
-  templateUrl: './list-classe.component.html',
-  styleUrls: ['./list-classe.component.css']
+  selector: 'app-enseignant-classe',
+  templateUrl: './enseignant-classe.component.html',
+  styleUrls: ['./enseignant-classe.component.css']
 })
-export class ListClasseComponent {
-
+export class EnseignantClasseComponent {
 
   classes: any;
   classe: any;
-  classesTableColumns: TableColumn[] = [];
+  classesEnsTableColumns: TableColumn[] = [];
 
   constructor(
     private classeService:ClasseServiceService,
@@ -33,16 +32,16 @@ export class ListClasseComponent {
 
   }
   initializeColumns(): void {
-    this.classesTableColumns = [
+    this.classesEnsTableColumns = [
       {
-        name: 'Nom',
-        dataKey: 'nom',
+        name: 'Enseignant',
+        dataKey: 'enseignant',
         position: 'left',
         isSortable: true
       },
       {
-        name: 'Niveau',
-        dataKey: 'niveau',
+        name: 'Matiére',
+        dataKey: 'matiere',
         position: 'left',
         isSortable: false
       },
@@ -68,17 +67,12 @@ export class ListClasseComponent {
 
 
 
-  editerClasse(classe : any){
+  editerEnsClasse(classe : any){
     this.router.navigate(['Dashboard/update-classe'], { state: { myData: classe } });
   }
 
-  detailClasse(classe: any) {
-    this.router.navigate(['Dashboard/detail-classe'], { state: { myData: classe } });
 
-
-    }
-
-  deleteClasse(classe : any){
+  deleteEnsClasse(classe : any){
     this.classeService.deleteclasse(classe.id).subscribe(
       (data) =>{
         this.classes = this.classes.filter((item: { id: any; }) => item.id !==classe.id);

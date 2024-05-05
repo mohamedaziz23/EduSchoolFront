@@ -4,25 +4,25 @@
   <div class="container">
     <div class="container">
       <div class="title-and-button">
-        <h1 class="title">Listes des classes</h1>
-        <button id="btnAdd" type="button" class="btn btn-info" routerLink="../addClasse" >Ajouter classe</button>
+        <h1 class="title">Listes des matieres</h1>
+        <button id="btnAdd" type="button" class="btn btn-info" routerLink="../addMatiere" >Ajouter matiére</button>
       </div>
     </div>
     <div class="table-responsive">
-    <app-table [tableData]="classes"
-              [tableColumns]="classesTableColumns"
+    <app-table [tableData]="matieres"
+              [tableColumns]="matieresTableColumns"
               [isFilterable]="true"
               [isPageable]="true"
-              [isDetailIcon]="true"
+              [isDetailIcon]="false"
               [paginationSizes]="[2,4,6]"
               [defaultPageSize]="4"
               (sort)="sortData($event)"
               [rowActionEditIcon]="'edit'"
               [rowActionDeleteIcon]="'delete'"
               [rowActionDetailIcon]="'remove_red_eye'"
-              (rowEditAction)="editerClasse($event)"
-              (rowDetailAction)="detailClasse($event)"
-              (rowDeleteAction)="deleteClasse($event)">
+              (rowEditAction)="editerM($event)"
+              (rowDetailAction)="detailM($event)"
+              (rowDeleteAction)="deleteM($event)">
 </app-table>
  </div>
 

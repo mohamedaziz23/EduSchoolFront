@@ -17,23 +17,30 @@
         </div>
 
       </div>
-      <div class="form-row">
+     <div class="form-row">
         <div class="col-md-12">
             <label for="validationCustom04" class="form-label" >Niveau de la classe <span style="color: red;">*</span></label>
             <select class="form-select" required formControlName="niveau">
               <option value="-- Sélectionner un niveau --"  selected>-- Sélectionner un niveau --</option>
-              <option value="PREMIERE">PREMIERE</option>
-              <option value="DEUXIEME">DEUXIEME</option>
-              <option value="TROISIEME">TROISIEME</option>
-              <option value="QUATRIEME">QUATRIEME</option>
-              <option value="CINQUIEME">CINQUIEME</option>
-              <option value="SIXIEME">SIXIEME</option>
+              <option *ngFor="let n of niveaux" [value]="n">{{n}}</option>
             </select>
             <div *ngIf="classeForm.get('niveau')?.value==='-- Sélectionner un niveau --' && submitted"  >
               <div  class="alert alert-danger">selectionner un niveau</div>
             </div>
         </div>
     </div>
+
+
+
+    <select class="form-select" required formControlName="niveau">
+      <option value="-- Sélectionner un niveau --"  selected>-- Sélectionner un niveau --</option>
+      <option *ngFor="let n of niveaux" [value]="n">{{n}}</option>
+    </select>
+
+
+
+
+
 
       <div class="form-group">
           <button type="submit" class="btn btn-block create-account" [disabled]="classeForm.invalid" (click)="AddClasse()">Ajouter</button>

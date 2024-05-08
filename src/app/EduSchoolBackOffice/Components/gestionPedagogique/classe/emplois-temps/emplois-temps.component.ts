@@ -18,8 +18,6 @@ import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
   styleUrls: ['./emplois-temps.component.css']
 })
 export class EmploisTempsComponent {
-  connectedUser: any;
-  connected = false;
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridWeek',
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin, resourceTimelinePlugin],

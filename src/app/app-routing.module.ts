@@ -12,6 +12,9 @@ import { UpdateMatiereComponent } from './EduSchoolBackOffice/Components/gestion
 import { DetailClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/detail-classe/detail-classe.component';
 import { EnseignantClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/enseignant-classe/enseignant-classe.component';
 import { EmploisTempsComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/emplois-temps/emplois-temps.component';
+import { CantineComponent } from './EduSchoolBackOffice/Components/gestionCantine/cantine/cantine.component';
+import { MenuComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu/menu.component';
+import { GroupUserComponent } from './EduSchoolBackOffice/Components/gestionCantine/group-user/group-user.component';
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -30,6 +33,14 @@ const routes: Routes = [
     {path:"matiere",component:ListMatiereComponent},
     {path:"addMatiere",component:AddMatiereComponent},
     {path:"update-matiere",component:UpdateMatiereComponent},
+
+
+    // gestion cantine
+    {path:"cantine",component:CantineComponent},
+    {path:"repas",component:MenuComponent},
+    {path:"groupe-cantine",component:GroupUserComponent},
+
+
 
 
 

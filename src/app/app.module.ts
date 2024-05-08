@@ -37,6 +37,9 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
+import { CantineComponent } from './EduSchoolBackOffice/Components/gestionCantine/cantine/cantine.component';
+import { MenuComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu/menu.component';
+import { GroupUserComponent } from './EduSchoolBackOffice/Components/gestionCantine/group-user/group-user.component';
 
 /* FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -63,7 +66,10 @@ import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
     UpdateMatiereComponent,
     DetailClasseComponent,
     EnseignantClasseComponent,
-    EmploisTempsComponent
+    EmploisTempsComponent,
+    CantineComponent,
+    MenuComponent,
+    GroupUserComponent
   ],
   imports: [
     BrowserModule,

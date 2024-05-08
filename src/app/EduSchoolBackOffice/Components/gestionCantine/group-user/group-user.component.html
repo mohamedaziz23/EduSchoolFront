@@ -1,0 +1,30 @@
+<div class="container" style="margin-top:50px ;">
+  <div class="row-3">
+    <h1>Responsable de la cantine  </h1>
+
+      <div class="col">
+          <div class="card custom-card">
+            <div class="card-body  d-flex align-items-center justify-content-center">
+                Nom Responsable
+            </div>
+        </div>
+       </div>
+      <div class="col">
+
+       <div class="table-responsive">
+        <app-table [tableData]="groupUserList"
+                  [tableColumns]="groupUserTableColumns"
+                  [isFilterable]="false"
+                  [isPageable]="true"
+                  [isDetailIcon]="false"
+                  [paginationSizes]="[2,4,6]"
+                  [defaultPageSize]="4"
+                  [rowActionEditIcon]="'edit'"
+                  [rowActionDeleteIcon]="'delete'"
+                  (rowEditAction)="editerGroupUser($event)"
+                  (rowDeleteAction)="deleteGroupUser($event)">
+    </app-table>
+     </div>
+     </div>
+     </div>
+     </div>

@@ -15,6 +15,7 @@ export class GroupUserComponent {
   groupCantine!:any;
   groupUserList!: any;
   groupUser!:any;
+  user!:any;
   submitted =false;
 
 
@@ -29,6 +30,12 @@ export class GroupUserComponent {
         this.groupCantine = data;
 
       });
+    this.cantineService.getUserCantine().subscribe(
+      (data) => {
+        console.log(data);
+        this.groupUserList = data;
+      });
+
 
    }
 
@@ -81,6 +88,14 @@ export class GroupUserComponent {
       }
     ) */
   }
+  detailGroupUser(classe : any){
+    /*  this.cantineService.deleteclasse(classe.id).subscribe(
+       (data) =>{
+         this.classes = this.classes.filter((item: { id: any; }) => item.id !==classe.id);
+
+       }
+     ) */
+   }
   addMenu(){
 
   }

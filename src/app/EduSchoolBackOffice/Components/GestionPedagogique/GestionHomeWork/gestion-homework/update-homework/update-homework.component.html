@@ -1,1 +1,68 @@
-<p>update-homework works!</p>
+<div class="registration-form">
+    <form [formGroup] ="homeworkForm"  (ngSubmit)="UpdateHomework()">
+        <div class="form-icon">
+            <img src="assets/img/cour.png">
+        </div>
+        <!-- input sujet -->
+        <div class="form-row">
+            <input type="text" formControlName="sujet"  [(ngModel)]="homework.sujet"name=""  placeholder="Sujet"  >
+            <div *ngIf="homeworkForm.get('sujet')?.errors?.['required']"  class="invalid-feedback" >
+                <div >Nom du sujet est Obligatoire</div>
+            </div>
+        </div>
+        <!-- list nom matiere -->
+        <div class="form-row">
+            <select formControlName="matiereHomework" [(ngModel)]="homework.matiereHomework" class="form-select" id="validationCustom04" name="idMatiere" placeholder="Nom Matiere"  required>
+              
+              <option *ngFor="let matiere of matieres" [value]="matiere.nom" [selected]="matiere.nom === matiere.nom">{{ matiere.nom }}</option>
+            </select>
+            <div *ngIf="submitted && homeworkForm.get('matiere')?.errors?.['required']" class="invalid-feedback">
+              <div>Nom de Matiere est Obligatoire</div>
+            </div>
+        </div>
+        <!-- importation fichier -->
+       
+        <!-- date remise -->  
+        <div class="form-row">
+            <div class="col-md-12" >
+                <input formControlName="dateRemise" type="date"  [(ngModel)]="homework.dateRemise" placeholder="Date de Remise" > 
+            </div>
+      
+        </div>
+
+        <!-- date recu --> 
+        <div class="form-row">
+            <div class="col-md-12" >
+                    <input formControlName="dateRecu" type="date" [(ngModel)]="homework.dateRecu" placeholder="Date de Réception" >
+            </div>
+        </div>
+          
+        <div class="form-row">
+            <div class="col-md-12" >
+                <select formControlName="classeHomework" [(ngModel)]="homework.classeHomework" class="form-select" id="validationCustom04" name="idMatiere" placeholder="Nom Matiere"  required>
+          
+                    <option *ngFor="let classe of classes" [value]="classe.nom" [selected]="classe.nom === classe.nom">{{ classe.nom }}</option>
+                  </select>
+                  
+                <div *ngIf="submitted && homeworkForm.get('niveau')?.errors?.['required']" class="invalid-feedback">
+                    
+                    <div >niveau est Obligatoire</div>
+                    
+                </div> 
+               
+            </div>
+        </div>
+        <label class="form-group">
+            <textarea name="" id="" placeholder="Description " required="required" [(ngModel)]="homework.description" formControlName="description"
+                 ></textarea>
+           
+            <span class="border"></span>
+        </label>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-block create-account" >Modifier Homework</button>
+            <!--  -->
+        </div>
+    </form>
+
+</div>

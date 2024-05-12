@@ -1,0 +1,24 @@
+mat-card{
+    margin: 2%;
+}
+
+button{
+    margin: 2px;
+}
+
+th{
+    background-color: rgb(2, 39, 61) !important;
+    color: white;
+}
+mat-card-content{
+    background: none;
+}
+.align{
+    margin-left: auto;
+}
+
+i {
+    padding-left: 20px;
+    font-size: 15px;
+    color: rgb(2, 39, 61);
+}

@@ -1,0 +1,73 @@
+<mat-card>
+    <mat-card-header>
+      <div class="d-flex align-items-center justify-content-between">
+       
+        <div class="d-flex align-items-center mb-2">
+          
+            <select [(ngModel)]="note.matiereNote"  class="form-select" (change)="onSubjectChange($event.target)" name="idMatiere" placeholder="Nom Matiere"  required>
+              <option value="">....Select...</option>
+              <option *ngFor="let matiere of matieres" [value]="matiere.nom">{{ matiere.nom }}</option>
+            </select>
+          
+            <select [(ngModel)]="note.classe" 
+              (change)="onClassChange($event.target)"
+                class="form-select" 
+                placeholder="Nom Classe" 
+                >
+                    <option [value]="">....Select...</option>
+                    <option *ngFor="let classe of classes" [value]="classe.id">{{ classe.nom }}</option>
+            </select>
+          
+        
+          
+        </div>
+        
+      </div>
+      <div class="">
+        <button mat-raised-button class="btn btn-primary" type="button" (click)="ajouterNote()">Ajouter Note</button>
+      </div>
+    
+    </mat-card-header>
+    <mat-card-content>
+      <table matSort mat-table [dataSource]="items" class="mat-elevation-z8">
+  
+          <ng-container matColumnDef="Eleve">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Eleve</th>
+            <td mat-cell *matCellDef="let element">{{element.eleve.id}}</td>
+          </ng-container>
+         
+            <ng-container matColumnDef="NoteOrale">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Note orale</th>
+              <td mat-cell *matCellDef="let element">{{element.noteOrale}}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="NoteExamen">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Note examen</th>
+              <td mat-cell *matCellDef="let element">{{element.noteExamen}}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="Action">
+              <th mat-header-cell mat-sort-header *matHeaderCellDef> Action</th>
+              <td mat-cell *matCellDef="let element">
+                  <i (click)="editNote(element.id)" class='fas fa-edit'></i>
+                  <i (click)="deleteNote(element.id)" class='fas fa-trash-alt'></i>
+                  <i (click)="detailNote(element.id)"  class='fas fa-eye'></i>
+                
+              </td>
+            </ng-container>
+  
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+  
+      </table>
+  
+    </mat-card-content> 
+  <br>
+  <mat-card-footer>
+  
+      <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageIndex]="currentPage" (page)="pageChanged($event)"
+      [pageSizeOptions]="[pageSize]" showFirstLastButtons></mat-paginator>
+  
+  </mat-card-footer>
+ </mat-card>

@@ -5,67 +5,96 @@
         </div>
         <!-- input sujet -->
         <div class="form-row">
-            <input type="text" formControlName="sujet" name=""  placeholder="Sujet"  >
-            <div *ngIf="homeworkForm.get('sujet')?.errors?.['required']" class="invalid-feedback" >
-                <div >Nom du sujet est Obligatoire</div>
+            <input 
+            type="text" 
+            formControlName="sujet"  
+            [(ngModel)]="homework.sujet" 
+            placeholder="Sujet"
+            [ngClass]="{'is-invalid': homeworkForm.get('sujet')?.touched && !homeworkForm.get('sujet')?.valid}" 
+            >
+            <div class="invalid-feedback">
+                <span *ngIf="homeworkForm.get('sujet')?.errors?.['required']">Nom du sujet est Obligatoire</span>
             </div>
         </div>
         <!-- list nom matiere -->
         <div class="form-row">
-            <select formControlName="matiereHomework"  class="form-select" id="validationCustom04" name="idMatiere" placeholder="Nom Matiere"  required>
+            <select formControlName="matiereHomework" [(ngModel)]="homework.matiereHomework" class="form-select" id="validationCustom04" name="idMatiere" placeholder="Nom Matiere"  required>
               <option value="">....Select...</option>
-              <option *ngFor="let matiere of matieres" [value]="matiere.id">{{ matiere.nom }}</option>
+              <option *ngFor="let matiere of matieres" [value]="matiere.nom">{{ matiere.nom }}</option>
             </select>
             <div *ngIf="submitted && homeworkForm.get('matiere')?.errors?.['required']" class="invalid-feedback">
               <div>Nom de Matiere est Obligatoire</div>
             </div>
         </div>
         <!-- importation fichier -->
-        <div class="form-row">
-              <mat-label>Importer un fichier</mat-label>
-              <input  type="file" #fileInput (change)="onFileSelected($event)">
-          </div>
+       
         <!-- date remise -->  
         <div class="form-row">
             <div class="col-md-12" >
-                <input formControlName="dateRemise" type="date"  placeholder="Date de Remise" > 
+                <input 
+                formControlName="dateRemise" 
+                type="date"  
+                [(ngModel)]="homework.dateRemise" 
+                placeholder="Date de Remise" 
+                [ngClass]="{'is-invalid':homeworkForm.get('dateRemise')?.touched && !homeworkForm.get('dateRemise')?.valid}"
+                > 
             </div>
-      
+            <div class="invalid-feedback">
+                <span *ngIf="homeworkForm.get('dateRemise')?.errors?.['required']">Date de remise est Obligatoire</span>
+            </div>
         </div>
 
         <!-- date recu --> 
         <div class="form-row">
             <div class="col-md-12" >
-                    <input formControlName="dateRecu" type="date"  placeholder="Date de Réception" >
+                    <input 
+                    formControlName="dateRecu" 
+                    type="date" 
+                    [(ngModel)]="homework.dateRecu" 
+                    placeholder="Date de Réception" 
+                    [ngClass]="{'is-invalid':homeworkForm.get('dateRecu')?.touched && !homeworkForm.get('dateRecu')?.valid}"
+
+                    >
+            </div>
+            <div class="invalid-feedback">
+                <span *ngIf="homeworkForm.get('dateRecu')?.errors?.['required']">Date de reçu est Obligatoire</span>
             </div>
         </div>
           
         <div class="form-row">
             <div class="col-md-12">
-                <label for="validationCustom04" class="form-label" >Quelle niveau le homework est concerné *</label>
-                <select class="form-select"  required formControlName="niveau"  >
-                    <option  selected="true">...</option>
-                    <option value="PREMIERE" >1er anneé</option>
-                    <option value="DEUXIEME"  >2eme année</option>
-                    <option value="TROISIEME" >3eme année</option>
-                    <option value="QUATRIEME"  >4eme année</option>
-                    <option value="CINQUIEME">5eme année</option>
-                    <option value="SIXIEME"  >6eme année</option>
-                    
+                <select formControlName="classe" 
+                [(ngModel)]="homework.classeHomework" 
+                class="form-select" id="validationCustom04" 
+                placeholder="Nom Matiere" 
+                [ngClass]="{'is-invalid':homeworkForm.get('classe')?.touched && !homeworkForm.get('classe')?.valid}"
+
+                >
+                    <option value="">....Select...</option>
+                    <option *ngFor="let classe of classes" [value]="classe.nom">{{ classe.nom }}</option>
                 </select>
-                <div *ngIf="submitted && homeworkForm.get('niveau')?.errors?.['required']" class="invalid-feedback">
-                    
-                    <div >niveau est Obligatoire</div>
-                    
-                </div> 
+                  
+                <div class="invalid-feedback">
+                    <span *ngIf="homeworkForm.get('classe')?.errors?.['required']">Selectionné le classe </span>
+                </div>
                
             </div>
         </div>
         <label class="form-group">
-            <textarea name="" id="" placeholder="Description " required="required"
-                formControlName="description" ></textarea>
+            <textarea 
+            name="" 
+            id="" 
+            placeholder="Detail " 
+            required="required" 
+            [(ngModel)]="homework.description" 
+            formControlName="description"
+            [ngClass]="{'is-invalid':homeworkForm.get('description')?.touched && !homeworkForm.get('description')?.valid}"
+
+                 ></textarea>
            
-            <span class="border"></span>
+            <div class="invalid-feedback">
+                <span *ngIf="homeworkForm.get('description')?.errors?.['required']">Expliqué le sujet  </span>
+            </div>
         </label>
 
         <div class="form-group">

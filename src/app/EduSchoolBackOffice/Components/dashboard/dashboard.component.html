@@ -1,28 +1,18 @@
 <mat-toolbar>
-
   Dashboard Administrateur
-
   <nav class="navbar navbar-expand bg-blue  navbar-light sticky-top px-4 py-0" >
-
     <div class="navbar-nav align-items-center ms-auto">
-
-
       <div class="nav-item dropdown">
         <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-
           <button mat-icon-button   >
             <mat-icon class="icon">notifications</mat-icon>
             <span class="badge" ></span>
           </button>
-
           <span class="d-none d-lg-inline-flex" >Notificatin </span>
-
-
         </a>
         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
           <a class="dropdown-item" >
             <ng-container >
-
               <h6 class="fw-normal mb-0">test</h6>
               <small>test</small> <br>
               <small>date</small> : <small>test</small><br>
@@ -38,25 +28,11 @@
                       >
                 <mat-icon>check_circle</mat-icon>
               </button>
-
             </ng-container>
-
-
-
-
-
-
           </a>
-
-
         </div>
       </div>
-
-
-
-
     </div>
-
   </nav>
   <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
     <mat-icon *ngIf="!sidenav.opened">
@@ -66,50 +42,29 @@
       close
     </mat-icon>
   </button>
-
-
-
-
-
 </mat-toolbar>
-
 <mat-sidenav-container>
   <ng-content></ng-content>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z10" mode="side" opened>
-
-
-
-
-
     <mat-divider></mat-divider>
     <button mat-button class="menu-button" routerLink="addadmin">
       <mat-icon>person</mat-icon>
       <span>Ajouter Administrateur</span>
     </button>
     <mat-divider></mat-divider>
-
-
-
     <button mat-button class="menu-button" routerLink="">
       <mat-icon>home</mat-icon>
       <span>Acceuil</span>
     </button>
     <mat-divider></mat-divider>
-
     <button mat-button class="menu-button" >
       <mat-icon>menu</mat-icon>
       <span>Gestion enseignant</span>
-
       <mat-menu #menu="matMenu">
         <button mat-menu-item routerLink="listens">liste enseignant</button>
         <button mat-menu-item >Ajouter enseignant</button>
         <button mat-menu-item routerLink="gestionpre">gestion des candidatures</button>
       </mat-menu>
-
-
-
-
-
     </button>
     <mat-divider></mat-divider>
     <button mat-button class="menu-button" routerLink="gestiongroup">
@@ -122,14 +77,11 @@
       <span>Gestion absences élèves</span>
     </button>
     <mat-divider></mat-divider>
-
     <button mat-button class="menu-button" routerLink="gestionnoteeleve">
       <mat-icon>groups</mat-icon>
       <span>Gestion note élèves</span>
     </button>
     <mat-divider></mat-divider>
-
-
     <button mat-button class="menu-button" >
       <mat-icon>person</mat-icon>
       <span>Gestion des élèves</span>
@@ -140,13 +92,11 @@
       </mat-menu>
     </button>
     <mat-divider></mat-divider>
-
     <button mat-button class="menu-button" [matMenuTriggerFor]="menu2" routerLink="gestionconges">
       <mat-icon>flight</mat-icon>
       <span>Gestion des congés</span>
       <mat-menu #menu2="matMenu">
         <button mat-menu-item>liste des demandes de congés</button>
-
       </mat-menu>
     </button>
     <mat-divider></mat-divider>
@@ -155,8 +105,6 @@
       <span>Gestion de paiment</span>
       <mat-menu #menu3="matMenu">
         <button mat-menu-item routerLink="listpaye">liste des élèves payées</button>
-
-
       </mat-menu>
     </button>
     <mat-divider></mat-divider>
@@ -167,13 +115,7 @@
         <button mat-menu-item routerLink="gestioncours"  >listes des cours </button>
         <button mat-menu-item routerLink="addmodule" >Ajouter modules</button>
         <button mat-menu-item routerLink="addmatiere" >Ajouter matiere </button>
-
-
-
-
       </mat-menu>
-
-
     </button>
     <mat-divider></mat-divider>
     <button mat-button class="menu-button"     [matMenuTriggerFor]="menu6"              >
@@ -184,10 +126,7 @@
         <button mat-menu-item  routerLink="listcourseonline">liste de cours</button>
         <button mat-menu-item routerLink="listinscriptionetranger" > liste des préinscriptions  </button>
         <button mat-menu-item  routerLink="etrangerconfirm">liste confirmé</button>
-
-
       </mat-menu>
-
     </button>
     <mat-divider></mat-divider>
     <button mat-button class="menu-button"     [matMenuTriggerFor]="menu7"              >
@@ -196,59 +135,34 @@
       <mat-menu #menu7="matMenu" >
         <button mat-menu-item routerLink="reclamationnote" > Réclamation des notes </button>
         <button mat-menu-item  routerLink="reclamationabsence">Réclamation des absences</button>
-
-
-
       </mat-menu>
-
     </button>
     <mat-divider></mat-divider>
     <button mat-button class="menu-button" routerLink="absenceeleves" >
       <mat-icon>border_color</mat-icon>
       <span>Gestion des absences</span>
-
     </button>
-
     <mat-divider></mat-divider>
     <button mat-button class="menu-button" routerLink="noteeleve" >
       <mat-icon>border_color</mat-icon>
       <span>Gestion des Notes</span>
-
     </button>
     <mat-divider></mat-divider>
     <button mat-button class="menu-button" routerLink="calender">
       <mat-icon>calendar_today</mat-icon>
       <span>Emploi de temps</span>
-
     </button>
-
-
     <mat-divider></mat-divider>
     <button mat-button class="menu-button">
       <mat-icon>exit_to_app</mat-icon>
       <span>Déconnexion</span>
-
     </button>
-
-
-
-
   </mat-sidenav>
-
-  <mat-sidenav-content class="mat-elevation-z8">
-    <div class="content mat-elevation-z8">
+  <mat-sidenav-content >
+    <div >
       <main>
-
         <router-outlet></router-outlet>
-
       </main>
-
-
     </div>
-
-
-
   </mat-sidenav-content>
-
-
 </mat-sidenav-container>

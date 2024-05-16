@@ -13,6 +13,8 @@ export class HomeworkService {
   private baseURl_Matiere: string = "http://localhost:8082/eduSchool/matiere";
   private baseURL_Classe: string = "http://localhost:8082/eduSchool/classe";
   private baseURL_Note: string = "http://localhost:8082/eduSchool/Note";
+  private baseURL_Salle: string = "http://localhost:8082/eduSchool/salle";
+  private baseURL_Examen: string = "http://localhost:8082/eduSchool/Examen";
   constructor( private httpClient:HttpClient) { }
              /* ****************Homework services******************* */
   getHomework(): Observable<Homework[]>{
@@ -70,6 +72,20 @@ export class HomeworkService {
     
     return this.httpClient.get<any>(`${this.baseURL_Note}/recupere_Note_par_id/${id}`);
   }
-  
-
+  getSalle(): Observable<any>{
+    return this.httpClient.get<any[]>( `${this.baseURL_Salle}/getAll` ) ;
+ }  
+ createExamen(examen:any): Observable<any>{
+  return this.httpClient.post(`${this.baseURL_Examen}/ajoute_Examen`, examen )
+}
+getAllExamen():Observable<any[]>{
+  return this.httpClient.get<any[]>(`${this.baseURL_Examen}/recupere_tous_les_Examens`)
+}
+deleteExamen(id : number):Observable<object>{
+    
+  return this.httpClient.delete(`${this.baseURL_Examen}/supprime_Examen/${id}`);
+}
+getAllExamenParClasse(id:any):Observable<any[]>{
+  return this.httpClient.get<any[]>(`${this.baseURL_Examen}/recupere_Examen_par_classe/${id}`)
+}
 }

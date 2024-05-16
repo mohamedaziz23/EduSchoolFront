@@ -18,7 +18,7 @@ export class AjouterNoteComponent implements OnInit{
   note : Note = new Note();
   noteForm !:FormGroup;
   submitted = false;
-
+  
   constructor(
     private formbuilder: FormBuilder, 
     private homeworkService:HomeworkService,
@@ -39,11 +39,6 @@ export class AjouterNoteComponent implements OnInit{
           this.matieres = data;
         }
       )
-     /*  this.homeworkService.getAllNote().subscribe(
-        (data) => {
-          console.log('tous les notes',data)
-        }
-      ) */
       this.homeworkService.getAllClasse().subscribe(
         (data) => {
           console.log(data)

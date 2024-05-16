@@ -1,0 +1,19 @@
+/* Positionnement des icônes */
+.icon-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  /* Style spécifique pour l'icône de fermeture */
+  #close-icon {
+    margin-right: 10px;
+  }
+  
+  /* Style spécifique pour les icônes de suppression et de mise à jour */
+  #delete-icon,
+  #update-icon {
+    cursor: pointer;
+  }
+  

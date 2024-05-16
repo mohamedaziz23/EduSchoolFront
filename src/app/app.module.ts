@@ -33,13 +33,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import {   MatCardModule } from '@angular/material/card';
 import { PopupComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/popup/popup.component';
-import { DropdownModule } from 'primeng/dropdown';
 import { ListeResultatComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionResultat/liste-resultat/liste-resultat.component';
 import { AjouterNoteComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionResultat/ajouter-note/ajouter-note.component';
 import { ModifierNoteComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionResultat/modifier-note/modifier-note.component';
 import { AjouterExamenComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionExamen/ajouter-examen/ajouter-examen.component';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { CommonModule } from '@angular/common';
+import { MatRadioModule } from '@angular/material/radio';
+
 
 @NgModule({
   declarations: [
@@ -82,10 +83,10 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     MatTableModule,
     MatDialogModule,
     MatCardModule,
-    DropdownModule,
     MatOptionModule,
-    NgbModalModule,
-    FullCalendarModule
+    FullCalendarModule,
+    CommonModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

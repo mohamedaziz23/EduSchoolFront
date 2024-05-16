@@ -1,0 +1,39 @@
+<div class="registration-form">
+  <form  [formGroup]="salleForm">
+
+      <div class="form-icon">
+          <img src="assets/img/salle.png">
+      </div>
+
+      <div class="form-row">
+        <div class="col-md-12">
+            <label for="validationCustom04" class="form-label" >Num salle <span style="color: red;">*</span></label>
+          <input type="text" class="form-control" formControlName="num" >
+        <div *ngIf="validateError('num','required') && submitted"  >
+          <div  class="alert alert-danger"> champs Num du salle est Obligatoire </div>
+        </div>
+        <div *ngIf="validateError('num','minlength') && submitted"  >
+          <div  class="alert alert-danger">saisir au minimum 2 carractére</div>
+        </div>
+        </div>
+      </div>
+
+    <div class="form-row">
+      <div class="col-md-12">
+          <label for="validationCustom04" class="form-label" >Capacité de la salle <span style="color: red;">*</span></label>
+        <input type="text" class="form-control" formControlName="capacite" >
+      <div *ngIf="validateError('capacite','required') && submitted"  >
+        <div  class="alert alert-danger">champs capacite est Obligatoire </div>
+      </div>
+      <div *ngIf="validateError('capacite','pattern') && submitted"  >
+        <div  class="alert alert-danger">champs capacite doit étre numérique </div>
+      </div>
+    </div>
+</div>
+
+      <div class="form-group">
+          <button type="submit" class="btn btn-block create-account" [disabled]="salleForm.invalid" (click)="AddSalle()">Ajouter</button>
+      </div>
+  </form>
+
+</div>

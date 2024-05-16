@@ -1,46 +1,44 @@
 import { Component } from '@angular/core';
-import { MatiereService } from '../../service/matiereService/matiere.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Niveau } from 'src/app/EduSchoolBackOffice/Tools/Niveau';
 import Swal from 'sweetalert2';
+import { SalleService } from '../../gestionPedagogique/service/salleService/salle.service';
 
 @Component({
-  selector: 'app-add-matiere',
-  templateUrl: './add-matiere.component.html',
-  styleUrls: ['./add-matiere.component.css']
+  selector: 'app-add-salle',
+  templateUrl: './add-salle.component.html',
+  styleUrls: ['./add-salle.component.css']
 })
-export class AddMatiereComponent {
+export class AddSalleComponent {
 
 
-  matiereForm !: FormGroup;
-  matiere: any = {};
+  salleForm !: FormGroup;
+  salle: any = {};
   submitted = false;
-  niveaux = Object.values(Niveau).filter((val:any)=>isNaN(val));
+
 
 
   constructor(
-    private matiereService: MatiereService,
+    private salleService: SalleService,
     private route:Router
    ) {
 
     }
 
   ngOnInit(): void {
-   this.matiereForm=new FormGroup({
-      nom:new FormControl('',[Validators.required,Validators.minLength(3)]),
-      nbHeure:new FormControl(0,[Validators.required,Validators.pattern(/^[0-9]+$/)]),
-      ressources:new FormControl('',[Validators.required]),
-      niveau:new FormControl('-- Sélectionner un niveau --',[Validators.required])
+   this.salleForm=new FormGroup({
+      num:new FormControl('',[Validators.required]),
+      capacite:new FormControl(0,[Validators.required,Validators.pattern(/^[0-9]+$/)]),
 
    });
   }
 
 
-  AddMatiere() {
+  AddSalle() {
     this.submitted=true;
-    if(this.matiereForm.valid){
-      this.matiereService.creatematiere(this.matiereForm.value).subscribe(
+    if(this.salleForm.valid){
+      this.salleService.createsalle(this.salleForm.value).subscribe(
         (response: any) => {
           console.log(response);
           if (response && response.response === 'success') {
@@ -51,7 +49,7 @@ export class AddMatiereComponent {
               showConfirmButton: false,
               timer: 1500
             }).then(() => {
-              this.route.navigateByUrl('Dashboard/matiere');
+              this.route.navigateByUrl('Dashboard/salle');
             });
           }
           else{
@@ -67,7 +65,7 @@ export class AddMatiereComponent {
   }
 
   validateError(name: string, typeErr: string): boolean {
-    return this.matiereForm.get(name)!.hasError(typeErr);
+    return this.salleForm.get(name)!.hasError(typeErr);
   }
 
 

@@ -37,12 +37,16 @@ export class ListClasseComponent {
       {
         name: 'Nom',
         dataKey: 'nom',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: true
       },
       {
         name: 'Niveau',
         dataKey: 'niveau',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: false
       },

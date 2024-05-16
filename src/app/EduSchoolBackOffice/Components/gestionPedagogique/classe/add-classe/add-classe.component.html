@@ -15,7 +15,15 @@
           <div  class="alert alert-danger">saisir au minimum 2 carractére</div>
         </div>
         </div>
-
+      </div>
+      <div class="form-row">
+        <div class="col-md-12">
+            <label for="validationCustom04" class="form-label" >Numero de la salle <span style="color: red;">*</span></label>
+          <input type="text" class="form-control" formControlName="numSalle" >
+        <div *ngIf="validateError('numSalle','required') && submitted"  >
+          <div  class="alert alert-danger">Numero de la salle est Obligatoire </div>
+        </div>
+      </div>
       </div>
      <div class="form-row">
         <div class="col-md-12">
@@ -29,19 +37,6 @@
             </div>
         </div>
     </div>
-
-
-
-    <select class="form-select" required formControlName="niveau">
-      <option value="-- Sélectionner un niveau --"  selected>-- Sélectionner un niveau --</option>
-      <option *ngFor="let n of niveaux" [value]="n">{{n}}</option>
-    </select>
-
-
-
-
-
-
       <div class="form-group">
           <button type="submit" class="btn btn-block create-account" [disabled]="classeForm.invalid" (click)="AddClasse()">Ajouter</button>
       </div>

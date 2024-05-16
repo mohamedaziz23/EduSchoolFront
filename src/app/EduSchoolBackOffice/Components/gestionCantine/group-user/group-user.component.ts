@@ -49,24 +49,31 @@ export class GroupUserComponent {
       {
         name: 'Identifiant',
         dataKey: 'id',
+        dataKeySimple: '',
         position: 'left',
         isSortable: false
       },
       {
         name: 'Nom',
         dataKey: 'nom',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: false
       },
       {
         name: 'Abonememnt',
         dataKey: 'abonnement',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: false
       },
       {
         name: 'Payé',
         dataKey: 'payé',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: false
       }

@@ -14,14 +14,18 @@ export class DetailClasseComponent {
   ){
 
   }
+  ngOnInit(): void {
+    console.log(window.history.state.myData);
+
+  }
 
   openCardDetails(cardId: number) {
     switch (cardId) {
-      case 1: this.router.navigate(['../Dashboard/enseignant-classe'],{state:window.history.state.myData});
+      case 1: this.router.navigate(['../Dashboard/enseignant-classe'],{state: { myData: window.history.state.myData }});
       break;
-      case 2: this.router.navigate(['../Dashboard/eleve-classe'],{state:window.history.state.myData});
+      case 2: this.router.navigate(['../Dashboard/eleve-classe'],{state: { myData: window.history.state.myData }});
       break;
-      default: this.router.navigate(['../Dashboard/emplois-temps'],{state:window.history.state.myData});
+      default: this.router.navigate(['../Dashboard/emplois-temps'],{state: { myData: window.history.state.myData }});
     }
 
   }

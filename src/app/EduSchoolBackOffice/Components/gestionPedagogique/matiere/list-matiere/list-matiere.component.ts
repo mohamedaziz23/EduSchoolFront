@@ -35,30 +35,39 @@ export class ListMatiereComponent {
       {
         name: 'Nom',
         dataKey: 'nom',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: true
       },
       {
         name: 'Code',
         dataKey: 'code',
+        dataKeySimple: '',
         position: 'left',
         isSortable: false
       },
       {
         name: 'Niveau',
         dataKey: 'niveau',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: false
       },
       {
         name: 'Nombre d\'Heure',
         dataKey: 'nbHeure',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: true
       },
       {
         name: 'Ressources',
         dataKey: 'ressources',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: false
       },

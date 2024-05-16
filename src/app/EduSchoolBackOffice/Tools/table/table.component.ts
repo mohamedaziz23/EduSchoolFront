@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { TableColumn } from '../Tools/TableColumn';
+import { TableColumn } from '../TableColumn';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -38,9 +38,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.setTableDataSource(data);
   }
 
-  constructor() {
-
-  }
+  constructor() {}
 
   ngOnInit(): void {
     const columnNames = this.tableColumns.map((tableColumn: TableColumn) => tableColumn.name);

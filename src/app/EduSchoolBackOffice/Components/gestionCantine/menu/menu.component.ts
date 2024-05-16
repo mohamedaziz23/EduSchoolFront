@@ -48,12 +48,16 @@ export class MenuComponent {
       {
         name: 'Plat',
         dataKey: 'nomPlat',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: false
       },
       {
         name: 'Jour',
         dataKey: 'jour',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: false
       }

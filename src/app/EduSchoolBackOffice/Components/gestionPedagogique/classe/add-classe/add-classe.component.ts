@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-classe.component.css']
 })
 export class AddClasseComponent {
-  niveaux = Object.keys(Niveau).filter((key: any) => !isNaN(Number(Niveau[key])));
+  niveaux = Object.values(Niveau).filter((val:any)=>isNaN(val));
 
 
   classeForm !: FormGroup;
@@ -26,12 +26,14 @@ export class AddClasseComponent {
   ngOnInit(): void {
     this.classeForm = new FormGroup({
       nom: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      niveau: new FormControl('-- Sélectionner un niveau --', [Validators.required])
+      niveau: new FormControl('-- Sélectionner un niveau --', [Validators.required]),
+      numSalle: new FormControl('', [Validators.required]),
     });
   }
 
   AddClasse() {
     this.submitted=true;
+    console.log(this.classeForm.value);
     if(this.classeForm.valid){
       this.classeService.createclasse(this.classeForm.value).subscribe(
         (response: any) => {

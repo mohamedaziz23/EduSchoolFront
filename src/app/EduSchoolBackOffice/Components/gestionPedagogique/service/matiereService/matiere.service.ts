@@ -22,6 +22,12 @@ export class MatiereService {
   public getmatiereById(id: any) {
     return this.httpClient.get<{ matiere: any }>(`${this.SERVER_URL + '/getById'}/${id}`);
   }
+  public getmatiereByNomAndNiveau(nom: any,niveau:any) {
+    return this.httpClient.get<{ matiere: any }>(`${this.SERVER_URL + '/getByNomNiveau'}/${nom}/${niveau}`);
+  }
+  public getmatiereByNiveau(niveau:any) {
+    return this.httpClient.get<{ matiere: any }>(`${this.SERVER_URL + '/getByNiveau'}/${niveau}`);
+  }
   public deletematiere(id: any) {
     return this.httpClient.delete(`${this.SERVER_URL + '/delete'}/${id}`)
   }

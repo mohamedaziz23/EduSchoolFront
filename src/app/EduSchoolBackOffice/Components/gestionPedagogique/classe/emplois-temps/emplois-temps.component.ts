@@ -1,180 +1,225 @@
 import { SeanceService } from './../../service/seanceService/seance.service';
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CalendarOptions } from '@fullcalendar/core';
+import { CalendarOptions, DateSelectArg } from '@fullcalendar/core';
 import Swal from 'sweetalert2';
 import frLocale from '@fullcalendar/core/locales/fr';
-import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
+import { Jour } from 'src/app/EduSchoolBackOffice/Tools/Jour';
+import 'default-passive-events';
+import { DatePipe } from '@angular/common';
+import { Niveau } from 'src/app/EduSchoolBackOffice/Tools/Niveau';
+
 
 @Component({
   selector: 'app-emplois-temps',
   templateUrl: './emplois-temps.component.html',
   styleUrls: ['./emplois-temps.component.css']
+
 })
 export class EmploisTempsComponent {
-  calendarOptions: CalendarOptions = {
-    initialView: 'timeGridWeek',
-    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin, resourceTimelinePlugin],
-    headerToolbar: {
-      right: 'timeGridWeek'
-    },
-    selectable: true,
-    locale: frLocale,
-    slotMinTime: '8:00:00',
-    slotMaxTime: '18:00:00',
-    slotDuration: '00:30:00', // Durée des intervalles de temps (30 minutes)
-    weekends: true, // Ne pas afficher les week-ends
-    height: 'auto', // Hauteur automatique du calendrier en fonction du contenu
-    eventBackgroundColor: '#36c2cf', // Couleur de fond des événements
-    eventBorderColor: '#1e5d7a', // Couleur de la bordure des événements
-    firstDay: 1,
-    events: [
-      {
-        title: 'Mathématiques',
-        start: '2024-05-06T08:00:00',
-        end: '2024-05-06T09:30:00'
-      },
-      { title: 'Français', start: '2024-05-05T10:00:00', end: '2024-05-05T11:30:00' },
-      { title: 'Récréation', start: '2024-05-06T11:30:00', end: '2024-05-06T12:00:00' },
-    ]
-  };
 
 
+
+  classe!: any;
   posts: any;
   addeventform!: FormGroup;
   error: any;
   event: any = {};
-  events:any;
+  events: any;
+  submitted!: boolean;
+  data: any=[];
+  calendarOptions!: CalendarOptions
+  jours = Object.values(Jour).filter((val: any) => isNaN(val));
+  visible:boolean=false;
 
 
+  constructor(
+    private seanceService: SeanceService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe
+  ) { }
 
-  constructor(private seanceService: SeanceService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-
+    this.classe = window.history.state.myData;
     this.getAllEvents();
-    this.addeventform = this.formBuilder.group({
-      title: [''],
-      date: [''],
-      datefin: ['']
+    this.addeventform = new FormGroup({
+      idMat: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      jour: new FormControl('', [Validators.required]),
+      heureD: new FormControl('', [Validators.required]),
+      heureF: new FormControl('', [Validators.required]),
+    });
+    this.initializeCalendar();
 
-
-
-    })
   }
- /*  handleDateClick(arg) {
-    alert('date click! ' + arg.dateStr)
-  } */
+
+  /*  handleDateClick(arg) {
+     alert('date click! ' + arg.dateStr)
+   } */
+
   toggleWeekends() {
     this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
   }
 
 
- /*  deleteEvent(id) {
-    this.seanceService.deleteSingleEvent(id).subscribe((data: any) => {
-
-    });
-  } */
-
-  getAllEvents() {
-  /*   this.seanceService.getAllSeances().subscribe((data: any) => {
-      this.posts = data.posts;
-      const self = this;
-      this.calendarOptions = {
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        selectable: true,
-        locale: frLocale,
-        slotMinTime: '8:00:00',
-        slotMaxTime: '20:00:00',
-        editable: true,
-        events:data.posts,
-        eventClick(evetData) {
-          if (this.connectedUser.role === "superAdmin") {
-            const event_id = evetData.event._def.extendedProps._id;
-            Swal.fire({
-              title: 'Are you sure?',
-              text: 'You won\'t be able to revert this!',
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!',
-              timer: 30000,
-            }).then((result) => {
-              if (result.value) {
-                self.deleteEvent(event_id);
-                Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
-                  'success'
-                );
-                self.getAllEvents();
-              }
-
-            }).catch(() => {
-              Swal.fire('Failed!', 'There was something went wrong.');
-            });
-
-          }else{
-            Swal.fire({
-              title:"seule Ladminstrateur peut modifier",
-              icon: 'error',
-              confirmButtonText: 'ok',
-              showCancelButton: true
-            })
-
-          }
-
-
-
-
-        }
-      };
-    }); */
+  validateError(name: string, typeErr: string): boolean {
+    return this.addeventform.get(name)!.hasError(typeErr);
   }
 
 
-  saveEvent() {
+  /*  deleteEvent(id) {
+     this.seanceService.deleteSingleEvent(id).subscribe((data: any) => {
 
-   /*  this.seanceService.addEvent(this.event).subscribe(
-      (data) => {
-        console.log(data.message);
+     });
+   } */
 
-        if (data.message === 'success') {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Your Event has been added successfully',
-            showConfirmButton: false,
-            timer: 1500
-          });
-          location.reload();
-        }
-      },
-      err => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Something went wrong',
-          showConfirmButton: false,
-          timer: 1500
-        });
+  getAllEvents() {
+    /*   this.seanceService.getAllSeances().subscribe((data: any) => {
+        this.posts = data.posts;
+        const self = this;
+        this.calendarOptions = {
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+          selectable: true,
+          locale: frLocale,
+          slotMinTime: '8:00:00',
+          slotMaxTime: '20:00:00',
+          editable: true,
+          events:data.posts,
+          eventClick(evetData) {
+            if (this.connectedUser.role === "superAdmin") {
+              const event_id = evetData.event._def.extendedProps._id;
+              Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                timer: 30000,
+              }).then((result) => {
+                if (result.value) {
+                  self.deleteEvent(event_id);
+                  Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  );
+                  self.getAllEvents();
+                }
 
+              }).catch(() => {
+                Swal.fire('Failed!', 'There was something went wrong.');
+              });
+
+            }else{
+              Swal.fire({
+                title:"seule Ladminstrateur peut modifier",
+                icon: 'error',
+                confirmButtonText: 'ok',
+                showCancelButton: true
+              })
+
+            }
+
+
+
+
+          }
+        };
       }); */
   }
 
+
+  addCour() {
+    this.submitted = true;
+    this.data.push({
+      title: this.addeventform.get('idMat')?.value,
+      start: Date.now() + 'T' + this.addeventform.get('heureD')?.value,
+      end: Date.now() + 'T' + this.addeventform.get('heureF')?.value,
+    });
+
+    // Ensuite, appelez la méthode rerenderEvents
+    this.calendarOptions.events = this.data; // Mettez à jour les événements
+
+
+
+
+    /*  this.seanceService.addEvent(this.event).subscribe(
+       (data) => {
+         console.log(data.message);
+
+         if (data.message === 'success') {
+           Swal.fire({
+             position: 'center',
+             icon: 'success',
+             title: 'Your Event has been added successfully',
+             showConfirmButton: false,
+             timer: 1500
+           });
+           location.reload();
+         }
+       },
+       err => {
+         Swal.fire({
+           position: 'center',
+           icon: 'error',
+           title: 'Something went wrong',
+           showConfirmButton: false,
+           timer: 1500
+         });
+
+       }); */
+  }
+  initializeCalendar() {
+    this.calendarOptions = {
+      initialView: 'timeGridWeek',
+      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin, resourceTimelinePlugin],
+      selectable: true,
+      locale: frLocale,
+      editable:true,
+      headerToolbar: {
+        left: '',
+        center: '',
+        right: ''
+      },
+      slotMinTime: '8:00:00',
+      slotMaxTime: '18:00:00',
+      slotDuration: '00:30:00', // Durée des intervalles de temps (30 minutes)
+      weekends: true,
+      height: 'auto',
+      eventBackgroundColor: '#36c2cf',
+      eventBorderColor: '#1e5d7a',
+      firstDay: 1,
+      events: this.data,
+      select: (info) => {
+        this.visible=true;
+        console.log( (new Date(info.startStr).toLocaleDateString('fr-FR', { weekday: 'long' })).toUpperCase());
+        this.addeventform.get('jour')?.setValue(new Date(info.startStr).toLocaleDateString('fr-FR', { weekday: 'long' }).toUpperCase());
+        this.addeventform.get('heureD')?.setValue( this.datePipe.transform( info.start.getTime(), 'HH:mm'));
+        this.addeventform.get('heureF')?.setValue( this.datePipe.transform( info.end.getTime(), 'HH:mm'));
+      }
+      /* eventClick(evetData) {
+        console.log(evetData.event);
+      } */
+
+    };
+  }
+
+
 }
-function ViewChild(arg0: string): (target: EmploisTempsComponent, propertyKey: "calendarComponent") => void {
-  throw new Error('Function not implemented.');
-}
+
+
+
 

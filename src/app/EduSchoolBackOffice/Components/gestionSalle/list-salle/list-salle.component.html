@@ -4,13 +4,13 @@
   <div class="container">
     <div class="container">
       <div class="title-and-button">
-        <h1 class="title">Listes des Enseignants dans la classe </h1>
-        <button id="btnAdd" type="button" class="btn btn-info" routerLink="../addClasse" >Ajouter classe</button>
+        <h1 class="title">Listes des salles</h1>
+        <button id="btnAdd" type="button" class="btn btn-info" routerLink="../add-salle" >Ajouter salle</button>
       </div>
     </div>
     <div class="table-responsive">
-    <app-table [tableData]="classes"
-              [tableColumns]="classesEnsTableColumns"
+    <app-table [tableData]="salles"
+              [tableColumns]="sallesTableColumns"
               [isFilterable]="true"
               [isPageable]="true"
               [isDetailIcon]="false"
@@ -20,8 +20,9 @@
               [rowActionEditIcon]="'edit'"
               [rowActionDeleteIcon]="'delete'"
               [rowActionDetailIcon]="'remove_red_eye'"
-              (rowEditAction)="editerEnsClasse($event)"
-              (rowDeleteAction)="deleteEnsClasse($event)">
+              (rowEditAction)="editerS($event)"
+              (rowDetailAction)="detailS($event)"
+              (rowDeleteAction)="deleteS($event)">
 </app-table>
  </div>
 

@@ -15,7 +15,7 @@ import { DashboardEnseignantComponent } from './EduSchoolBackOffice/Components/D
 import { DashboardEleveComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-eleve/dashboard-eleve.component';
 import { ListClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/list-classe/list-classe.component';
 import { HttpClientModule } from '@angular/common/http';
-import { TableComponent } from './EduSchoolBackOffice/table/table.component';
+import { TableComponent } from './EduSchoolBackOffice/Tools/table/table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,7 +29,7 @@ import { ListMatiereComponent } from './EduSchoolBackOffice/Components/gestionPe
 import { AddMatiereComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/matiere/add-matiere/add-matiere.component';
 import { UpdateMatiereComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/matiere/update-matiere/update-matiere.component';
 import { DetailClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/detail-classe/detail-classe.component';
-import { EnseignantClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/enseignant-classe/enseignant-classe.component';
+import { EnseignantClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/enseignantClasse/enseignant-classe/enseignant-classe.component';
 import { EmploisTempsComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/emplois-temps/emplois-temps.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -40,15 +40,13 @@ import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 import { CantineComponent } from './EduSchoolBackOffice/Components/gestionCantine/cantine/cantine.component';
 import { MenuComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu/menu.component';
 import { GroupUserComponent } from './EduSchoolBackOffice/Components/gestionCantine/group-user/group-user.component';
+import { DatePipe } from '@angular/common';
+import { ListSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/list-salle/list-salle.component';
+import { AddSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/add-salle/add-salle.component';
+import { UpdateSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/update-salle/update-salle.component';
+import { AffecterEnseignantComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/enseignantClasse/affecter-enseignant/affecter-enseignant.component';
 
-/* FullCalendarModule.registerPlugins([
-  dayGridPlugin,
-  timeGridPlugin,
-  interactionPlugin,
-  listPlugin,
-  resourceTimelinePlugin
 
-]); */
 
 @NgModule({
   declarations: [
@@ -69,7 +67,11 @@ import { GroupUserComponent } from './EduSchoolBackOffice/Components/gestionCant
     EmploisTempsComponent,
     CantineComponent,
     MenuComponent,
-    GroupUserComponent
+    GroupUserComponent,
+    ListSalleComponent,
+    AddSalleComponent,
+    UpdateSalleComponent,
+    AffecterEnseignantComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,7 +99,7 @@ import { GroupUserComponent } from './EduSchoolBackOffice/Components/gestionCant
 
 
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

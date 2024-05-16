@@ -16,6 +16,7 @@ export class ClasseServiceService {
     return this.httpClient.get<{ classes: any }>(this.SERVER_URL + '/getAll');
   }
 
+
   public updateclasse(classe: any,id:any) {
     return this.httpClient.put(`${this.SERVER_URL + '/update'}/${id}`, classe)
   }
@@ -25,5 +26,25 @@ export class ClasseServiceService {
   public deleteclasse(id: any) {
     return this.httpClient.delete(`${this.SERVER_URL + '/delete'}/${id}`)
   }
+
+  // get user b username
+  public getUserByUsername(username:any) {
+    return this.httpClient.get<{ classes: any }>(`${this.SERVER_URL + '/getUserByUsername'}/${username}`);
+  }
+
+  // gestion enseignant dans classe
+
+  public affecterEnseignant(ensCl: any) {
+    return this.httpClient.post(this.SERVER_URL + '/affecter_enseignant_classe', ensCl);
+  }
+
+  public getAllEnseignantClasses(id:any) {
+    return this.httpClient.get<{ classes: any }>(`${this.SERVER_URL + '/get_all_enseignant_classe'}/${id}`);
+  }
+
+  public desaffecterEnseignant(idCl: any,idEns:any) {
+    return this.httpClient.put(`${this.SERVER_URL + '/desaffecter_enseignant_classe'}/${idCl}/${idEns}`,null);
+  }
+
 
 }

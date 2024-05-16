@@ -30,8 +30,11 @@
 
      <!-- column data -->
      <td mat-cell *matCellDef="let element" [class.text-right]="tableColumn.position == 'right'">
-      {{element[tableColumn.dataKey] }}
+      <span>
+        {{ tableColumn.dataKeySimple ?  element[tableColumn.dataKey][tableColumn.dataKeySimple] : element[tableColumn.dataKey] }}
+      </span>
     </td>
+
 
     </ng-container>
 

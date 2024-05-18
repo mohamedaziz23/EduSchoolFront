@@ -13,6 +13,20 @@ import {MatListModule} from "@angular/material/list";
 import {MatMenuModule} from "@angular/material/menu";
 import { DashboardEnseignantComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-enseignant/dashboard-enseignant.component';
 import { DashboardEleveComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-eleve/dashboard-eleve.component';
+import { GereRdvComponent } from './EduSchoolBackOffice/Components/RDV/gere-rdv/gere-rdv.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { HttpClientModule } from '@angular/common/http';
+import { MatNativeDateModule, MatOptionModule, DateAdapter } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import {   MatCardModule } from '@angular/material/card';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CommonModule } from '@angular/common';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -20,7 +34,8 @@ import { DashboardEleveComponent } from './EduSchoolBackOffice/Components/Dashbo
     DashboardComponent,
     HomePageComponent,
     DashboardEnseignantComponent,
-    DashboardEleveComponent
+    DashboardEleveComponent,
+    GereRdvComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +45,23 @@ import { DashboardEleveComponent } from './EduSchoolBackOffice/Components/Dashbo
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatDatepickerModule,
+    HttpClientModule,
+    MatNativeDateModule,
+    MatInputModule ,
+    MatPaginatorModule,
+    MatTableModule,
+    MatDialogModule,
+    MatCardModule,
+    MatOptionModule,
+    FullCalendarModule,
+    CommonModule,
+    MatRadioModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

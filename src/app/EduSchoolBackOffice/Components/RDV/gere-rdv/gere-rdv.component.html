@@ -1,0 +1,49 @@
+<div class="container" style="margin-top:30px ;">
+    <div class="row justify-content-center">
+            
+              <div class=" col-md-9 mr-10 col-xl-8 ">
+                <full-calendar [options]="calendarOptions"></full-calendar>
+              </div>
+           
+          
+          
+        <div class="col-md-3" >
+            <form [formGroup]="rdvForm" (ngSubmit)="ajouterExamen()">
+                <h3 class="text-center"><Strong> Créer un rendez-vous</Strong></h3>
+                <div class="mb-3">
+                    <label class="form-label">Elèves</label>
+                    <select formControlName="eleve" class="form-select" [ngClass]="{'is-invalid': rdvForm.get('eleve')?.touched && rdvForm.get('eleve')?.invalid}" required>
+                        <option *ngFor="let eleve of eleves" [value]="eleve.id">{{ eleve.nom }}</option>
+                    </select>
+                    <div *ngIf="rdvForm.get('eleve')?.touched && rdvForm.get('eleve')?.invalid" class="invalid-feedback alert alert-danger">
+                        Sélectionner au moins un élève
+                      </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enseignants</label>
+                    <select formControlName="enseignant" class="form-select" [ngClass]="{'is-invalid': rdvForm.get('enseignant')?.touched && rdvForm.get('enseignant')?.invalid}" required>
+                        
+                        <option *ngFor="let enseignant of enseignants" [value]="enseignant.id">{{ enseignant.nom }}</option>
+                    </select>
+                    <div *ngIf="rdvForm.get('enseignant')?.touched && rdvForm.get('enseignant')?.invalid" class="invalid-feedback alert alert-danger">
+                        Sélectionner au moins un enseignant
+                      </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Date </label>
+                    <input type="datetime-local" class="form-control" formControlName="date" [ngClass]="{'is-invalid': rdvForm.get('date')?.touched && rdvForm.get('date')?.invalid}" required>
+                    <div *ngIf="rdvForm.get('date')?.touched && rdvForm.get('date')?.invalid" class="invalid-feedback alert alert-danger" >
+                        La date est obligatoire
+                      </div>
+                </div>
+               
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </form>
+            
+        </div>
+    </div>
+
+
+
+
+</div>

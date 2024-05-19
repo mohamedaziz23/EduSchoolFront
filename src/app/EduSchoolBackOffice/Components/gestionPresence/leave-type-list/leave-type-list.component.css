@@ -19,3 +19,23 @@ th {
   --mdc-filled-button-container-color:#18383D;
 
 }
+
+
+
+
+
+
+
+
+.title-and-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  margin-right: auto; /* Aligne le titre à gauche en poussant le bouton vers la droite */
+}
+#btnAdd{
+  background-color: #06BBCC;
+  color:white
+}

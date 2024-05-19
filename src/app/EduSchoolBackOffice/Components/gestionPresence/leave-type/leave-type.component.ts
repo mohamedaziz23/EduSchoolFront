@@ -13,6 +13,8 @@ export class LeaveTypeComponent implements OnInit{
   leaveTypeForm!:FormGroup
   id:any
   leave:any
+  title:any
+  submitted = false;
   constructor(private formbuilder: FormBuilder,
               private leaveTypeService:LeaveRequestService,
               private ar:ActivatedRoute,
@@ -21,7 +23,10 @@ export class LeaveTypeComponent implements OnInit{
               @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
+
+
   ngOnInit() {
+    this.title= "Ajouter"
     this.leaveTypeForm=this.formbuilder.group({
       type:[null,Validators.required],
       description:[null,Validators.required]
@@ -30,7 +35,12 @@ export class LeaveTypeComponent implements OnInit{
 
     this.leaveTypeService.getLeaveTypeById(this.data.id).subscribe((res:any)=>{
       this.leave=res
-      this.leaveTypeForm.patchValue(this.leave)
+      this.leaveTypeForm.patchValue(this.leave);
+      if(this.leave){
+        this.title = "Modifier"
+      }
+
+
 
     })
 
@@ -39,22 +49,28 @@ export class LeaveTypeComponent implements OnInit{
 
   }
 
+  get f() { return this.leaveTypeForm.controls; }
+
   addLeaveType(leaveType:any) {
+    if(this.leaveTypeForm.invalid){
+      return;
+    }
+    this.submitted = true;
     if(this.leave){
       this.leaveTypeService.updateLeaveType(this.data.id,leaveType).subscribe((res:any)=>{
-        console.log(res);
 
       })
-
     }else{
+
       this.leaveTypeService.addLeaveType(leaveType).subscribe((res:any)=>{
         console.log(res);
         this.leaveTypeForm.reset();
-
       })
 
 
     }
+
+    this.dialogRef.close();
 
   }
 }

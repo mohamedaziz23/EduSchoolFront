@@ -1,91 +1,29 @@
 
-
-
-
-
-
 <div class="content">
 
   <div class="container">
-    <h2 class="mb-5">Gestion de Congés </h2>
-
-    <div class="table-responsive">
-
-
-      <input type="text"  placeholder="recherche">
-
-
-
-
-
-      <table class="table table-striped custom-table">
-        <thead>
-        <tr>
-
-
-          <th scope="col">Nom et prenom</th>
-
-          <th scope="col">Date-debut--Date-fin</th>
-
-          <th scope="col">Cause</th>
-          <th scope="col">Status</th>
-          <th scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-
-
-        <tr *ngFor="let r of leaveRequestList">
-
-
-          <td class="pl-0">
-            {{r.id}}
-          </td>
-
-
-
-          <td>{{r.startDate | date}} -- {{r.endDate | date}}</td>
-
-
-          <td class="pl-0">{{ r.reason }}</td>
-          <td class="pl-0">{{ r.status }}</td>
-
-          <td>
-
-            <button mat-fab color="second" aria-label="Example icon button with a delete icon"
-                     matTooltip="Confirmé le congé">
-              <mat-icon>check_circle</mat-icon>
-            </button>
-            <button mat-fab color="second"
-                    matTooltip="Réfuser le congé">
-              <mat-icon>not_interested</mat-icon>
-            </button>
-
-
-            <button mat-fab color="warn" aria-label="Example icon button with a delete icon"
-                      matTooltip="Supprimer congés">
-              <mat-icon>delete</mat-icon>
-            </button>
-
-
-
-
-          </td>
-
-
-
-
-        </tr>
-
-
-
-
-
-        </tbody>
-      </table>
+    <div class="container">
+      <div class="title-and-button">
+        <h1 class="title">Listes des congés</h1>
+        <button id="btnAdd" type="button" class="btn btn-info">Ajouter Type</button>
+      </div>
     </div>
-
+    <div class="table-responsive">
+      <app-table [tableData]="leaveRequestList"
+                 [tableColumns]="leaveRequestTableColumns"
+                 [isFilterable]="true"
+                 [isPageable]="true"
+                 [isDetailIcon]="true"
+                 [paginationSizes]="[2,4,6]"
+                 [defaultPageSize]="4"
+                 (sort)="sortData($event)"
+                 [rowActionEditIcon]="'edit'"
+                 [rowActionDeleteIcon]="'delete'"
+                 [rowActionDetailIcon]="'remove_red_eye'"
+                 (rowDeleteAction)="deleteleave($event)"
+                 (rowEditAction)="updateleave($event)">
+      </app-table>
+    </div>
 
   </div>
 
-</div>

@@ -1,24 +1,29 @@
 
-<button mat-flat-button color="primary" style="margin-left: 1300px" (click)="openDialog()">Ajouter type de congés</button>
-<mat-divider></mat-divider>
-<table class="table table-striped custom-table">
-  <thead>
-  <tr>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let t of leaveType">
-    <td>{{t.type}}</td>
-    <td>{{t.description}}</td>
-    <td>
-      <!-- Icône pour la mise à jour -->
-      <i class="fas fa-edit icon" (click)="updateleave(t.id)"></i>
-      <!-- Icône pour la suppression -->
-      <i class="fas fa-trash-alt icon" (click)="deleteleave(t.id)"></i>
-    </td>
-  </tr>
-  </tbody>
-</table>
+
+<div class="content">
+
+  <div class="container">
+    <div class="container">
+      <div class="title-and-button">
+        <h1 class="title">Listes des types de congés</h1>
+        <button id="btnAdd" type="button" class="btn btn-info" (click)="openDialog()" >Ajouter Type</button>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <app-table [tableData]="leaveType"
+                 [tableColumns]="leaveTypeTableColumns"
+                 [isFilterable]="true"
+                 [isPageable]="true"
+                 [isDetailIcon]="true"
+                 [paginationSizes]="[2,4,6]"
+                 [defaultPageSize]="4"
+                 (sort)="sortData($event)"
+                 [rowActionEditIcon]="'edit'"
+                 [rowActionDeleteIcon]="'delete'"
+                 [rowActionDetailIcon]="'remove_red_eye'"
+                 (rowDeleteAction)="deleteleave($event)"
+                 (rowEditAction)="updateleave($event)">
+      </app-table>
+    </div>
+
+</div>

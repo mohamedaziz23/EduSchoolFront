@@ -1,0 +1,32 @@
+
+<div class="content">
+
+  <div class="container">
+    <div class="container">
+      <div class="title-and-button">
+        <h1 class="title">Listes des Enseignants dans la classe </h1>
+        <button id="btnAdd" type="button" class="btn btn-info" routerLink="../addClasse" >Ajouter classe</button>
+      </div>
+    </div>
+    <div class="table-responsive">
+    <app-table [tableData]="classes"
+              [tableColumns]="classesEnsTableColumns"
+              [isFilterable]="true"
+              [isPageable]="true"
+              [isDetailIcon]="false"
+              [paginationSizes]="[2,4,6]"
+              [defaultPageSize]="4"
+              (sort)="sortData($event)"
+              [rowActionEditIcon]="'edit'"
+              [rowActionDeleteIcon]="'delete'"
+              [rowActionDetailIcon]="'remove_red_eye'"
+              (rowEditAction)="editerEnsClasse($event)"
+              (rowDeleteAction)="deleteEnsClasse($event)">
+</app-table>
+ </div>
+
+
+
+  </div>
+
+</div>

@@ -1,65 +1,56 @@
-<div class="counter"></div>
-
-<div>
-  <div class="inner">
-    <form [formGroup]="leaveRequestForm">
-
-      <div style="margin-left: 200px;">
 
 
-        <img src="../../../../../assets/img/congee.jpg" alt="" width="100" height="100">
-        <br>
 
+  <div class="registration-form">
+    <form  [formGroup]="leaveRequestForm" (ngSubmit)="addLeaveRequest()">
 
-      </div> <br>
-
-
-      <label class="form-group">
-        <input type="date" class="form-control" required="required" formControlName="startDate"
-               >
-        <div  class="invalid-feedback">
-          <div  style="color: rgb(32, 124, 124);">Email est Obligatoire
-          </div>
+      <div class="form-icon">
+        <img src="assets/img/congee.jpg" alt="" width="100" height="100">
+      </div>
+      <div class="form-row">
+        <div class="col-md-12">
+          <label class="form-label" >Date Début <span style="color: red;">*</span></label>
+          <input type="datetime-local" class="form-control" formControlName="startDate" [min]="today" >
         </div>
-        <span class="border"></span>
-      </label>
-      <label class="form-group">
-        <input type="date" class="form-control" required="required" formControlName="endDate"
-              >
-        <div  class="invalid-feedback">
-          <div  style="color: rgb(32, 124, 124);">Email est Obligatoire</div>
+
+      </div>
+      <div class="form-row">
+        <div class="col-md-12">
+          <label  class="form-label" >Date Fin <span style="color: red;">*</span></label>
+
+          <input type="datetime-local" class="form-control" formControlName="endDate" [min]="today"  >
         </div>
-        <span class="border"></span>
-      </label>
-      <label class="form-group">
-       <textarea formControlName="reason"></textarea>
-        <div  class="invalid-feedback">
-          <div  style="color: rgb(32, 124, 124);">Email est Obligatoire</div>
+      </div>
+
+
+      <div class="form-row">
+        <div class="col-md-12">
+          <label  class="form-label" >Raison <span style="color: red;">*</span></label>
+
+          <textarea formControlName="reason" style="width: 457px"></textarea>
         </div>
-        <span class="border"></span>
-      </label>
+      </div>
 
-      <div class="form-group">
-
-        <select class="form-select" id="validationCustom04" placeholder=" choisir nom Module *"
-                formControlName="leaveType">
-          <option>...Select...</option>
-          <option *ngFor="let s of leaveTypeList" value="{{s}}">{{s.type}}</option>
-
-        </select>
-
+      <div class="form-row">
+        <div class="col-md-12">
+          <label  class="form-label" >Type de congé <span style="color: red;">*</span></label>
+          <select class="form-select" required formControlName="leaveType">
+            <option value="-- Sélectionner un niveau --"  selected>-- Sélectionner un type --</option>
+            <option *ngFor="let s of leaveTypeList" [value]="s.id">{{s.type}}</option>
+          </select>
+        </div>
       </div>
 
 
 
-      <div class="col-12" style="margin-left: 150px;">
-        <button type="submit" (click)="addLeaveRequest(leaveRequestForm.value)" class="btn btn-lg btn-primary"
-                >add</button>
+
+
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-block create-account" [disabled]="leaveRequestForm.invalid" >Ajouter</button>
       </div>
     </form>
 
-
-
-
   </div>
+
 

@@ -18,6 +18,7 @@ export class EnseignantClasseComponent  {
 
   enseignantsClasse: any;
   enseignantsClasseList: any;
+  storageClasse: any;
   classe: any;
    matPaginator!: MatPaginator ;
    paginationSizes: number[] = [5,10,15];
@@ -36,7 +37,9 @@ export class EnseignantClasseComponent  {
 
    ngOnInit(): void {
 
-    this.classe = window.history.state.myData;
+    this.storageClasse = localStorage.getItem('classe');
+    this.classe=JSON.parse(this.storageClasse);
+    console.log(this.classe.id);
      this.classeService.getAllEnseignantClasses(this.classe.id).subscribe(
       (data) => {
         this.enseignantsClasseList = data;
@@ -49,6 +52,7 @@ export class EnseignantClasseComponent  {
 
 
   deleteRow(element: any) {
+    console.log(element);
     Swal.fire({
       position: 'center',
       icon: 'question',
@@ -61,7 +65,8 @@ export class EnseignantClasseComponent  {
         console.log(element.enseignant.id);
         this.classeService.desaffecterEnseignant(this.classe.id,element.enseignant.id).subscribe(
           (data)=>{console.log("succ")
-          this.classeService.getAllEnseignantClasses(this.classe.id).subscribe();
+        this.enseignantsClasseList = this.enseignantsClasseList.filter((item: { id: any; }) => item.id !==element.id);
+
         }
         );
       }
@@ -74,7 +79,7 @@ export class EnseignantClasseComponent  {
     }
 
     goToAffecterClasse() {
-       this.router.navigate(['../Dashboard/affecter_enseignant'],{state: { myData: this.classe }});
+       this.router.navigate(['../Dashboard/affecter_enseignant']);
 
       }
 

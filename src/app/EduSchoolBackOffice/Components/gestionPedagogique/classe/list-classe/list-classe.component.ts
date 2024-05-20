@@ -73,11 +73,13 @@ export class ListClasseComponent {
 
 
   editerClasse(classe : any){
-    this.router.navigate(['Dashboard/update-classe'], { state: { myData: classe } });
+    localStorage.setItem('classe', JSON.stringify(classe));
+    this.router.navigate(['Dashboard/update-classe']);
   }
 
   detailClasse(classe: any) {
-    this.router.navigate(['Dashboard/detail-classe'], { state: { myData: classe } });
+    localStorage.setItem('classe', JSON.stringify(classe));
+    this.router.navigate(['Dashboard/detail-classe']);
 
 
     }

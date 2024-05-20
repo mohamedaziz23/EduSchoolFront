@@ -46,5 +46,13 @@ export class ClasseServiceService {
     return this.httpClient.put(`${this.SERVER_URL + '/desaffecter_enseignant_classe'}/${idCl}/${idEns}`,null);
   }
 
+  public getAllElevetClasses(id:any) {
+    return this.httpClient.get<{ classes: any }>(`${this.SERVER_URL + '/getElevesList'}/${id}`);
+  }
+
+  public affecterEleve(idCl: any,idEleve:any) {
+    return this.httpClient.put(`${this.SERVER_URL + '/desaffecter_enseignant_classe'}/${idCl}/${idEleve}`,null);
+  }
+
 
 }

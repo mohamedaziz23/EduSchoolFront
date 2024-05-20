@@ -19,6 +19,7 @@ import { ListSalleComponent } from './EduSchoolBackOffice/Components/gestionSall
 import { AddSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/add-salle/add-salle.component';
 import { UpdateSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/update-salle/update-salle.component';
 import { AffecterEnseignantComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/enseignantClasse/affecter-enseignant/affecter-enseignant.component';
+import { EleveClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/eleveClasse/eleve-classe/eleve-classe.component';
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -29,8 +30,16 @@ const routes: Routes = [
     {path:"addClasse",component:AddClasseComponent},
     {path:"update-classe",component:UpdateClasseComponent},
     {path:"detail-classe",component:DetailClasseComponent},
+
+    // gestion enseignant classe
     {path:"enseignant-classe",component:EnseignantClasseComponent},
     {path:"affecter_enseignant",component:AffecterEnseignantComponent},
+
+    // gestion eleve classe
+    {path:"eleve-classe",component:EleveClasseComponent},
+   // {path:"affecter_enseignant",component:AffecterEnseignantComponent},
+
+
     {path:"emplois-temps",component:EmploisTempsComponent},
 
 

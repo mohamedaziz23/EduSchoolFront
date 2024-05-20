@@ -1,9 +1,11 @@
 <div class="content">
 
-  <div class="container">
     <div class="container">
       <div class="title-and-button">
-        <h1 class="title">Listes des Enseignants dans la classe </h1>
+        <div  routerLink="../detail-classe">
+          <mat-icon>arrow_back_ios</mat-icon>
+        </div>
+        <h1 class="title">Listes des Enseignants dans la classe {{classe.nom}} </h1>
         <button id="btnAdd" type="button" class="btn btn-info" (click)="goToAffecterClasse()">Affecter
           enseignant</button>
       </div>
@@ -47,4 +49,3 @@
 
   </div>
 
-</div>

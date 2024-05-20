@@ -1,0 +1,34 @@
+
+<div class="content">
+
+  <div class="container">
+    <div class="container">
+      <div class="title-and-button">
+        <div  routerLink="../detail-classe">
+          <mat-icon>arrow_back_ios</mat-icon>
+        </div>
+        <h1 class="title">Listes des Enseignants dans la classe {{classe.nom}} </h1>
+        <button id="btnAdd" type="button" class="btn btn-info" (click)="goToAffecterEleve()">Affecter
+          enseignant</button>
+      </div>
+    </div>
+    <div class="table-responsive">
+    <app-table [tableData]="elevesClasseList"
+              [tableColumns]="elevesClasseTableColumns"
+              [isFilterable]="true"
+              [isPageable]="true"
+              [isDetailIcon]="false"
+              [paginationSizes]="[2,4,6]"
+              [defaultPageSize]="4"
+              [rowActionEditIcon]="'edit'"
+              [rowActionDeleteIcon]="'delete'"
+              [rowActionDetailIcon]="'remove_red_eye'"
+              (rowDeleteAction)="desafecterEleveClasse($event)">
+</app-table>
+ </div>
+
+
+
+  </div>
+
+</div>

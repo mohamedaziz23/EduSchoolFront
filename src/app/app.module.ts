@@ -45,6 +45,7 @@ import { ListSalleComponent } from './EduSchoolBackOffice/Components/gestionSall
 import { AddSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/add-salle/add-salle.component';
 import { UpdateSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/update-salle/update-salle.component';
 import { AffecterEnseignantComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/enseignantClasse/affecter-enseignant/affecter-enseignant.component';
+import { EleveClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/eleveClasse/eleve-classe/eleve-classe.component';
 
 
 
@@ -72,6 +73,7 @@ import { AffecterEnseignantComponent } from './EduSchoolBackOffice/Components/ge
     AddSalleComponent,
     UpdateSalleComponent,
     AffecterEnseignantComponent,
+    EleveClasseComponent
   ],
   imports: [
     BrowserModule,

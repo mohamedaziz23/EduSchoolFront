@@ -33,14 +33,14 @@ export class AffecterEnseignantComponent {
   }
 
   ngOnInit(): void {
-    this.classe = window.history.state.myData;
+    this.classe =localStorage.getItem('classe');
     this.clEnsForm = new FormGroup({
       idEns: new FormControl('', [Validators.required]),
       matiere: new FormControl('-- Sélectionner une matiere --', [Validators.required]),
     });
     console.log(this.classe);
 
-    this.matiereService.getmatiereByNiveau(this.classe.niveau).subscribe(
+    this.matiereService.getmatiereByNiveau(JSON.parse(this.classe).niveau).subscribe(
       (response: any) => {
         this.matieres=response
       }
@@ -52,17 +52,17 @@ export class AffecterEnseignantComponent {
     this.submitted=true;
     try {
     this.enseignant = await firstValueFrom(this.classeService.getUserByUsername(this.clEnsForm.get('idEns')?.value));
-    this.matiere = await firstValueFrom(this.matiereService.getmatiereByNomAndNiveau(this.clEnsForm.get('matiere')?.value, this.classe.niveau));
+    this.matiere = await firstValueFrom(this.matiereService.getmatiereByNomAndNiveau(this.clEnsForm.get('matiere')?.value, JSON.parse(this.classe).niveau));
 
     console.log("ens",this.enseignant);
     console.log("mat",this.matiere);
 
     this.affecterObj = {
-      idClasse: this.classe.id,
+      idClasse: JSON.parse(this.classe).id,
       idEnseignant: this.enseignant.id,
       idMatiere: this.matiere.id
     };
-    console.log(this.affecterObj);
+    console.log("request",this.affecterObj);
 
     if(this.affecterObj!=null){
       this.classeService.affecterEnseignant(this.affecterObj).subscribe(
@@ -76,7 +76,7 @@ export class AffecterEnseignantComponent {
               showConfirmButton: false,
               timer: 1500
             }).then(() => {
-              this.route.navigate(['../Dashboard/enseignant-classe'],{state: { myData: this.classe }});
+              this.route.navigate(['../Dashboard/enseignant-classe']);
 
             });
           }

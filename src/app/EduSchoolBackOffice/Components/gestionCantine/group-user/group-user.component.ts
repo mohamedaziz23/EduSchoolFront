@@ -48,15 +48,15 @@ export class GroupUserComponent {
     this.groupUserTableColumns = [
       {
         name: 'Identifiant',
-        dataKey: 'id',
-        dataKeySimple: '',
+        dataKey: 'users',
+        dataKeySimple: 'username',
         position: 'left',
         isSortable: false
       },
       {
         name: 'Nom',
-        dataKey: 'nom',
-        dataKeySimple: '',
+        dataKey: 'users',
+        dataKeySimple: 'nom',
 
         position: 'left',
         isSortable: false

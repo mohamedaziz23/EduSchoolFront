@@ -1,7 +1,6 @@
 <div class="container" style="margin-top:50px ;">
   <div class="row-2">
     <h1>Responsable de la cantine  </h1>
-
       <div class="col">
           <div class="card custom-card">
             <div class="card-body  ">
@@ -11,15 +10,15 @@
                 Téléphone  <span style="font-weight: bold;">{{groupCantine[0]["telephone"]}}</span>
             </div>
         </div>
-       </div>
+       <br>
+       <br>
       <div class="col">
-
        <div class="table-responsive">
         <app-table [tableData]="groupUserList"
         [tableColumns]="groupUserTableColumns"
         [isFilterable]="true"
         [isPageable]="true"
-        [isDetailIcon]="true"
+        [isDetailIcon]="false"
         [paginationSizes]="[2,4,6]"
         [defaultPageSize]="4"
         [rowActionEditIcon]="'edit'"

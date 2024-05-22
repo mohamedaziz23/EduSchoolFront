@@ -4,6 +4,6 @@ export enum Jour{
   MARDI,
   MERCREDI,
   JEUDI,
-  Vendredi,
-  Samedi
+  VENDREDI,
+  SAMEDI
 }

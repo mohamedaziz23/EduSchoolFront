@@ -73,7 +73,7 @@ import { EleveClasseComponent } from './EduSchoolBackOffice/Components/gestionPe
     AddSalleComponent,
     UpdateSalleComponent,
     AffecterEnseignantComponent,
-    EleveClasseComponent
+    EleveClasseComponent,
   ],
   imports: [
     BrowserModule,

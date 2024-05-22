@@ -18,6 +18,8 @@ export class EleveClasseComponent {
   storageClasse: any;
   classe: any;
   elevesClasseTableColumns: TableColumn[] = [];
+  isPopupOpen :boolean=false;
+
 
   constructor(
     private classeService:ClasseServiceService,
@@ -73,8 +75,12 @@ export class EleveClasseComponent {
     )
   }
 
-  goToAffecterEleve() {
-    throw new Error('Method not implemented.');
+  closePopup() {
+    this.isPopupOpen=true
+    }
+
+    affecterEleve(){
+
     }
 
 }

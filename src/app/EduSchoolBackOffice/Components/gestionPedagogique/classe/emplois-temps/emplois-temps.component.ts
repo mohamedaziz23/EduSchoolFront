@@ -1,4 +1,4 @@
-import { SeanceService } from './../../service/seanceService/seance.service';
+import { SeanceService } from '../../service/seanceService/seance.service';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -26,6 +26,7 @@ export class EmploisTempsComponent {
 
 
 
+  storageClasse!: any;
   classe!: any;
   posts: any;
   addeventform!: FormGroup;
@@ -37,6 +38,8 @@ export class EmploisTempsComponent {
   calendarOptions!: CalendarOptions
   jours = Object.values(Jour).filter((val: any) => isNaN(val));
   visible:boolean=false;
+  startDateSelected!:any;
+  endDateSelected!:any;
 
 
   constructor(
@@ -48,7 +51,8 @@ export class EmploisTempsComponent {
 
 
   ngOnInit(): void {
-    this.classe = window.history.state.myData;
+    this.storageClasse = localStorage.getItem('classe');
+    this.classe=JSON.parse(this.storageClasse);
     this.getAllEvents();
     this.addeventform = new FormGroup({
       idMat: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -56,7 +60,7 @@ export class EmploisTempsComponent {
       heureD: new FormControl('', [Validators.required]),
       heureF: new FormControl('', [Validators.required]),
     });
-    this.initializeCalendar();
+    this.initializeCalendar([]);
 
   }
 
@@ -142,17 +146,25 @@ export class EmploisTempsComponent {
   }
 
 
-  addCour() {
+  addCour(): void {
     this.submitted = true;
+    console.log(this.addeventform.value);
+
+    // Ajoutez l'événement au tableau data
     this.data.push({
       title: this.addeventform.get('idMat')?.value,
-      start: Date.now() + 'T' + this.addeventform.get('heureD')?.value,
-      end: Date.now() + 'T' + this.addeventform.get('heureF')?.value,
+      start: this.startDateSelected + 'T' + this.addeventform.get('heureD')?.value,
+      end: this.endDateSelected + 'T' + this.addeventform.get('heureF')?.value
     });
 
-    // Ensuite, appelez la méthode rerenderEvents
-    this.calendarOptions.events = this.data; // Mettez à jour les événements
+    console.log(this.data);
+    this.calendarOptions.events = [...this.data];
+    // Mettez à jour les événements du calendrier
+    // Utilisez l'opérateur de décomposition pour forcer le re-rendu
+    console.log(this.calendarOptions.events);
+    this.initializeCalendar(this.calendarOptions.events);
 
+    // Ensuite, appelez la méthode rerenderEvents
 
 
 
@@ -182,7 +194,7 @@ export class EmploisTempsComponent {
 
        }); */
   }
-  initializeCalendar() {
+  initializeCalendar(data:any) {
     this.calendarOptions = {
       initialView: 'timeGridWeek',
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin, resourceTimelinePlugin],
@@ -196,16 +208,17 @@ export class EmploisTempsComponent {
       },
       slotMinTime: '8:00:00',
       slotMaxTime: '18:00:00',
-      slotDuration: '00:30:00', // Durée des intervalles de temps (30 minutes)
+      slotDuration: '00:30:00',
       weekends: true,
       height: 'auto',
       eventBackgroundColor: '#36c2cf',
       eventBorderColor: '#1e5d7a',
       firstDay: 1,
-      events: this.data,
+      events: data,
       select: (info) => {
         this.visible=true;
-        console.log( (new Date(info.startStr).toLocaleDateString('fr-FR', { weekday: 'long' })).toUpperCase());
+        this.startDateSelected=info.startStr;
+        this.endDateSelected=info.endStr;
         this.addeventform.get('jour')?.setValue(new Date(info.startStr).toLocaleDateString('fr-FR', { weekday: 'long' }).toUpperCase());
         this.addeventform.get('heureD')?.setValue( this.datePipe.transform( info.start.getTime(), 'HH:mm'));
         this.addeventform.get('heureF')?.setValue( this.datePipe.transform( info.end.getTime(), 'HH:mm'));
@@ -216,6 +229,7 @@ export class EmploisTempsComponent {
 
     };
   }
+
 
 
 }

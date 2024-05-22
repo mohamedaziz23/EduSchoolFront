@@ -13,5 +13,8 @@
 .transparent-table {
   background-color: transparent;
 }
+tr{
+  background-color: white;
+}
 
 

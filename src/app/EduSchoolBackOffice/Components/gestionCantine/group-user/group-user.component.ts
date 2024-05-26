@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TableColumn } from 'src/app/EduSchoolBackOffice/Tools/TableColumn';
-import { CantineService } from '../../gestionPedagogique/service/cantine/cantine.service';
+import { CantineService } from '../../services/cantine/cantine.service';
 
 @Component({
   selector: 'app-group-user',

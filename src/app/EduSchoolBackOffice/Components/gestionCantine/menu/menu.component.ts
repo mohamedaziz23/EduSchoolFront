@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CantineService } from '../../gestionPedagogique/service/cantine/cantine.service';
 import { TableColumn } from 'src/app/EduSchoolBackOffice/Tools/TableColumn';
+import { CantineService } from '../../services/cantine/cantine.service';
 
 @Component({
   selector: 'app-menu',

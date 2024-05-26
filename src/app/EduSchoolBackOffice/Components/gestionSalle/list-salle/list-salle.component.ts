@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TableColumn } from 'src/app/EduSchoolBackOffice/Tools/TableColumn';
-import { SalleService } from '../../gestionPedagogique/service/salleService/salle.service';
+import { SalleService } from '../../services/salleService/salle.service';
 
 @Component({
   selector: 'app-list-salle',

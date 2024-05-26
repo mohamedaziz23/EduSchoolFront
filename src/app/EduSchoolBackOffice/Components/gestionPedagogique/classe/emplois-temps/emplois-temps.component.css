@@ -11,3 +11,15 @@ h1,h3{
   color: white;
   margin-top: 20px;
 }
+
+.fc .fc-timegrid-slot {
+  height: 500px; /* Ajustez la hauteur selon vos besoins */
+}
+
+/* Ajuste également la hauteur des créneaux vides pour être cohérent */
+.fc-timegrid-slot-lane {
+  height: 500px; /* Assurez-vous que la hauteur correspond à celle définie pour les créneaux horaires */
+}
+.dialog{
+  width: '300px'
+}

@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TableColumn } from 'src/app/EduSchoolBackOffice/Tools/TableColumn';
-import { ClasseServiceService } from '../../service/ClasseService/classe-service.service';
 import { cl } from '@fullcalendar/core/internal-common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import Swal from 'sweetalert2';
+import { ClasseServiceService } from '../../../services/ClasseService/classe-service.service';
 
 @Component({
   selector: 'app-eleve-classe',

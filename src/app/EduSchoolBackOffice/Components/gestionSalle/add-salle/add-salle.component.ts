@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Niveau } from 'src/app/EduSchoolBackOffice/Tools/Niveau';
 import Swal from 'sweetalert2';
-import { SalleService } from '../../gestionPedagogique/service/salleService/salle.service';
+import { SalleService } from '../../services/salleService/salle.service';
 
 @Component({
   selector: 'app-add-salle',

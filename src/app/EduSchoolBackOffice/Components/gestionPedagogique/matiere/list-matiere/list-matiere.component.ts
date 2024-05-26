@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { MatiereService } from '../../service/matiereService/matiere.service';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TableColumn } from 'src/app/EduSchoolBackOffice/Tools/TableColumn';
+import { MatiereService } from '../../../services/matiereService/matiere.service';
 
 @Component({
   selector: 'app-list-matiere',

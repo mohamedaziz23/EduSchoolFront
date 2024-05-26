@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { ClasseServiceService } from '../../service/ClasseService/classe-service.service';
 import { Niveau } from 'src/app/EduSchoolBackOffice/Tools/Niveau';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { ClasseServiceService } from '../../../services/ClasseService/classe-service.service';
 
 @Component({
   selector: 'app-add-classe',

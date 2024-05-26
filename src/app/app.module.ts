@@ -45,6 +45,8 @@ import { ListSalleComponent } from './EduSchoolBackOffice/Components/gestionSall
 import { AddSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/add-salle/add-salle.component';
 import { UpdateSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/update-salle/update-salle.component';
 import { EleveClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/eleve-classe/eleve-classe.component';
+import { EventDialogComponent } from './EduSchoolBackOffice/Tools/event-dialog/event-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -72,6 +74,7 @@ import { EleveClasseComponent } from './EduSchoolBackOffice/Components/gestionPe
     AddSalleComponent,
     UpdateSalleComponent,
     EleveClasseComponent,
+    EventDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,6 +95,7 @@ import { EleveClasseComponent } from './EduSchoolBackOffice/Components/gestionPe
     FormsModule,
     ReactiveFormsModule,
     FullCalendarModule,
+    MatDialogModule,
 
 
 

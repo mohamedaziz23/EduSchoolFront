@@ -1,8 +1,8 @@
-import { ClasseServiceService } from '../../service/ClasseService/classe-service.service';
 import { Component } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TableColumn } from 'src/app/EduSchoolBackOffice/Tools/TableColumn';
+import { ClasseServiceService } from '../../../services/ClasseService/classe-service.service';
 
 @Component({
   selector: 'app-list-classe',

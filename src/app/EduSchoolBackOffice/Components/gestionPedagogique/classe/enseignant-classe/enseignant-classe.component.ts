@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { TableColumn } from 'src/app/EduSchoolBackOffice/Tools/TableColumn';
-import { ClasseServiceService } from '../../service/ClasseService/classe-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,7 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
 import { firstValueFrom, throwError } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatiereService } from '../../service/matiereService/matiere.service';
+import { ClasseServiceService } from '../../../services/ClasseService/classe-service.service';
+import { MatiereService } from '../../../services/matiereService/matiere.service';
 
 @Component({
   selector: 'app-enseignant-classe',

@@ -2,13 +2,18 @@
   <div class="row">
 
       <div class="col-md-9">
-          <h1>Emplois du temps de la classe {{classe.nom}} </h1>
+        <div class="title-and-button">
+          <div  routerLink="../detail-classe">
+            <mat-icon>arrow_back_ios</mat-icon>
+          </div>
+          <h1 class="title">Emplois du temps de la classe <span class="fw-bold">{{classe.nom}}</span>  </h1>
+        </div>
           <full-calendar  [options]="calendarOptions" ></full-calendar>
 
       </div>
       <div *ngIf="visible" class="col-md-3"  >
           <form  [formGroup]="addeventform"  >
-              <h3>Ajouter nouvelle cours </h3>
+              <h3>Ajouter nouvelle séance </h3>
               <div class="form-row">
                 <div class="col-md-12">
                     <label for="validationCustom04" class="form-label" >Identifiant de la matiére <span style="color: red;">*</span></label>
@@ -48,9 +53,10 @@
                 </div>
               </div>
               <div class="form-group">
-                <button type="submit" class="btn btn-block add" [disabled]="addeventform.invalid" (click)="addCour()">Ajouter</button>
+                <button type="submit" class="btn btn-block add" [disabled]="addeventform.invalid" (click)="addCour()">{{btnName}}</button>
             </div>
           </form>
       </div>
   </div>
+
 

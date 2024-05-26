@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ClasseServiceService } from '../../service/ClasseService/classe-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Niveau } from 'src/app/EduSchoolBackOffice/Tools/Niveau';
 import Swal from 'sweetalert2';
+import { ClasseServiceService } from '../../../services/ClasseService/classe-service.service';
 
 @Component({
   selector: 'app-update-classe',

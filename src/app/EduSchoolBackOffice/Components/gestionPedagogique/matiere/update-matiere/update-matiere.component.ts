@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Niveau } from 'src/app/EduSchoolBackOffice/Tools/Niveau';
 import Swal from 'sweetalert2';
-import { MatiereService } from '../../service/matiereService/matiere.service';
+import { MatiereService } from '../../../services/matiereService/matiere.service';
 
 @Component({
   selector: 'app-update-matiere',

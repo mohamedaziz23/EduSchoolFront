@@ -10,7 +10,7 @@ import { ListMatiereComponent } from './EduSchoolBackOffice/Components/gestionPe
 import { AddMatiereComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/matiere/add-matiere/add-matiere.component';
 import { UpdateMatiereComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/matiere/update-matiere/update-matiere.component';
 import { DetailClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/detail-classe/detail-classe.component';
-import { EnseignantClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/enseignantClasse/enseignant-classe/enseignant-classe.component';
+import { EnseignantClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/enseignant-classe/enseignant-classe.component';
 import { EmploisTempsComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/emplois-temps/emplois-temps.component';
 import { CantineComponent } from './EduSchoolBackOffice/Components/gestionCantine/cantine/cantine.component';
 import { MenuComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu/menu.component';
@@ -18,8 +18,7 @@ import { GroupUserComponent } from './EduSchoolBackOffice/Components/gestionCant
 import { ListSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/list-salle/list-salle.component';
 import { AddSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/add-salle/add-salle.component';
 import { UpdateSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/update-salle/update-salle.component';
-import { AffecterEnseignantComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/enseignantClasse/affecter-enseignant/affecter-enseignant.component';
-import { EleveClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/eleveClasse/eleve-classe/eleve-classe.component';
+import { EleveClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/eleve-classe/eleve-classe.component';
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -33,7 +32,6 @@ const routes: Routes = [
 
     // gestion enseignant classe
     {path:"enseignant-classe",component:EnseignantClasseComponent},
-    {path:"affecter_enseignant",component:AffecterEnseignantComponent},
 
     // gestion eleve classe
     {path:"eleve-classe",component:EleveClasseComponent},

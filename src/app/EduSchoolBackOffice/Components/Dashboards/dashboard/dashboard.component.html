@@ -8,13 +8,13 @@
 
 
       <div class="nav-item dropdown">
-        <a href="#" class="nav-link " data-bs-toggle="dropdown">
+        <!-- <a href="#" class="nav-link " data-bs-toggle="dropdown">
           <div class=" d-lg-inline-flex align-items-center " >
               <mat-icon class="icon">notifications</mat-icon>
               <span  >Notifications   </span>
           </div>
 
-      </a>
+      </a> -->
         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
           <a class="dropdown-item" >
             <ng-container >
@@ -76,8 +76,8 @@
       </button>
       <mat-divider></mat-divider>
       <button mat-button class="menu-button" [matMenuTriggerFor]="menu">
-          <mat-icon>no_meeting_room</mat-icon>
-          <span>Gestion des Présence</span>
+          <img src="assets/img/absence.png">
+          <span>  Gestion des Présence</span>
           <mat-menu #menu="matMenu">
               <button mat-menu-item routerLink="statuscongesens">Gestion des absence</button>
               <button mat-menu-item routerLink="addconges">Gestion des congés</button>

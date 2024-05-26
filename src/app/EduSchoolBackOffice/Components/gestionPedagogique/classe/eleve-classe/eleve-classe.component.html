@@ -1,0 +1,49 @@
+<div class="container" style="margin-top:50px ;">
+  <div class="row">
+      <div class="col-md-7">
+        <div class="container">
+          <div class="title-and-button">
+            <div  routerLink="../detail-classe">
+              <mat-icon>arrow_back_ios</mat-icon>
+            </div>
+            <h1 class="title">Listes des Eléves dans la classe <span class="fw-bold">{{classe.nom}}</span>  </h1>
+          </div>
+          <br>
+          <br>
+        </div>
+        <div class="table-responsive">
+          <app-table [tableData]="elevesClasseList"
+                    [tableColumns]="elevesClasseTableColumns"
+                    [isFilterable]="true"
+                    [isPageable]="true"
+                    [isDetailIcon]="false"
+                    [paginationSizes]="[2,4,6]"
+                    [defaultPageSize]="4"
+                    [rowActionEditIcon]="'edit'"
+                    [rowActionDeleteIcon]="'delete'"
+                    [rowActionDetailIcon]="'remove_red_eye'"
+                    (rowDeleteAction)="desafecterEleveClasse($event)">
+      </app-table>
+       </div>
+      </div>
+      <div class="col-md-5"  >
+        <form  [formGroup]="clElevForm">
+
+          <h2 class="title">Affecter un éléve </h2>
+
+          <div class="form-row">
+            <div class="col-md-12">
+                <label for="validationCustom04" class="form-label" >Identifiant de l'éléve <span style="color: red;">*</span></label>
+              <input type="text" class="form-control" formControlName="idElev" >
+            <div *ngIf="validateError('idElev','required') && submitted"  >
+              <div  class="alert alert-danger">Identifiant est Obligatoire </div>
+            </div>
+          </div>
+          </div>
+          <div class="form-group">
+              <button type="submit" class="btn btn-block create-account" [disabled]="clElevForm.invalid" (click)="affecterElev()">Affecter</button>
+          </div>
+      </form>
+      </div>
+  </div>
+

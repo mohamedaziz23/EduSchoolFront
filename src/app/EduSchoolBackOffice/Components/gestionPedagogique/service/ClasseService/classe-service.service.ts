@@ -51,7 +51,10 @@ export class ClasseServiceService {
   }
 
   public affecterEleve(idCl: any,idEleve:any) {
-    return this.httpClient.put(`${this.SERVER_URL + '/desaffecter_enseignant_classe'}/${idCl}/${idEleve}`,null);
+    return this.httpClient.put(`${this.SERVER_URL + '/affecter_eleve_classe'}/${idCl}/${idEleve}`,null);
+  }
+  public desaffecterEleve(idCl: any,idElev:any) {
+    return this.httpClient.put(`${this.SERVER_URL + '/desaffecter_eleve_classe'}/${idCl}/${idElev}`,null);
   }
 
 

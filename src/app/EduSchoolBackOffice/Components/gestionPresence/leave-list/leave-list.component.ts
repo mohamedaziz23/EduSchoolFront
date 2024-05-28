@@ -5,6 +5,7 @@ import {LeaveTypeComponent} from "../leave-type/leave-type.component";
 import {Router} from "@angular/router";
 import {Sort} from "@angular/material/sort";
 import {TableColumn} from "../../../Tools/TableColumn";
+import {StatusEditDialogComponent} from "../status-edit-dialog/status-edit-dialog.component";
 
 @Component({
   selector: 'app-leave-list',
@@ -17,16 +18,22 @@ export class LeaveListComponent implements OnInit{
   leaveRequestTableColumns:TableColumn[] = [];
   constructor(private leaveRequest:LeaveRequestService,
               private leaveService:LeaveRequestService,
-              private router:Router) {
+              private router:Router,
+              private dialog: MatDialog) {
   }
   ngOnInit(): void {
     this.initializeColumns()
     this.getAllLeaveType()
-    this.leaveRequest.getLeaveRequestList().subscribe((res:any[])=>{
-      this.leaveRequestList=res.map(item => ({
+   this.getAllLeave();
+  }
+
+  private getAllLeave(){
+    this.leaveRequest.getLeaveRequestList().subscribe((res: any[]) => {
+      this.leaveRequestList = res.map(item => ({
         ...item,
         startDate: new Date(item.startDate).toLocaleDateString('fr-FR'),
-        endDate: new Date(item.endDate).toLocaleDateString('fr-FR')
+        endDate: new Date(item.endDate).toLocaleDateString('fr-FR'),
+        leaveTypeName: item.leaveType.type
       }));
 
       console.log(this.leaveRequestList)
@@ -49,10 +56,10 @@ export class LeaveListComponent implements OnInit{
 
   }
 
-  deleteleave(id: any) {
-    this.leaveService.deleteLeaveType(id).subscribe((res:any)=>{
+  deleteleave(leave: any) {
+    this.leaveService.deleteLeave(leave.id).subscribe((res:any)=>{
       console.log(res);
-      this.getAllLeaveType();
+      this.getAllLeave();
 
     })
 
@@ -86,7 +93,7 @@ export class LeaveListComponent implements OnInit{
       },
       {
         name: 'TYPE',
-        dataKey: 'leaveType',
+        dataKey: 'leaveTypeName',
         position: 'left',
         isSortable: true
       },
@@ -109,4 +116,20 @@ export class LeaveListComponent implements OnInit{
     else  this.leaveRequestList = this.leaveRequestList.sort((a: any, b: any) => a[keyName].localeCompare(b[keyName]));
 
   }
+
+  openEditStatusDialog(leaveRequest: any): void {
+    console.log("leaveRequest",leaveRequest);
+    const dialogRef = this.dialog.open(StatusEditDialogComponent, {
+      width: '500px',
+      height:'300px',
+      data: { leaveRequest: leaveRequest }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+        //this.updateStatus(leaveRequest.id, leaveRequest.status);
+
+    });
+  }
+
+
 }

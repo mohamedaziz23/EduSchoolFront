@@ -5,7 +5,6 @@
     <div class="container">
       <div class="title-and-button">
         <h1 class="title">Listes des congés</h1>
-        <button id="btnAdd" type="button" class="btn btn-info">Ajouter Type</button>
       </div>
     </div>
     <div class="table-responsive">
@@ -21,7 +20,7 @@
                  [rowActionDeleteIcon]="'delete'"
                  [rowActionDetailIcon]="'remove_red_eye'"
                  (rowDeleteAction)="deleteleave($event)"
-                 (rowEditAction)="updateleave($event)">
+                 (rowEditAction)="openEditStatusDialog($event)">
       </app-table>
     </div>
 

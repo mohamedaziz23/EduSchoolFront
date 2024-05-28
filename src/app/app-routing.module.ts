@@ -25,6 +25,7 @@ import { EmploisTempsComponent } from './EduSchoolBackOffice/Components/gestionP
 import { CantineComponent } from './EduSchoolBackOffice/Components/gestionCantine/cantine/cantine.component';
 import { MenuComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu/menu.component';
 import { GroupUserComponent } from './EduSchoolBackOffice/Components/gestionCantine/group-user/group-user.component';
+import {AddAbsenceComponent} from "./EduSchoolBackOffice/Components/gestionPresence/add-absence/add-absence.component";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -41,6 +42,7 @@ const routes: Routes = [
         {path:"Leave-type" , component:LeaveTypeComponent},
         {path:"Leave-list",component:LeaveListComponent},
         {path:"Leave-type-list",component:LeaveTypeListComponent},
+        {path:"Add-Absence",component: AddAbsenceComponent},
 
 
     // gestion classe

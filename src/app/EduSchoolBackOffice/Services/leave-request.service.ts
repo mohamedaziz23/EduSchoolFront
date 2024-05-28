@@ -36,4 +36,18 @@ export class LeaveRequestService {
     return this.http.post<any>(`${this.SERVER_URL + '/LeaveRequest'}`, leaveRq)
   }
 
+  public  updateLeaveRequestStatus(id:any,newStatus:any){
+    console.log(typeof newStatus )
+    const formData: FormData = new FormData();
+    formData.append('newStatus', newStatus);
+    return this.http.put<any>(`${this.SERVER_URL + `/LeaveRequest/${id}`}`,formData)
+
+  }
+
+  public  deleteLeave(id:any){
+    return this.http.delete<any>(`${this.SERVER_URL + `/LeaveRequest/${id}`}`)
+  }
+
+
+
 }

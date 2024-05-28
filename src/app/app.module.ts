@@ -48,6 +48,11 @@ import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 import { CantineComponent } from './EduSchoolBackOffice/Components/gestionCantine/cantine/cantine.component';
 import { MenuComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu/menu.component';
 import { GroupUserComponent } from './EduSchoolBackOffice/Components/gestionCantine/group-user/group-user.component';
+import { StatusEditDialogComponent } from './EduSchoolBackOffice/Components/gestionPresence/status-edit-dialog/status-edit-dialog.component';
+import {MatSelectModule} from "@angular/material/select";
+import { AddAbsenceComponent } from './EduSchoolBackOffice/Components/gestionPresence/add-absence/add-absence.component';
+import {MatRadioModule} from "@angular/material/radio";
+import { LeaveDetailsComponent } from './EduSchoolBackOffice/Components/gestionPresence/leave-details/leave-details.component';
 
 /* FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -82,7 +87,10 @@ import { GroupUserComponent } from './EduSchoolBackOffice/Components/gestionCant
     EmploisTempsComponent,
     CantineComponent,
     MenuComponent,
-    GroupUserComponent
+    GroupUserComponent,
+    StatusEditDialogComponent,
+    AddAbsenceComponent,
+    LeaveDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +117,9 @@ import { GroupUserComponent } from './EduSchoolBackOffice/Components/gestionCant
     MatFormFieldModule,
     MatDialogModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

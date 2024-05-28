@@ -13,6 +13,8 @@ import {
 import {
   DashboardEleveComponent
 } from "./EduSchoolBackOffice/Components/Dashboards/dashboard-eleve/dashboard-eleve.component";
+
+
 import { ListClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/list-classe/list-classe.component';
 import { AddClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/add-classe/add-classe.component';
 import { UpdateClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/update-classe/update-classe.component';
@@ -26,6 +28,8 @@ import { CantineComponent } from './EduSchoolBackOffice/Components/gestionCantin
 import { MenuComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu/menu.component';
 import { GroupUserComponent } from './EduSchoolBackOffice/Components/gestionCantine/group-user/group-user.component';
 import {AddAbsenceComponent} from "./EduSchoolBackOffice/Components/gestionPresence/add-absence/add-absence.component";
+import { LoginComponent } from './login/login.component';
+import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/user-list/user-list.component';
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -69,11 +73,13 @@ const routes: Routes = [
 
 
 
+  ]},
+  {path:"DashboardEnseignant",component:DashboardEnseignantComponent},
+  {path:"DashboardStudent",component:DashboardEleveComponent},
 
+  {path:"Login",component:LoginComponent},
+  {path:"listuser",component:UserListComponent},
 
-    ]
-  },
-  {path:"Leave-type/:id",component:LeaveTypeComponent},
 
 
 ];

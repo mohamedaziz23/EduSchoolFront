@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -8,16 +9,23 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit{
   isSidebarOpen = true;
+
+  badgeCount:number;
+  role: string | null = null;
   ngOnInit(): void {
   }
-  badgeCount:number;
 
   constructor(
     private router:Router,
     ) {
         this.badgeCount=0;
 
+
      }
+
+     navigateToUserList() {
+      this.router.navigate(['/listuser']);
+    }
 
 
   logout() {
@@ -25,13 +33,6 @@ export class DashboardComponent implements OnInit{
     this.router.navigate(['']);
   }
 
-  closeSidebar() {
-    this.isSidebarOpen = false;
-  }
 
-  // Fonction pour réagir à l'ouverture/fermeture de la barre latérale
-  onSidebarToggle(event: any) {
-    this.isSidebarOpen = event;
-  }
 
 }

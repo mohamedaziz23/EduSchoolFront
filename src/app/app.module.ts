@@ -62,6 +62,9 @@ import { LeaveDetailsComponent } from './EduSchoolBackOffice/Components/gestionP
   resourceTimelinePlugin
 
 ]); */
+import { LoginComponent } from './login/login.component';
+import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/user-list/user-list.component';
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -90,7 +93,10 @@ import { LeaveDetailsComponent } from './EduSchoolBackOffice/Components/gestionP
     GroupUserComponent,
     StatusEditDialogComponent,
     AddAbsenceComponent,
-    LeaveDetailsComponent
+    LeaveDetailsComponent,
+    ListClasseComponent,
+    LoginComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -119,7 +125,8 @@ import { LeaveDetailsComponent } from './EduSchoolBackOffice/Components/gestionP
     FormsModule,
     MatButtonModule,
     MatSelectModule,
-    MatRadioModule
+    MatRadioModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

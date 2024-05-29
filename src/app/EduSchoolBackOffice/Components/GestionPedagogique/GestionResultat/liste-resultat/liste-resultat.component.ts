@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../../popup/popup.component';
 import { NumberInput } from '@angular/cdk/coercion';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-liste-resultat',
@@ -46,10 +47,17 @@ export class ListeResultatComponent implements OnInit{
       }
     )
 
+    this.homeworkService.getAllClasse().subscribe(
+      (data) => {
+          this.classes = data;        
+      }
+    );
+    this.loadNotes();
+  }
+  loadNotes(){
     this.homeworkService.getAllNote().subscribe(
       (data) => {
         this.dataSource=data
-        console.log(this.dataSource)
         this.totalItems = this.dataSource.length;
         this.pageChanged({
           pageIndex: this.currentPage, pageSize: this.pageSize, length: this.totalItems
@@ -57,12 +65,6 @@ export class ListeResultatComponent implements OnInit{
        
       }
     )
-   
-    this.homeworkService.getAllClasse().subscribe(
-      (data) => {
-          this.classes = data;        
-      }
-    );
   }
   onClassChange(selectedClass: any): void {
     this.note.classe = selectedClass.value;
@@ -90,13 +92,81 @@ export class ListeResultatComponent implements OnInit{
     }
     
   }
-  editNote(id:any){
-    this.router.navigate(['Dashboard/ModifierNote',id]);
-
+  editNote(id: any) {
+    // Récupérer la note par ID
+    this.homeworkService.getNoteByID(id).subscribe(
+      (data) => { 
+        this.note = data;
+        if (this.note) {
+          // Mettre à jour les valeurs des champs d'entrée avec les valeurs de la note
+          (document.getElementById('new-oral-note') as HTMLInputElement).value = this.note.noteOrale;
+          (document.getElementById('new-exam-note') as HTMLInputElement).value = this.note.noteExamen;
+        }
+      }
+    );
+  
+    // Afficher la boîte de dialogue de modification
+    Swal.fire({
+      title: 'Modifier les notes',
+      html: `
+        <div>
+          <label for="new-oral-note">Note orale</label>
+          <input type="number" min=0 max=20 id="new-oral-note" class="swal2-input" placeholder="Nouvelle note orale">
+         </div>
+         <div>
+           <label for="new-exam-note">Note examen</label>
+           <input type="number" min=0 max=20 id="new-exam-note" class="swal2-input" placeholder="Nouvelle note examen">
+          </div>
+    `,
+      showCancelButton: true,
+      confirmButtonText: 'Enregistrer',
+      preConfirm: () => {
+        const newOralNote = (document.getElementById('new-oral-note') as HTMLInputElement).value;
+        const newExamNote = (document.getElementById('new-exam-note') as HTMLInputElement).value;
+        if (!newOralNote || !newExamNote) {
+          Swal.showValidationMessage('Veuillez entrer les deux nouvelles notes');
+        }
+        // Mettre à jour les valeurs de this.note avec les nouvelles valeurs
+        this.note.noteOrale = newOralNote;
+        this.note.noteExamen = newExamNote;
+        return this.note;
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Mettre à jour les notes ici en utilisant l'ID de la note et les nouvelles notes
+        this.updateNotes(id);
+      }
+    });
   }
-  deleteNote(id:any){
-    this.homeworkService.deleteNote(id).subscribe(() => {
-      this.loadEleves(); // Recharge les élèves après la suppression de la note
+  
+  
+  
+  updateNotes(id: any) {
+    console.log(this.note)
+    this.homeworkService.updateNOte(id, this.note).subscribe()
+    this.loadNotes();
+  }
+  
+  deleteNote(id: any) {
+    Swal.fire({
+      title: 'Êtes-vous sûr de vouloir supprimer cette note ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, supprimer!',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.homeworkService.deleteNote(id).subscribe(() => {
+          Swal.fire(
+            'Supprimé!',
+            'La note a été supprimée avec succès.',
+            'success'
+          );
+          this.loadNotes(); // Recharger les notes après la suppression
+        });
+      }
     });
   }
   detailNote(id:any){
@@ -129,13 +199,10 @@ export class ListeResultatComponent implements OnInit{
   pageChanged(event: PageEvent): void {
     this.currentPage = event.pageIndex;
     const startIndex = event.pageIndex * event.pageSize;
-    console.log(this.currentPage)
-    console.log(event.pageIndex)
     let endIndex = startIndex + event.pageSize;
     if (endIndex > this.totalItems) {
       endIndex = this.totalItems;
     }
     this.items = this.dataSource.slice(startIndex, endIndex);
-    console.log(this.items)
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HomeworkService } from '../../services/homework.service';
@@ -20,10 +20,10 @@ export class AjouterNoteComponent implements OnInit{
   submitted = false;
   
   constructor(
-    private formbuilder: FormBuilder, 
     private homeworkService:HomeworkService,
     private router :Router){
     }
+
 
     ngOnInit(): void {
       this.noteForm = new FormGroup({
@@ -41,23 +41,26 @@ export class AjouterNoteComponent implements OnInit{
       )
       this.homeworkService.getAllClasse().subscribe(
         (data) => {
-          console.log(data)
             this.classes = data;        
         }
       );
-     
+      this.noteForm.get('matiere')?.valueChanges.subscribe(() => {
+        this.checkAndFetchEleves();
+      });
+  
+      this.noteForm.get('classe')?.valueChanges.subscribe(() => {
+        this.checkAndFetchEleves();
+      });
     }
-    onClasseChange(event: Event) {
-      const classeId = (event.target as HTMLSelectElement).value;
-      if (classeId) {
-        this.homeworkService.getAllEleveParClasse(classeId).subscribe(
-          (eleves) => {
-            
-            this.eleves = eleves;
-            console.log(this.eleves)
-          }
-        );
-      }
+  
+    checkAndFetchEleves() {
+      const matiereId = this.noteForm.get('matiere')?.value;
+    const classeId = this.noteForm.get('classe')?.value;
+    if (matiereId && classeId) {
+      this.homeworkService.getAllEleveParClasse(matiereId,classeId).subscribe(eleves => {
+        this.eleves = eleves;
+      });
+    }
     }
     
     
@@ -73,10 +76,9 @@ export class AjouterNoteComponent implements OnInit{
       });
       return; 
     }
-    console.log(this.note)
-    this.homeworkService.createNote(this.note).subscribe(
+    this.homeworkService.createNote(this.noteForm.value).subscribe(
        (data)=> {
-        console.log(data)
+        this.router.navigate(['/Dashboard/ListNote']);
       }
       )
      

@@ -1,3 +1,33 @@
 .align{
     margin-left: auto;
 }
+mat-card{
+    margin: 2%;
+}
+
+button{
+    margin: 2px;
+}
+mat-mat-card-header{
+    
+}
+th{
+    background-color: rgba(165, 172, 173, 0.575) !important;
+    color: black;
+}
+mat-card-content{
+    padding: 30px;
+    background: none;
+}
+.align{
+    margin-left: auto;
+}
+
+i {
+    padding: 20px;
+    font-size: 15px;
+    color: rgb(2, 39, 61);
+}
+.transparent-table {
+    background-color: transparent;
+}

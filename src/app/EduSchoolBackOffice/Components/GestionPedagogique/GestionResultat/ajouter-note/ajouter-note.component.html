@@ -1,52 +1,46 @@
 <div class="registration-form">
     <form [formGroup] ="noteForm"  (ngSubmit)="AddNote()">
         <div class="form-icon">
-            <img src="assets/img/cour.png">
+            <img src="assets/img/addNote.png">
         </div>
         
         <!-- list nom matiere -->
-        <div class="form-row">
-            <select formControlName="matiere" [(ngModel)]="note.matiereNote" class="form-select" id="validationCustom04" name="idMatiere" placeholder="Nom Matiere"  required>
-              <option value="">....Select...</option>
-              <option *ngFor="let matiere of matieres" [value]="matiere.nom">{{ matiere.nom }}</option>
+        <div class="form-row mb-3">
+            <select formControlName="matiere"
+             class="form-select"
+             required>
+             <option value="">Sélectionner une matière</option>
+              <option *ngFor="let matiere of matieres" [value]="matiere.id">{{ matiere.nom }}</option>
             </select>
-            <div *ngIf="submitted && noteForm.get('matiere')?.errors?.['required']" class="invalid-feedback">
+            <div *ngIf="submitted && noteForm.get('matiere')?.errors?.['required']" class="invalid-feedback alert alert-danger">
               <div>Nom de Matiere est Obligatoire</div>
             </div>
         </div>
            <!-- Classe -->  
-        <div class="form-row">
-            <div class="col-md-12">
+        <div class="form-row mb-3">
                 <select formControlName="classe" 
-                [(ngModel)]="note.classe" 
-                
-                class="form-select" id="validationCustom04" 
-                placeholder="Nom Classe" 
+                class="form-select" 
                 [ngClass]="{'is-invalid':noteForm.get('classe')?.touched && !noteForm.get('classe')?.valid}"
-                (change)="onClasseChange($event)"
                 >
-                    <option [value]="">....Select...</option>
-                    <option *ngFor="let classe of classes" [value]="classe.nom">{{ classe.nom }}</option>
+                    <option value="">Sélectionner une classe</option>
+                    <option *ngFor="let classe of classes" [value]="classe.id">{{ classe.nom }}</option>
                 </select>
                   
-                <div class="invalid-feedback">
+                <div class="invalid-feedback alert alert-danger">
                     <span *ngIf="noteForm.get('classe')?.errors?.['required']">Selectionné le classe </span>
                 </div>
                
-            </div>
         </div>
        <!-- Liste eleves -->
-       <div class="form-row" >
-            <div class="col-md-12">
+       <div class="form-row mb-3" >
                 <select formControlName="eleve" 
-                [(ngModel)]="note.eleve" 
-                class="form-select" id="validationCustom04" 
+                class="form-select" 
                 placeholder="L'élève" 
                 [ngClass]="{'is-invalid':noteForm.get('eleve')?.touched && !noteForm.get('eleve')?.valid}"
 
                 >
-                    <option value="">....Select...</option>
-                    <option *ngFor="let eleve of eleves" [value]="eleve.id">{{ eleve.id }}</option>
+                    <option value="">Sélectionner un élève</option>
+                    <option *ngFor="let eleve of eleves" [value]="eleve.id">{{ eleve.nom }}</option>
                 </select>
                 
                 <div class="invalid-feedback">
@@ -54,33 +48,32 @@
                 </div>
             
             </div>
-        </div>
-        <div class="form-row">
+        <div class="form-row mb-3">
             <input 
             type="text" 
-            formControlName="noteOrale"  
-            [(ngModel)]="note.noteOrale" 
-            placeholder="note orale"
-            [ngClass]="{'is-invalid': noteForm.get('sujet')?.touched && !noteForm.get('sujet')?.valid}" 
+            formControlName="noteOrale" 
+            class="form-control" 
+            placeholder="Note orale"
+            [ngClass]="{'is-invalid': noteForm.get('noteOrale')?.touched && !noteForm.get('noteOrale')?.valid}" 
             >
             <div class="invalid-feedback">
-                <span *ngIf="noteForm.get('sujet')?.errors?.['required']">Nom du sujet est Obligatoire</span>
+                <span *ngIf="noteForm.get('noteOrale')?.errors?.['required']">Note Orale est Obligatoire</span>
             </div>
         </div>
 
-        <div class="form-row">
+        <div class="form-row mb-3">
             <input 
             type="text" 
             formControlName="noteExamen"  
-            [(ngModel)]="note.noteExamen" 
+            class="form-control"
             placeholder="Note Examen"
-            [ngClass]="{'is-invalid': noteForm.get('sujet')?.touched && !noteForm.get('sujet')?.valid}" 
+            [ngClass]="{'is-invalid': noteForm.get('noteExamen')?.touched && !noteForm.get('noteExamen')?.valid}" 
             >
             <div class="invalid-feedback">
-                <span *ngIf="noteForm.get('sujet')?.errors?.['required']">Nom du sujet est Obligatoire</span>
+                <span *ngIf="noteForm.get('noteExamen')?.errors?.['required']">Note examen est Obligatoire</span>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
             <button type="submit" class="btn btn-block create-account" >Ajouter note</button>
             <!--  -->
         </div>

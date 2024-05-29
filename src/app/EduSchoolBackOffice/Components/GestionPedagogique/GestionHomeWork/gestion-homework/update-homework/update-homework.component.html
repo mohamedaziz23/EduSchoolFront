@@ -1,63 +1,78 @@
 <div class="registration-form">
     <form [formGroup] ="homeworkForm"  (ngSubmit)="UpdateHomework()">
         <div class="form-icon">
-            <img src="assets/img/cour.png">
+            <img src="assets/img/homework.png">
         </div>
         <!-- input sujet -->
         <div class="form-row">
-            <input type="text" formControlName="sujet"  [(ngModel)]="homework.sujet"name=""  placeholder="Sujet"  >
-            <div *ngIf="homeworkForm.get('sujet')?.errors?.['required']"  class="invalid-feedback" >
-                <div >Nom du sujet est Obligatoire</div>
+            <input type="text" 
+            [(ngModel)]="homework.sujet"
+            class="form-control" 
+            [ngModelOptions]="{standalone: true}"
+            placeholder="Sujet" 
+            [ngClass]="{'is-invalid': homeworkForm.get('sujet')?.touched && !homeworkForm.get('sujet')?.valid}">
+            <div class="invalid-feedback alert alert-danger">
+                <span *ngIf="homeworkForm.get('sujet')?.errors?.['required']">Nom du sujet est obligatoire</span>
             </div>
         </div>
         <!-- list nom matiere -->
-        <div class="form-row">
-            <select formControlName="matiereHomework" [(ngModel)]="homework.matiereHomework" class="form-select" id="validationCustom04" name="idMatiere" placeholder="Nom Matiere"  required>
+        <div class="form-row mb-3">
+            <select [ngModelOptions]="{standalone: true}"  class="form-select" [(ngModel)]="homework.matiereHomework" class="form-select" id="validationCustom04" name="idMatiere" placeholder="Nom Matiere"  required>
               
               <option *ngFor="let matiere of matieres" [value]="matiere.nom" [selected]="matiere.nom === matiere.nom">{{ matiere.nom }}</option>
             </select>
-            <div *ngIf="submitted && homeworkForm.get('matiere')?.errors?.['required']" class="invalid-feedback">
-              <div>Nom de Matiere est Obligatoire</div>
+            <div *ngIf="submitted && homeworkForm.get('matiereHomework')?.errors?.['required']" class="invalid-feedback alert alert-danger">
+                <div>Nom de la matière est obligatoire</div>
             </div>
         </div>
-        <!-- importation fichier -->
        
         <!-- date remise -->  
-        <div class="form-row">
-            <div class="col-md-12" >
-                <input formControlName="dateRemise" type="date"  [(ngModel)]="homework.dateRemise" placeholder="Date de Remise" > 
-            </div>
+        <div class="form-row mb-3">
+                <input  
+                [ngModelOptions]="{standalone: true}" 
+                class="form-control" 
+                type="date"  
+                [(ngModel)]="homework.dateRemise" 
+                placeholder="Date de Remise" 
+                [ngClass]="{'is-invalid': homeworkForm.get('dateRemise')?.touched && !homeworkForm.get('dateRemise')?.valid}">
+                <div class="invalid-feedback alert alert-danger">
+                    <span *ngIf="homeworkForm.get('dateRemise')?.errors?.['required']">Date de remise est obligatoire</span>
+                </div>
       
         </div>
 
         <!-- date recu --> 
-        <div class="form-row">
-            <div class="col-md-12" >
-                    <input formControlName="dateRecu" type="date" [(ngModel)]="homework.dateRecu" placeholder="Date de Réception" >
+        <div class="form-row mb-3">
+            <input 
+            [ngModelOptions]="{standalone: true}" 
+            class="form-control" 
+            type="date" 
+            [(ngModel)]="homework.dateRecu" 
+            placeholder="Date de Réception"             
+            [ngClass]="{'is-invalid': homeworkForm.get('dateRecu')?.touched && !homeworkForm.get('dateRecu')?.valid}">
+            <div class="invalid-feedback alert alert-danger">
+                <span *ngIf="homeworkForm.get('dateRecu')?.errors?.['required']">Date de réception est obligatoire</span>
             </div>
         </div>
           
-        <div class="form-row">
-            <div class="col-md-12" >
-                <select formControlName="classeHomework" [(ngModel)]="homework.classeHomework" class="form-select" id="validationCustom04" name="idMatiere" placeholder="Nom Matiere"  required>
-          
-                    <option *ngFor="let classe of classes" [value]="classe.nom" [selected]="classe.nom === classe.nom">{{ classe.nom }}</option>
-                  </select>
-                  
-                <div *ngIf="submitted && homeworkForm.get('niveau')?.errors?.['required']" class="invalid-feedback">
-                    
-                    <div >niveau est Obligatoire</div>
-                    
-                </div> 
-               
+        <div class="form-row mb-3">
+            <select [ngModelOptions]="{standalone: true}" [(ngModel)]="homework.classeHomework" class="form-select" placeholder="Nom Matiere"  required>
+                <option *ngFor="let classe of classes" [value]="classe.nom" [selected]="classe.nom === classe.nom">{{ classe.nom }}</option>
+            </select>
+            <div class="invalid-feedback alert alert-danger">
+                <span *ngIf="homeworkForm.get('classeHomework')?.errors?.['required']">Sélectionner la classe</span>
             </div>
         </div>
-        <label class="form-group">
-            <textarea name="" id="" placeholder="Description " required="required" [(ngModel)]="homework.description" formControlName="description"
-                 ></textarea>
+        <div class="form-group mb-3">
+            <textarea 
+                class="form-control" 
+                [ngModelOptions]="{standalone: true}"  
+                placeholder="Description" 
+                required="required" 
+                [(ngModel)]="homework.description" 
+            ></textarea>
            
-            <span class="border"></span>
-        </label>
+        </div>
 
         <div class="form-group">
             <button type="submit" class="btn btn-block create-account" >Modifier Homework</button>

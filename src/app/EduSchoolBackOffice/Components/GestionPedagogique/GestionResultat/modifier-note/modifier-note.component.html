@@ -6,7 +6,11 @@
         
         <!-- Displaying retrieved matiere information -->
         <div class="form-row">
-            <select formControlName="matiereNote" class="form-select" id="validationCustom04" name="idMatiere" placeholder="Nom Matiere" required>
+            <select formControlName="matiereNote" 
+            class="form-select" 
+            id="validationCustom04" 
+            name="idMatiere" placeholder="Nom Matiere" 
+            required>
                 <option *ngFor="let matiere of matieres" [value]="matiere.nom">{{ matiere.nom }}</option>
             </select>
             <div *ngIf="submitted && noteForm.get('matiere')?.errors?.['required']" class="invalid-feedback">

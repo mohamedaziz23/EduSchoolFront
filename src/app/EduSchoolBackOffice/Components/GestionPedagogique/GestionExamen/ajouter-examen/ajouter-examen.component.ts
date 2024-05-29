@@ -44,7 +44,6 @@ export class AjouterExamenComponent implements OnInit {
     this.homeworkService.getSalle().subscribe(
       (data)=>{
         this.salles =data;
-        console.log(this.salles)
       }
     )
     this.homeworkService.getAllClasse().subscribe(
@@ -100,7 +99,6 @@ export class AjouterExamenComponent implements OnInit {
             Classes: event.extendedProps.classes.join(', ') 
           }
         };
-        console.log(eventData.Id)
         Swal.fire({
           html: `
             <p><strong>Title:</strong> ${eventData.title}</p>

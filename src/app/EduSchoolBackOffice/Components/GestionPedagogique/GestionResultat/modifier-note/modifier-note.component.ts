@@ -66,12 +66,12 @@ export class ModifierNoteComponent implements OnInit{
     onClasseChange(event: Event) {
       const classeId = (event.target as HTMLSelectElement).value;
       if (classeId) {
-        this.homeworkService.getAllEleveParClasse(classeId).subscribe(
+        /* this.homeworkService.getAllEleveParClasse(classeId).subscribe(
           (eleves) => {
             
             this.eleves = eleves;
           }
-        );
+        ); */
       }
     }
     

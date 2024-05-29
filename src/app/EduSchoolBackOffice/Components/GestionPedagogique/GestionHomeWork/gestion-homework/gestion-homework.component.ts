@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Homework } from '../../entities/homework.entitie';
-import { HomeworkService } from '../../services/homework.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
+import { HomeworkService } from '../../services/homework.service';
 
 @Component({
   selector: 'app-gestion-homework',
@@ -27,7 +27,7 @@ export class GestionHomeworkComponent implements OnInit {
       sujet: new FormControl('',Validators.required),
       dateRemise: new FormControl('',Validators.required),
       dateRecu: new FormControl('',Validators.required),
-      classe: new FormControl('',Validators.required),
+      classeHomework: new FormControl('',Validators.required),
       description: new FormControl(''),
       matiereHomework: new FormControl('',Validators.required)
     });
@@ -51,13 +51,12 @@ export class GestionHomeworkComponent implements OnInit {
       text: 'il faut remplir les champs ',
       icon: 'error',
       confirmButtonText: 'ok',
-      showCancelButton: true
+      showCancelButton: false
     });
     return; 
   }
-  this.homeworkService.createHomework(this.homework).subscribe(
+  this.homeworkService.createHomework(this.homeworkForm.value).subscribe(
     (data) => {
-      console.log('Homework created successfully:', data);
     }
   );
   
@@ -68,7 +67,7 @@ export class GestionHomeworkComponent implements OnInit {
     showConfirmButton: false,
     timer: 1500
   });
-  this.router.navigate(['/ListHomework']);
+  this.router.navigate(['/Dashboard/ListHomework']);
 }
   
 }

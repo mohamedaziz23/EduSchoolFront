@@ -30,7 +30,6 @@ export class UpdateHomeworkComponent implements OnInit {
  
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    console.log(this.id)
     this.homeworkService.getHomeworkByID(this.id).subscribe(
       (data)=> { 
         this.homework=data; 
@@ -43,7 +42,7 @@ export class UpdateHomeworkComponent implements OnInit {
       dateRemise: new FormControl('',Validators.required),
       dateRecu: new FormControl('',Validators.required),
       classeHomework: new FormControl('',Validators.required),
-      description: new FormControl(''),
+      description: new FormControl('',Validators.required),
       matiereHomework: new FormControl('',Validators.required)
     });
     
@@ -54,30 +53,25 @@ export class UpdateHomeworkComponent implements OnInit {
     )
     this.homeworkService.getAllClasse().subscribe(
       (data) => {
-          console.log(data)
           this.classes = data;
-         
-          console.log(this.classes)
-        
       }
     );
   
   }
   UpdateHomework(){
     this.submitted = true;
-  if (this.homeworkForm.invalid) {
-    Swal.fire({
-      title: 'Error!',
-      text: 'il faut remplir tous champs ',
-      icon: 'error',
-      confirmButtonText: 'ok',
-      showCancelButton: true
-    });
-    return; 
-  }
-  this.homeworkService.updateHomework(this.id,this.homework).subscribe(
+    if (this.homeworkForm.invalid) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'il faut remplir tous champs ',
+        icon: 'error',
+        confirmButtonText: 'ok',
+        showCancelButton: true
+      });
+      return; 
+    }
+  this.homeworkService.updateHomework(this.id,this.homeworkForm.value).subscribe(
     (data) => {
-      console.log(data)
     }
   );
   

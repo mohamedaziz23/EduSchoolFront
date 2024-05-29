@@ -48,8 +48,8 @@ export class HomeworkService {
   }
     /* ********************************** Note services ************************ */
 
-  getAllEleveParClasse(nom: String):Observable<any[]>{
-    return this.httpClient.get<any[]>(`${this.baseURL_Note}/recupere_tous_les_eleves_par_classe/${nom}`)
+  getAllEleveParClasse(classe: any, id: any):Observable<any[]>{
+    return this.httpClient.get<any[]>(`${this.baseURL_Note}/recupere_tous_les_eleves_par_classe/${classe}/${id}`)
   }
   createNote(note:Note):Observable<any>{
     return this.httpClient.post<any>(`${this.baseURL_Note}/ajouter_note_pour_chaque_eleve`, note)
@@ -66,7 +66,7 @@ export class HomeworkService {
     return this.httpClient.delete(`${this.baseURL_Note}/supprime_Note/${id}`);
   }
   getAllEleveParClasseEtMatiere(classe: any, matiere:any):Observable<any[]>{
-    return this.httpClient.get<any[]>(`${this.baseURL_Note}/recupere_tous_les_eleves_par_classe_et_matiere/${classe}/${matiere}`)
+    return this.httpClient.get<any[]>(`${this.baseURL_Note}/recupere_tous_les_eleves_par_classe_et_matiere/${matiere}/${classe}`)
   }
   getNoteByID(id : number):Observable<any>{
     

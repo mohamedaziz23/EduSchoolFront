@@ -1,65 +1,68 @@
 <div class="container" style="margin-top:50px ;">
     <div class="row">
-        <div class="col-md-10 mr-10">
+        <div class="col-md-8 mr-10">
             <full-calendar [options]="calendarOptions" ></full-calendar>
 
         </div>
-        <div class="col-md-2" >
-            <form [formGroup]="examenForm" (ngSubmit)="ajouterExamen()">
-                <h3>Ajouter</h3>
-                <div class="mb-3">
-                    <label class="form-label">Examen</label>
-                    <mat-radio-group formControlName="examen">
-                        <mat-radio-button [value]="'ORALE'">Orale</mat-radio-button>
-                        <mat-radio-button [value]="'ECRIT'">Ecrit</mat-radio-button>
-                      </mat-radio-group>
+        <div class="col-md-4" >
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="examenForm" (ngSubmit)="ajouterExamen()">
+                        <h3> <strong> Ajouter</strong></h3>
+                        <div class="mb-3">
+                            <label class="form-label">Examen</label> <br>
+                            <mat-radio-group formControlName="examen">
+                                <mat-radio-button [value]="'ORALE'">Orale</mat-radio-button>
+                                <mat-radio-button [value]="'ECRIT'">Ecrit</mat-radio-button>
+                              </mat-radio-group>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Matière</label>
+                            <select formControlName="matiere" class="form-select" required>
+                                <option *ngFor="let matiere of matieres" [value]="matiere.id">{{ matiere.nom }}</option>
+                            </select>
+                            <div *ngIf=" examenForm.get('matiere')?.errors?.['required']" class="invalid-feedback alert alert-danger">
+                                <div>La matière est obligatoire</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Classe</label>
+                            <select formControlName="classe"   
+                            multiple       
+                            class="form-select" 
+                            [ngClass]="{'is-invalid':examenForm.get('classe')?.touched && !examenForm.get('classe')?.valid}"
+                          
+                            >
+                                <option *ngFor="let classe of classes" [value]="classe.id">{{ classe.nom }}</option>
+                            </select>
+                              
+                            <div class="invalid-feedback">
+                                <span *ngIf="examenForm.get('classe')?.errors?.['required']">Selectionné le classe </span>
+                            </div>
+                           
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Date </label>
+                            <input type="datetime-local" class="form-control" formControlName="date" required>
+                            <div *ngIf=" examenForm.get('date')?.errors?.['required']" class="invalid-feedback alert alert-danger">
+                                <div>La date est obligatoire</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Salle</label>
+                            <select formControlName="salle" class="form-select" id="validationCustom04" required>
+                                <option *ngFor="let salle of salles" [value]="salle.id">{{ salle.num }}</option>
+                            </select>
+                            <div *ngIf=" examenForm.get('salle')?.errors?.['required']" class="invalid-feedback alert alert-danger">
+                                <div>La salle est obligatoire</div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Matière</label>
-                    <select formControlName="matiere" class="form-select" id="validationCustom04" required>
-                        <option value="">....Select...</option>
-                        <option *ngFor="let matiere of matieres" [value]="matiere.id">{{ matiere.nom }}</option>
-                    </select>
-                    <div *ngIf=" examenForm.get('matiere')?.errors?.['required']" class="invalid-feedback">
-                        <div>La matière est obligatoire</div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Classe</label>
-                    <select formControlName="classe"   
-                    multiple       
-                    class="form-select" id="validationCustom04" 
-                    [ngClass]="{'is-invalid':examenForm.get('classe')?.touched && !examenForm.get('classe')?.valid}"
-                  
-                    >
-                        <option [value]="">....Select...</option>
-                        <option *ngFor="let classe of classes" [value]="classe.id">{{ classe.nom }}</option>
-                    </select>
-                      
-                    <div class="invalid-feedback">
-                        <span *ngIf="examenForm.get('classe')?.errors?.['required']">Selectionné le classe </span>
-                    </div>
-                   
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Date </label>
-                    <input type="datetime-local" class="form-control" formControlName="date" required>
-                    <div *ngIf=" examenForm.get('date')?.errors?.['required']" class="invalid-feedback">
-                        <div>La date est obligatoire</div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Salle</label>
-                    <select formControlName="salle" class="form-select" id="validationCustom04" required>
-                        <option value="">....Select...</option>
-                        <option *ngFor="let salle of salles" [value]="salle.id">{{ salle.num }}</option>
-                    </select>
-                    <div *ngIf=" examenForm.get('salle')?.errors?.['required']" class="invalid-feedback">
-                        <div>La salle est obligatoire</div>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Ajouter</button>
-            </form>
+
+            </div>
+           
             
         </div>
     </div>

@@ -7,8 +7,8 @@ button{
 }
 
 th{
-    background-color: rgb(2, 39, 61) !important;
-    color: white;
+    background-color: rgba(165, 172, 173, 0.575) !important;
+    color: black;
 }
 mat-card-content{
     background: none;
@@ -21,4 +21,7 @@ i {
     padding-left: 20px;
     font-size: 15px;
     color: rgb(2, 39, 61);
+}
+.transparent-table {
+    background-color: transparent;
 }

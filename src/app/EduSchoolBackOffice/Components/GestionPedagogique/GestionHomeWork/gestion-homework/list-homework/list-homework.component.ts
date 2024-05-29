@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UpdateHomeworkComponent } from '../update-homework/update-homework.component';
 import { PopupComponent } from '../../../popup/popup.component';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-homework',
@@ -42,9 +43,41 @@ displayedColumns: string[] = ["sujet", "dateRemis", "dateRecu", "Classe", "matie
       }
     )
   }
-  deleteHomework(code:any){
-    this.homeworkService.deleteHomework(code).subscribe();
-    this.loadHomework();
+  deleteHomework(code: any) {
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Vous ne pourrez pas revenir en arrière!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Oui, supprimer!',
+      cancelButtonText: 'Non, annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.homeworkService.deleteHomework(code).subscribe(
+          () => {
+            Swal.fire(
+              'Supprimé!',
+              'Le devoir a été supprimé.',
+              'success'
+            );
+            this.loadHomework();
+          },
+          (error) => {
+            Swal.fire(
+              'Erreur!',
+              'Une erreur s\'est produite lors de la suppression du devoir.',
+              'error'
+            );
+          }
+        );
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Annulé',
+          'Le devoir n\'a pas été supprimé',
+          'error'
+        );
+      }
+    });
   }
   filterChange(data: Event){
     const value = ( data.target as HTMLInputElement).value;
@@ -77,7 +110,7 @@ displayedColumns: string[] = ["sujet", "dateRemis", "dateRecu", "Classe", "matie
       )
   }
   ajouterHomework(){
-    this.router.navigate(['/GestionHomeWork']);
+    this.router.navigate(['Dashboard/GestionHomeWork']);
   }
   
 }

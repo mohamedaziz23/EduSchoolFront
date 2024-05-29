@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {DashboardComponent} from "./EduSchoolBackOffice/Components/dashboard/dashboard.component";
+import {DashboardComponent} from "./EduSchoolBackOffice/Components/Dashboards/dashboard/dashboard.component";
 import {HomePageComponent} from "./EduSchoolFrontOffice/Components/home-page/home-page.component";
 import { GestionHomeworkComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionHomeWork/gestion-homework/gestion-homework.component';
 import { ListHomeworkComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionHomeWork/gestion-homework/list-homework/list-homework.component';
@@ -9,6 +9,8 @@ import { AjouterNoteComponent } from './EduSchoolBackOffice/Components/GestionPe
 import { ListeResultatComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionResultat/liste-resultat/liste-resultat.component';
 import { ModifierNoteComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionResultat/modifier-note/modifier-note.component';
 import { AjouterExamenComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionExamen/ajouter-examen/ajouter-examen.component';
+import { DashboardEnseignantComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-enseignant/dashboard-enseignant.component';
+import { ListClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/list-classe/list-classe.component';
 
 const routes: Routes = [
   { path: "", component: HomePageComponent }, 

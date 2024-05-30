@@ -1,83 +1,77 @@
 <div class="registration-form">
-    <form [formGroup] ="homeworkForm"  (ngSubmit)="UpdateHomework()">
+    <form (ngSubmit)="updateHomework()">
         <div class="form-icon">
             <img src="assets/img/homework.png">
         </div>
+    
         <!-- input sujet -->
-        <div class="form-row">
-            <input type="text" 
-            [(ngModel)]="homework.sujet"
-            class="form-control" 
-            [ngModelOptions]="{standalone: true}"
-            placeholder="Sujet" 
-            [ngClass]="{'is-invalid': homeworkForm.get('sujet')?.touched && !homeworkForm.get('sujet')?.valid}">
-            <div class="invalid-feedback alert alert-danger">
-                <span *ngIf="homeworkForm.get('sujet')?.errors?.['required']">Nom du sujet est obligatoire</span>
-            </div>
+        <div class="form-row mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Sujet</mat-label>
+                <input matInput type="text" [(ngModel)]="homework.sujet" name="sujet" placeholder="Sujet" required>
+                <mat-error *ngIf="!homework.sujet">Nom du sujet est obligatoire</mat-error>
+            </mat-form-field>
         </div>
+    
         <!-- list nom matiere -->
         <div class="form-row mb-3">
-            <select [ngModelOptions]="{standalone: true}"  class="form-select" [(ngModel)]="homework.matiereHomework" class="form-select" id="validationCustom04" name="idMatiere" placeholder="Nom Matiere"  required>
-              
-              <option *ngFor="let matiere of matieres" [value]="matiere.nom" [selected]="matiere.nom === matiere.nom">{{ matiere.nom }}</option>
-            </select>
-            <div *ngIf="submitted && homeworkForm.get('matiereHomework')?.errors?.['required']" class="invalid-feedback alert alert-danger">
-                <div>Nom de la matière est obligatoire</div>
-            </div>
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Matière</mat-label>
+                <mat-select [(ngModel)]="homework.matiereHomework.nom" name="matiereHomework" required>
+                    <mat-option value="">Sélectionner une matière</mat-option>
+                    <mat-option *ngFor="let matiere of matieres" [value]="matiere.nom">{{ matiere.nom }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="!homework.matiereHomework">Nom de la matière est obligatoire</mat-error>
+            </mat-form-field>
         </div>
-       
+    
         <!-- date remise -->  
         <div class="form-row mb-3">
-                <input  
-                [ngModelOptions]="{standalone: true}" 
-                class="form-control" 
-                type="date"  
-                [(ngModel)]="homework.dateRemise" 
-                placeholder="Date de Remise" 
-                [ngClass]="{'is-invalid': homeworkForm.get('dateRemise')?.touched && !homeworkForm.get('dateRemise')?.valid}">
-                <div class="invalid-feedback alert alert-danger">
-                    <span *ngIf="homeworkForm.get('dateRemise')?.errors?.['required']">Date de remise est obligatoire</span>
-                </div>
-      
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Date de Remise</mat-label>
+                <input matInput [matDatepicker]="picker1" [(ngModel)]="homework.dateRemise" name="dateRemise" placeholder="Date de Remise" required>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="!homework.dateRemise">Date de remise est obligatoire</mat-error>
+            </mat-form-field>
         </div>
-
+    
         <!-- date recu --> 
         <div class="form-row mb-3">
-            <input 
-            [ngModelOptions]="{standalone: true}" 
-            class="form-control" 
-            type="date" 
-            [(ngModel)]="homework.dateRecu" 
-            placeholder="Date de Réception"             
-            [ngClass]="{'is-invalid': homeworkForm.get('dateRecu')?.touched && !homeworkForm.get('dateRecu')?.valid}">
-            <div class="invalid-feedback alert alert-danger">
-                <span *ngIf="homeworkForm.get('dateRecu')?.errors?.['required']">Date de réception est obligatoire</span>
-            </div>
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Date de Réception</mat-label>
+                <input matInput [matDatepicker]="picker2" [(ngModel)]="homework.dateRecu" name="dateRecu" placeholder="Date de Réception" required>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="!homework.dateRecu">Date de réception est obligatoire</mat-error>
+            </mat-form-field>
         </div>
           
+        <!-- select classe -->
         <div class="form-row mb-3">
-            <select [ngModelOptions]="{standalone: true}" [(ngModel)]="homework.classeHomework" class="form-select" placeholder="Nom Matiere"  required>
-                <option *ngFor="let classe of classes" [value]="classe.nom" [selected]="classe.nom === classe.nom">{{ classe.nom }}</option>
-            </select>
-            <div class="invalid-feedback alert alert-danger">
-                <span *ngIf="homeworkForm.get('classeHomework')?.errors?.['required']">Sélectionner la classe</span>
-            </div>
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Classe</mat-label>
+                <mat-select [(ngModel)]="homework.classeHomework.nom" name="classeHomework" required>
+                    <mat-option value="">Sélectionner une classe</mat-option>
+                    <mat-option *ngFor="let classe of classes" [value]="classe.nom">{{ classe.nom }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="!homework.classeHomework">Sélectionner la classe</mat-error>
+            </mat-form-field>
         </div>
+    
+        <!-- description -->
         <div class="form-group mb-3">
-            <textarea 
-                class="form-control" 
-                [ngModelOptions]="{standalone: true}"  
-                placeholder="Description" 
-                required="required" 
-                [(ngModel)]="homework.description" 
-            ></textarea>
-           
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Détail</mat-label>
+                <textarea matInput [(ngModel)]="homework.description" name="description" placeholder="Description" required></textarea>
+                <mat-error *ngIf="!homework.description">Expliquer le sujet</mat-error>
+            </mat-form-field>
         </div>
-
+    
         <div class="form-group">
-            <button type="submit" class="btn btn-block create-account" >Modifier Homework</button>
-            <!--  -->
+            <button type="submit" mat-raised-button  class="btn btn-primary btn-block ">Modifier Homework</button>
         </div>
     </form>
+    
 
 </div>

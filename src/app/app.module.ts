@@ -16,8 +16,6 @@ import { GestionCalendrierExamenComponent } from './EduSchoolBackOffice/Componen
 import { HomeworkComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionHomeWork/homework/homework.component';
 import { GestionHomeworkComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionHomeWork/gestion-homework/gestion-homework.component';
 import { ResultatComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionResultat/resultat/resultat.component';
-import { ExamenComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionExamen/examen/examen.component';
-import { CalendrierExamenComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionExamen/calendrier-examen/calendrier-examen.component';
 import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { HttpClientModule } from '@angular/common/http';
@@ -43,16 +41,14 @@ import { MatRadioModule } from '@angular/material/radio';
 
 import { DashboardEnseignantComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-enseignant/dashboard-enseignant.component';
 import { DashboardEleveComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-eleve/dashboard-eleve.component';
-import { ListClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/list-classe/list-classe.component';
-import { HttpClientModule } from '@angular/common/http';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     HomePageComponent,
-    ExamenComponent,
-    CalendrierExamenComponent,
     GestionCalendrierExamenComponent,
     HomeworkComponent,
     GestionHomeworkComponent,
@@ -64,7 +60,9 @@ import { HttpClientModule } from '@angular/common/http';
     ListeResultatComponent,
     AjouterNoteComponent,
     ModifierNoteComponent,
-    AjouterExamenComponent
+    AjouterExamenComponent,
+    DashboardEnseignantComponent,
+    DashboardEleveComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +89,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatOptionModule,
     FullCalendarModule,
     CommonModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

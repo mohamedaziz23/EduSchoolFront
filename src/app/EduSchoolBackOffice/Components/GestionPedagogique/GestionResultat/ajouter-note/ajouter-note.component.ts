@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HomeworkService } from '../../services/homework.service';
 import { Note } from '../../entities/note.entitie';
@@ -28,8 +28,8 @@ export class AjouterNoteComponent implements OnInit{
     ngOnInit(): void {
       this.noteForm = new FormGroup({
         eleve: new FormControl('',Validators.required),
-        noteOrale: new FormControl('',Validators.required),
-        noteExamen: new FormControl('',Validators.required),
+        noteOrale: new FormControl('', [Validators.required, noteValidator]),
+        noteExamen: new FormControl('', [Validators.required, noteValidator]),
         matiere: new FormControl('',Validators.required),
         classe: new FormControl('',Validators.required)
       });
@@ -90,4 +90,11 @@ export class AjouterNoteComponent implements OnInit{
       timer: 1500
     });
   }  
+}
+export function noteValidator(control: AbstractControl): ValidationErrors | null {
+  const value = control.value;
+  if (value < 0 || value > 20) {
+    return { invalidNote: true };
+  }
+  return null;
 }

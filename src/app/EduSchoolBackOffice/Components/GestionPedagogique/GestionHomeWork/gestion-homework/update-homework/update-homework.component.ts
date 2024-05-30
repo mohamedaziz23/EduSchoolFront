@@ -13,7 +13,6 @@ import Swal from 'sweetalert2';
 export class UpdateHomeworkComponent implements OnInit {
   homeworkList : Homework[] = [];
   homework : Homework = new Homework();
-  homeworkForm !:FormGroup;
   submitted = false;
   classes: any;
   classe:any;
@@ -33,19 +32,11 @@ export class UpdateHomeworkComponent implements OnInit {
     this.homeworkService.getHomeworkByID(this.id).subscribe(
       (data)=> { 
         this.homework=data; 
-        this.classe=this.homework.classeHomework
-        this.matiere=this.homework.matiereHomework
+        this.classe=this.homework.classeHomework.nom
+        this.matiere=this.homework.matiereHomework.nom
       }
     )
-    this.homeworkForm = new FormGroup({
-      sujet: new FormControl('',Validators.required),
-      dateRemise: new FormControl('',Validators.required),
-      dateRecu: new FormControl('',Validators.required),
-      classeHomework: new FormControl('',Validators.required),
-      description: new FormControl('',Validators.required),
-      matiereHomework: new FormControl('',Validators.required)
-    });
-    
+       
     this.homeworkService.getAllMatiere().subscribe(
       (data) => {
         this.matieres = data;
@@ -58,9 +49,9 @@ export class UpdateHomeworkComponent implements OnInit {
     );
   
   }
-  UpdateHomework(){
+  updateHomework(){
     this.submitted = true;
-    if (this.homeworkForm.invalid) {
+    if (!this.homework) {
       Swal.fire({
         title: 'Error!',
         text: 'il faut remplir tous champs ',
@@ -70,10 +61,7 @@ export class UpdateHomeworkComponent implements OnInit {
       });
       return; 
     }
-  this.homeworkService.updateHomework(this.id,this.homeworkForm.value).subscribe(
-    (data) => {
-    }
-  );
+  this.homeworkService.updateHomework(this.id,this.homework).subscribe();
   
   Swal.fire({
     position: 'center',
@@ -82,7 +70,9 @@ export class UpdateHomeworkComponent implements OnInit {
     showConfirmButton: false,
     timer: 1500
   });
+  this.router.navigate(['/Dashboard/ListHomework']);
   }
+
 
 
 }

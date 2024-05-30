@@ -5,65 +5,73 @@
         </div>
     
         <!-- input sujet -->
+        
         <div class="form-row mb-3">
-            <input type="text" formControlName="sujet" placeholder="Sujet"
-                   class="form-control"
-                   [ngClass]="{'is-invalid': homeworkForm.get('sujet')?.touched && !homeworkForm.get('sujet')?.valid}">
-            <div class="invalid-feedback alert alert-danger">
-                <span *ngIf="homeworkForm.get('sujet')?.errors?.['required']">Nom du sujet est obligatoire</span>
-            </div>
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Sujet</mat-label>
+                <input matInput type="text" formControlName="sujet" placeholder="Sujet"
+                       [ngClass]="{'is-invalid': homeworkForm.get('sujet')?.touched && !homeworkForm.get('sujet')?.valid}">
+                <mat-error *ngIf="homeworkForm.get('sujet')?.errors?.['required']">Nom du sujet est obligatoire</mat-error>
+            </mat-form-field>
         </div>
     
         <!-- list nom matiere -->
         <div class="form-row mb-3">
-            <select formControlName="matiereHomework" class="form-select" required>
-                <option value="">Sélectionner une matière</option>
-                <option *ngFor="let matiere of matieres" [value]="matiere.nom">{{ matiere.nom }}</option>
-            </select>
-            <div *ngIf="submitted && homeworkForm.get('matiereHomework')?.errors?.['required']" class="invalid-feedback alert alert-danger">
-                <div>Nom de la matière est obligatoire</div>
-            </div>
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Matière</mat-label>
+                <mat-select formControlName="matiereHomework" required>
+                    <mat-option value="">Sélectionner une matière</mat-option>
+                    <mat-option *ngFor="let matiere of matieres" [value]="matiere.nom">{{ matiere.nom }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="homeworkForm.get('matiereHomework')?.errors?.['required']">Nom de la matière est obligatoire</mat-error>
+            </mat-form-field>
         </div>
     
         <!-- date remise -->
         <div class="form-row mb-3">
-            <input formControlName="dateRemise" type="date" placeholder="Date de Remise"
-                   class="form-control"
-                   [ngClass]="{'is-invalid': homeworkForm.get('dateRemise')?.touched && !homeworkForm.get('dateRemise')?.valid}">
-            <div class="invalid-feedback alert alert-danger">
-                <span *ngIf="homeworkForm.get('dateRemise')?.errors?.['required']">Date de remise est obligatoire</span>
-            </div>
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Date de Remise</mat-label>
+                <input matInput readonly [matDatepicker]="picker1" formControlName="dateRemise" placeholder="Choisir une date">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="homeworkForm.get('dateRemise')?.errors?.['required']">Date de remise est obligatoire</mat-error>
+            </mat-form-field>
+
         </div>
     
         <!-- date recu -->
         <div class="form-row mb-3">
-            <input formControlName="dateRecu" type="date" placeholder="Date de Réception"
-                   class="form-control"
-                   [ngClass]="{'is-invalid': homeworkForm.get('dateRecu')?.touched && !homeworkForm.get('dateRecu')?.valid}">
-            <div class="invalid-feedback alert alert-danger">
-                <span *ngIf="homeworkForm.get('dateRecu')?.errors?.['required']">Date de réception est obligatoire</span>
-            </div>
+
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Date de Réception</mat-label>
+                <input matInput readonly [matDatepicker]="picker2" formControlName="dateRecu" placeholder="Choisir une date">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="homeworkForm.get('dateRecu')?.errors?.['required']">Date de réception est obligatoire</mat-error>
+            </mat-form-field>
+           
         </div>
     
         <!-- select classeHomework -->
         <div class="form-row mb-3">
-            <select formControlName="classeHomework" class="form-select" required>
-                <option value="">Sélectionner une classe</option>
-                <option *ngFor="let classe of classes" [value]="classe.nom">{{ classe.nom }}</option>
-            </select>
-            <div class="invalid-feedback alert alert-danger">
-                <span *ngIf="homeworkForm.get('classeHomework')?.errors?.['required']">Sélectionner la classe</span>
-            </div>
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Classe</mat-label>
+                <mat-select formControlName="classeHomework" required>
+                    <mat-option value="">Sélectionner une classe</mat-option>
+                    <mat-option *ngFor="let classe of classes" [value]="classe.nom">{{ classe.nom }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="homeworkForm.get('classeHomework')?.errors?.['required']">Sélectionner la classe</mat-error>
+            </mat-form-field>
         </div>
     
         <!-- description -->
         <div class="form-group mb-3">
-            <textarea formControlName="description" placeholder="Détail"
-                      class="form-control"
-                      [ngClass]="{'is-invalid': homeworkForm.get('description')?.touched && !homeworkForm.get('description')?.valid}"></textarea>
-            <div class="invalid-feedback alert alert-danger">
-                <span *ngIf="homeworkForm.get('description')?.errors?.['required']">Expliquer le sujet</span>
-            </div>
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Détail</mat-label>
+                <textarea matInput formControlName="description" placeholder="Détail"
+                          [ngClass]="{'is-invalid': homeworkForm.get('description')?.touched && !homeworkForm.get('description')?.valid}"></textarea>
+                <mat-error *ngIf="homeworkForm.get('description')?.errors?.['required']">Expliquer le sujet</mat-error>
+            </mat-form-field>
         </div>
     
         <!-- button -->

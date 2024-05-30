@@ -2,48 +2,6 @@
 
   Dashboard Administrateur
 
-  <nav class="navbar navbar-expand bg-blue  navbar-light sticky-top px-4 py-0" >
-
-    <div class="navbar-nav align-items-center ms-auto">
-
-
-      <div class="nav-item dropdown">
-        <a href="#" class="nav-link " data-bs-toggle="dropdown">
-          <div class=" d-lg-inline-flex align-items-center " >
-              <mat-icon class="icon">notifications</mat-icon>
-              <span  >Notifications   </span>
-          </div>
-
-      </a>
-        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-          <a class="dropdown-item" >
-            <ng-container >
-
-              <h6 class="fw-normal mb-0">test</h6>
-              <small>test</small> <br>
-              <small>date</small> : <small>test</small><br>
-              <small>Status</small> : <small>test</small><br>
-              <small>Actions</small> :
-              <button mat-icon-button color="warn" matTooltip="Supprimer"
-                      aria-label="Button that displays a tooltip when focused or hovered over"
-                      >
-                <mat-icon>delete</mat-icon>
-              </button>
-              <button mat-icon-button color="bg-light" matTooltip="marquer comme lue"
-                      aria-label="Button that displays a tooltip when focused or hovered over"
-                      >
-                <mat-icon>check_circle</mat-icon>
-              </button>
-
-            </ng-container>
-          </a>
-
-
-        </div>
-      </div>
-    </div>
-
-  </nav>
   <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
     <mat-icon *ngIf="!sidenav.opened">
       menu
@@ -72,8 +30,9 @@
               <button mat-menu-item routerLink="class"  >Classe</button>
               <button mat-menu-item routerLink="emplois">Emplois du temps</button>
               <button mat-menu-item routerLink="matiere">Matière</button>
-              <button mat-menu-item routerLink="homework">HomeWork</button>
-              <button mat-menu-item routerLink="resultat">Resultat</button>
+              <button mat-menu-item routerLink="ListHomework">HomeWork</button>
+              <button mat-menu-item routerLink="ListNote">Resultat</button>
+              <button mat-menu-item routerLink="AjouterExamen">Examen</button>
           </mat-menu>
       </button>
       <mat-divider></mat-divider>

@@ -1,0 +1,41 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+th {
+  background-color: #f2f2f2;
+}
+/* Style pour les icônes */
+.icon {
+  margin-right: 5px;
+  cursor: pointer;
+}
+::ng-deep .mat-mdc-unelevated-button.mat-primary {
+  --mdc-filled-button-container-color:#18383D;
+
+}
+
+
+
+
+
+
+
+
+.title-and-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  margin-right: auto; /* Aligne le titre à gauche en poussant le bouton vers la droite */
+}
+#btnAdd{
+  background-color: #06BBCC;
+  color:white
+}

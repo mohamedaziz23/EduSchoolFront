@@ -79,9 +79,29 @@
           <img src="assets/img/absence.png">
           <span>  Gestion des Présence</span>
           <mat-menu #menu="matMenu">
-              <button mat-menu-item routerLink="statuscongesens">Gestion des absence</button>
+              <button mat-menu-item routerLink="Add-Absence">Gestion des absence</button>
               <button mat-menu-item routerLink="addconges">Gestion des congés</button>
+              <button mat-menu-item routerLink="">Gestion des abscences</button>
           </mat-menu>
+      </button>
+    <mat-divider></mat-divider>
+
+    <button mat-button class="menu-button" [matMenuTriggerFor]="menu2">
+      <mat-icon>no_meeting_room</mat-icon>
+      <span>Gestion Des Congés</span>
+      <mat-menu #menu2="matMenu">
+        <button mat-menu-item routerLink="Leave-list">
+          Liste des Congés
+        </button>
+        <button mat-menu-item routerLink="Leave-type-list">
+          Gestion des Types
+        </button>
+      </mat-menu>
+    </button>
+      <mat-divider></mat-divider>
+      <button mat-button class="menu-button" routerLink="calender">
+          <mat-icon>calendar_today</mat-icon>
+          <span>Emploi de Temps</span>
       </button>
       <mat-divider></mat-divider>
       <button mat-button class="menu-button" routerLink="transport">
@@ -99,9 +119,9 @@
           <span>Gestion Salle</span>
       </button>
       <mat-divider></mat-divider>
-      <button mat-button class="menu-button" >
+      <button mat-button class="menu-button" (click)="navigateToUserList()">
         <mat-icon>person_outline</mat-icon>
-          <span>Gestion Comptes</span>
+        <span>Gestion Comptes</span>
       </button>
       <mat-divider></mat-divider>
       <button mat-button class="menu-button" (click)="logout()">
@@ -116,5 +136,6 @@
           </main>
       </div>
   </mat-sidenav-content>
+
 </mat-sidenav-container>
 

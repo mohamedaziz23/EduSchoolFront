@@ -3,7 +3,7 @@
     <mat-form-field>
       <input matInput class="w-100" (keyup)="filterChange($event)" placeholder="Filter par date ou sujet" />
     </mat-form-field>
-    <div class="align">
+    <div class="align" *ngIf="isAdmin() || isEnseignant()">
       <button class="button" (click)="ajouterHomework()">
         <!-- SVG d'ajout -->
         <svg
@@ -53,8 +53,8 @@
           <ng-container matColumnDef="action">
             <th mat-header-cell mat-sort-header *matHeaderCellDef> Action</th>
             <td mat-cell *matCellDef="let element">
-                <i (click)="editHomework(element.id)" class='fas fa-edit'></i>
-                <i (click)="deleteHomework(element.id)" class='fas fa-trash-alt'></i>
+                <i *ngIf="isAdmin() || isEnseignant()" (click)="editHomework(element.id)" class='fas fa-edit'></i>
+                <i *ngIf="isAdmin() || isEnseignant()" (click)="deleteHomework(element.id)" class='fas fa-trash-alt'></i>
                 <i (click)="detailHomework(element.id)"  class='fas fa-eye'></i>
               
             </td>

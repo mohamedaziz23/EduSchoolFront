@@ -43,6 +43,8 @@ import { DashboardEnseignantComponent } from './EduSchoolBackOffice/Components/D
 import { DashboardEleveComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-eleve/dashboard-eleve.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { LoginComponent } from './login/login.component';
+import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { MatButtonModule } from '@angular/material/button';
     ModifierNoteComponent,
     AjouterExamenComponent,
     DashboardEnseignantComponent,
-    DashboardEleveComponent
+    DashboardEleveComponent,
+    LoginComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +74,7 @@ import { MatButtonModule } from '@angular/material/button';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
+    FormsModule,
     MatIconModule,
     MatSidenavModule,
     MatListModule,

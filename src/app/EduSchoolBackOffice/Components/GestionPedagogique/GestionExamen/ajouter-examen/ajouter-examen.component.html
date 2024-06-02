@@ -4,7 +4,7 @@
             <full-calendar [options]="calendarOptions" ></full-calendar>
 
         </div>
-        <div class="col-md-4" >
+        <div class="col-md-4" *ngIf="isAdmin() ">
             <div class="card">
                 <div class="card-body">
                     <form [formGroup]="examenForm" (ngSubmit)="ajouterExamen()">

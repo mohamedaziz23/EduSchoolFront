@@ -10,6 +10,7 @@ import { UpdateHomeworkComponent } from '../update-homework/update-homework.comp
 import { PopupComponent } from '../../../popup/popup.component';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-list-homework',
@@ -22,16 +23,31 @@ dataSource: any;
 displayedColumns: string[] = ["sujet", "dateRemis", "dateRecu", "Classe", "matiere", "action"];
 @ViewChild(MatPaginator) paginatior !: MatPaginator;
 @ViewChild(MatSort) sort !: MatSort;
+user: any;
   constructor(
     private homeworkService:HomeworkService, 
     private dialog: MatDialog,
-    private router :Router
+    private router :Router,
+    private authService: AuthService
   ){}
   ngOnInit(): void {
+    this.user = this.authService.getUser();
     this.loadHomework();
   
   }
+  isAdmin(): boolean {
+    return this.user && this.user.role === 'ADMINISTRATEUR';
+  }
 
+  isEleve(): boolean {
+    return this.user && this.user.role === 'ELEVE';
+  }
+  isEnseignant(): boolean {
+    return this.user && this.user.role === 'ENSEIGNANT';
+  }
+  isUser():boolean{
+    return this.user && (this.user.role === 'ADMINISTRATEUR'|| this.user.role === 'ELEVE' || this.user.role === 'ENSEIGNANT')
+  }
   loadHomework(){
     this.homeworkService.getHomework().subscribe(
        (data) => { 

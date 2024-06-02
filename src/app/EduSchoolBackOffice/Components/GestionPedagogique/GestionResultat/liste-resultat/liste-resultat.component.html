@@ -2,7 +2,7 @@
  
   <mat-card-header class="d-flex justify-content-between align-items-center">
    
-    <div class="margin-right-3">
+    <div *ngIf="isAdmin() || isEnseignant()" class="margin-right-3">
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>Matière</mat-label>
         <mat-select [(ngModel)]="note.matiereNote" (selectionChange)="onSubjectChange($event)">
@@ -11,7 +11,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div>
+    <div *ngIf="isAdmin() || isEnseignant()">
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>Classe</mat-label>
         <mat-select [(ngModel)]="note.classe" (selectionChange)="onClassChange($event)">
@@ -21,7 +21,7 @@
       </mat-form-field>
     </div>
     <div>
-      <button class="button" (click)="ajouterNote()">
+      <button *ngIf="isAdmin() || isEnseignant()" class="button" (click)="ajouterNote()">
         <!-- SVG d'ajout -->
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -60,9 +60,9 @@
             <ng-container matColumnDef="Action">
               <th mat-header-cell mat-sort-header *matHeaderCellDef> Action</th>
               <td mat-cell *matCellDef="let element">
-                  <i (click)="editNote(element.id)" class='fas fa-edit'></i>
+                  <i *ngIf="isAdmin() || isEnseignant()" (click)="editNote(element.id)" class='fas fa-edit'></i>
                   <i (click)="detailNote(element.id)"  class='fas fa-eye'></i>
-                  <i (click)="deleteNote(element.id)" class='fas fa-trash-alt'></i>
+                  <i  *ngIf="isAdmin() || isEnseignant()"(click)="deleteNote(element.id)" class='fas fa-trash-alt'></i>
 
               </td>
             </ng-container>

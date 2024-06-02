@@ -7,6 +7,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import Swal from 'sweetalert2';
 import { HomeworkService } from '../../services/homework.service';
 import frLocale from '@fullcalendar/core/locales/fr';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-ajouter-examen',
@@ -22,11 +23,12 @@ export class AjouterExamenComponent implements OnInit {
   matieres: any;
   classes: any;
   salles: any;
+  user:any;
   examenForm!: FormGroup;
   examen:any;
   examens :any;
   events :any = [];
-  constructor(private homeworkService:HomeworkService) { }
+  constructor(private homeworkService:HomeworkService,    private authService: AuthService  ) { }
 
   ngOnInit(): void {
     this.examenForm = new FormGroup({
@@ -144,6 +146,16 @@ export class AjouterExamenComponent implements OnInit {
   }
   toggleWeekends() {
     this.calendarOptions.weekends = !this.calendarOptions.weekends 
+  }
+  isAdmin(): boolean {
+    return this.user && this.user.role === 'ADMINISTRATEUR';
+  }
+
+  isEleve(): boolean {
+    return this.user && this.user.role === 'ELEVE';
+  }
+  isEnseignant(): boolean {
+    return this.user && this.user.role === 'ENSEIGNANT';
   }
   ajouterExamen(){
     if (this.examenForm.invalid) {

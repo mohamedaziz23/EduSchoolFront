@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../../popup/popup.component';
 import { NumberInput } from '@angular/cdk/coercion';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-liste-resultat',
@@ -32,15 +33,19 @@ export class ListeResultatComponent implements OnInit{
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort
   pagedData: any;
+  user: any;
   pageSize: number =5;
   constructor(
     private homeworkService:HomeworkService,
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog,
+    private authService: AuthService,
     private router :Router){
     }
 
   ngOnInit(): void {
+    this.user = this.authService.getUser();
+
     this.homeworkService.getAllMatiere().subscribe(
       (data) => {
         this.matieres = data;
@@ -65,6 +70,16 @@ export class ListeResultatComponent implements OnInit{
        
       }
     )
+  }
+  isAdmin(): boolean {
+    return this.user && this.user.role === 'ADMINISTRATEUR';
+  }
+
+  isEleve(): boolean {
+    return this.user && this.user.role === 'ELEVE';
+  }
+  isEnseignant(): boolean {
+    return this.user && this.user.role === 'ENSEIGNANT';
   }
   onClassChange(selectedClass: any): void {
     this.note.classe = selectedClass.value;

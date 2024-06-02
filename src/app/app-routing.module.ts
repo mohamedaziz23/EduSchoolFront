@@ -10,6 +10,9 @@ import { ListeResultatComponent } from './EduSchoolBackOffice/Components/Gestion
 import { ModifierNoteComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionResultat/modifier-note/modifier-note.component';
 import { AjouterExamenComponent } from './EduSchoolBackOffice/Components/GestionPedagogique/GestionExamen/ajouter-examen/ajouter-examen.component';
 import { DashboardEnseignantComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-enseignant/dashboard-enseignant.component';
+import { DashboardEleveComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-eleve/dashboard-eleve.component';
+import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/user-list/user-list.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: "", component: HomePageComponent }, 
@@ -25,7 +28,12 @@ const routes: Routes = [
       { path: 'ListNote', component: ListeResultatComponent },
       { path: 'ModifierNote/:id', component: ModifierNoteComponent }
     ]
-  }
+  },
+  {path:"DashboardEnseignant",component:DashboardEnseignantComponent},
+  {path:"DashboardStudent",component:DashboardEleveComponent},
+
+  {path:"Login",component:LoginComponent}
+
 ];
 
 @NgModule({

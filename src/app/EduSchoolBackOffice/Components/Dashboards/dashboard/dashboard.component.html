@@ -76,12 +76,10 @@
       </button>
       <mat-divider></mat-divider>
       <button mat-button class="menu-button" [matMenuTriggerFor]="menu">
-          <img src="assets/img/absence.png">
-          <span>  Gestion des Présence</span>
+        <mat-icon><img src="assets/img/absence.png"></mat-icon>
+          <span>Gestion Présence</span>
           <mat-menu #menu="matMenu">
-              <button mat-menu-item routerLink="Add-Absence">Gestion des absence</button>
-              <button mat-menu-item routerLink="addconges">Gestion des congés</button>
-              <button mat-menu-item routerLink="">Gestion des abscences</button>
+              <button mat-menu-item routerLink="Add-Absence">Gestion des absences</button>
           </mat-menu>
       </button>
     <mat-divider></mat-divider>
@@ -98,11 +96,7 @@
         </button>
       </mat-menu>
     </button>
-      <mat-divider></mat-divider>
-      <button mat-button class="menu-button" routerLink="calender">
-          <mat-icon>calendar_today</mat-icon>
-          <span>Emploi de Temps</span>
-      </button>
+
       <mat-divider></mat-divider>
       <button mat-button class="menu-button" routerLink="transport">
         <mat-icon> directions_bus</mat-icon>

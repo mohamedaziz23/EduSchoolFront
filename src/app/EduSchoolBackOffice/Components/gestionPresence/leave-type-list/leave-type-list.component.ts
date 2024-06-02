@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LeaveRequestService} from "../../../Services/leave-request.service";
+import {LeaveRequestService} from "../../services/presenceService/leave-request.service";
 import {Router} from "@angular/router";
 import {LeaveTypeComponent} from "../leave-type/leave-type.component";
 import {MatDialog} from "@angular/material/dialog";
@@ -67,12 +67,14 @@ export class LeaveTypeListComponent implements OnInit{
       {
         name: 'TYPE',
         dataKey: 'type',
+        dataKeySimple:"",
         position: 'left',
         isSortable: true
       },
       {
         name: 'DESCRIPTION',
         dataKey: 'description',
+        dataKeySimple:"",
         position: 'left',
         isSortable: false
       },

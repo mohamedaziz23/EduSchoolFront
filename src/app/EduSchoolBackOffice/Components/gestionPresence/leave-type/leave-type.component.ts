@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {LeaveRequestService} from "../../../Services/leave-request.service";
+import {LeaveRequestService} from "../../services/presenceService/leave-request.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 

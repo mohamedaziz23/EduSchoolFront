@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../EduSchoolBackOffice/Components/services/compteService/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -33,11 +33,14 @@ export class LoginComponent implements OnInit {
           console.log('Login successful:', response);
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role); // Store the role
-          if (response.role === 'TEACHER') {
+          localStorage.setItem('user', response.identifiant); // Store the role
+          console.log(response);
+
+          if (response.role === 'ENSEIGNANT') {
             this.router.navigate(['/DashboardEnseignant']);
-          } else if (response.role === 'STUDENT') {
+          } else if (response.role === 'ELEVE') {
             this.router.navigate(['/DashboardStudent']);
-          }else if (response.role === 'ADMIN'){
+          }else if (response.role === 'ADMINISTRATEUR'){
             this.router.navigate(['/Dashboard'])
           } else {
             this.router.navigate(['/Dashboard']); // Default dashboard

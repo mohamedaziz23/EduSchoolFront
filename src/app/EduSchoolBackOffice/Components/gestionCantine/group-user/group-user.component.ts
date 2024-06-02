@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TableColumn } from 'src/app/EduSchoolBackOffice/Tools/TableColumn';
-import { CantineService } from '../../services/cantine/cantine.service';
+import { CantineService } from '../../services/cantineService/cantine.service';
 
 @Component({
   selector: 'app-group-user',
@@ -34,9 +34,7 @@ export class GroupUserComponent {
       (data) => {
         console.log(data);
         this.groupUserList = data;
-      });
-
-
+      })
    }
 
    /* validateError(name: string, typeErr: string): boolean {
@@ -48,7 +46,7 @@ export class GroupUserComponent {
     this.groupUserTableColumns = [
       {
         name: 'Identifiant',
-        dataKey: 'id',
+        dataKey: 'identifiant',
         dataKeySimple: '',
         position: 'left',
         isSortable: false
@@ -57,7 +55,6 @@ export class GroupUserComponent {
         name: 'Nom',
         dataKey: 'nom',
         dataKeySimple: '',
-
         position: 'left',
         isSortable: false
       },

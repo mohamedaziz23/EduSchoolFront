@@ -1,7 +1,12 @@
 <div class="container" style="margin-top:50px ;">
   <div class="row">
       <div class="col-md-8">
-        <h1>Listes Plats de la semaine de {{menuFormBuilder.get('date')?.value}}  </h1>
+        <div class="title-and-button">
+          <div  routerLink="../cantine">
+            <mat-icon>arrow_back_ios</mat-icon>
+          </div>
+        <h1 class="title">Listes Plats de la semaine de <span class="fw-bold">{{dateNow}}</span>  </h1>
+        </div>
         <div class="table-responsive">
           <app-table [tableData]="menuList"
                     [tableColumns]="menusTableColumns"
@@ -10,10 +15,12 @@
                     [isDetailIcon]="false"
                     [paginationSizes]="[2,4,6]"
                     [defaultPageSize]="4"
+                    [rowActionDetailIcon]="'detail'"
                     [rowActionEditIcon]="'edit'"
                     [rowActionDeleteIcon]="'delete'"
                     (rowEditAction)="editerMenu($event)"
-                    (rowDeleteAction)="deleteMenu($event)">
+                    (rowDeleteAction)="deleteMenu($event)"
+                    (rowDetailAction)="detailMenu($event)">
       </app-table>
        </div>
 
@@ -22,20 +29,11 @@
           <form  [formGroup]="menuFormBuilder">
               <h1>Ajouter Repas </h1>
               <div class="mb-3">
-                <label for="validationCustom04" class="form-label" >Date de la semaine <span style="color: red;">*</span></label>
-                <input type="date" class="form-control" formControlName="date" >
-                <div *ngIf="validateError('date','required') && submitted"  >
-                  <div  class="alert alert-danger">Date est Obligatoire </div>
-                </div>
-
-            </div>
-              <div class="mb-3">
                 <label for="validationCustom04" class="form-label" >Plat <span style="color: red;">*</span></label>
-                <input type="text" class="form-control" formControlName="plat" >
-                <div *ngIf="validateError('plat','required') && submitted"  >
+                <input type="text" class="form-control" formControlName="nomPlat" >
+                <div *ngIf="validateError('nomPlat','required') && submitted"  >
                   <div  class="alert alert-danger">Nom du plat est Obligatoire </div>
                 </div>
-
               </div>
               <div class="mb-3">
                 <label for="validationCustom04" class="form-label" >Jour de la semaine <span style="color: red;">*</span></label>

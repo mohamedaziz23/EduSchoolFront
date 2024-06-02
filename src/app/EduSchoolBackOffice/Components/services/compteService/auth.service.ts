@@ -12,13 +12,14 @@ export interface AuthenticationResponse {
   email: string;
   nom:string;
   role: string;
+  identifiant: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8082/eduSchool/v1/auth'; 
+  private baseUrl = 'http://localhost:8082/eduSchool/v1/auth';
 
   constructor(private http: HttpClient) {}
 
@@ -40,5 +41,5 @@ export class AuthService {
 
   }
 
-  
+
 }

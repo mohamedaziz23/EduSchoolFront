@@ -44,4 +44,14 @@ export class CantineService {
   public getUserCantine() {
     return this.httpClient.get<{ repass: any }>(this.SERVER_URL + '/groupCantine/getAllUser');
   }
+
+  public addMenu(idRepas: any,plat:any) {
+    return this.httpClient.put(`${this.SERVER_URL + '/add_menus'}/${idRepas}`,plat);
+  }
+  public getAllMenu(idRepas: any) {
+    return this.httpClient.get(`${this.SERVER_URL + '/getMenus'}/${idRepas}`);
+  }
+  public removeMenu(idRepas: any,idMenu: any) {
+    return this.httpClient.put(`${this.SERVER_URL + '/remove_menus'}/${idRepas}/${idMenu}`,null);
+  }
 }

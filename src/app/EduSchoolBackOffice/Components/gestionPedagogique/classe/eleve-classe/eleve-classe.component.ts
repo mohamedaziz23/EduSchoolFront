@@ -90,8 +90,6 @@ export class EleveClasseComponent {
   async affecterElev() {
     this.submitted = true;
     try {
-
-
       if (this.affecterObj != null) {
         this.classeService.affecterEleve(this.classe.id,this.clElevForm.get('idElev')?.value).subscribe(
           (response: any) => {

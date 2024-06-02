@@ -7,12 +7,7 @@ import {LeaveListComponent} from "./EduSchoolBackOffice/Components/gestionPresen
 import {MyRequestLeaveComponent} from "./EduSchoolBackOffice/Components/gestionPresence/my-request-leave/my-request-leave.component";
 import {LeaveTypeListComponent} from "./EduSchoolBackOffice/Components/gestionPresence/leave-type-list/leave-type-list.component";
 import {DashboardComponent} from "./EduSchoolBackOffice/Components/Dashboards/dashboard/dashboard.component";
-import {
-  DashboardEnseignantComponent
-} from "./EduSchoolBackOffice/Components/Dashboards/dashboard-enseignant/dashboard-enseignant.component";
-import {
-  DashboardEleveComponent
-} from "./EduSchoolBackOffice/Components/Dashboards/dashboard-eleve/dashboard-eleve.component";
+import { DashboardEleveComponent} from "./EduSchoolBackOffice/Components/Dashboards/dashboard-eleve/dashboard-eleve.component";
 
 
 import { ListClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/list-classe/list-classe.component';
@@ -34,6 +29,8 @@ import { EleveClasseComponent } from './EduSchoolBackOffice/Components/gestionPe
 import {AddAbsenceComponent} from "./EduSchoolBackOffice/Components/gestionPresence/add-absence/add-absence.component";
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/user-list/user-list.component';
+import { GereRdvComponent } from './EduSchoolBackOffice/Components/RDV/gere-rdv/gere-rdv.component';
+import { DashboardEnseignantComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-enseignant/dashboard-enseignant.component';
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -88,9 +85,9 @@ const routes: Routes = [
     {path:"add-salle",component:AddSalleComponent},
     {path:"update-salle",component:UpdateSalleComponent},
 
+    // gestion RDV
 
-
-
+    { path: 'rdv', component: GereRdvComponent }
 
   ]},
   {path:"DashboardEnseignant",component:DashboardEnseignantComponent},
@@ -98,7 +95,6 @@ const routes: Routes = [
 
   {path:"Login",component:LoginComponent},
   {path:"listuser",component:UserListComponent},
-
 
 
 ];

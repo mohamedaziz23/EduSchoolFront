@@ -62,6 +62,10 @@ import { LeaveDetailsComponent } from './EduSchoolBackOffice/Components/gestionP
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/user-list/user-list.component';
 import {MatCardModule} from "@angular/material/card";
+import { GereRdvComponent } from './EduSchoolBackOffice/Components/RDV/gere-rdv/gere-rdv.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MatOptionModule, DateAdapter } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -98,7 +102,8 @@ import {MatCardModule} from "@angular/material/card";
     LeaveDetailsComponent,
     ListClasseComponent,
     LoginComponent,
-    UserListComponent
+    UserListComponent,
+    GereRdvComponent
   ],
   imports: [
     BrowserModule,
@@ -129,7 +134,23 @@ import {MatCardModule} from "@angular/material/card";
     MatButtonModule,
     MatSelectModule,
     MatRadioModule,
-    MatCardModule
+    MatCardModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatDatepickerModule,
+    HttpClientModule,
+    MatNativeDateModule,
+    MatInputModule ,
+    MatPaginatorModule,
+    MatTableModule,
+    MatDialogModule,
+    MatCardModule,
+    MatOptionModule,
+    FullCalendarModule,
+    CommonModule,
+    MatRadioModule
+
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

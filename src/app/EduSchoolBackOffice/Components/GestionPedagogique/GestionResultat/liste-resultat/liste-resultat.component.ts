@@ -21,7 +21,6 @@ export class ListeResultatComponent implements OnInit{
   eleves: any;
   classes: any;
   matieres : any;
-
   classe:any;
   tousLesNotes: any; 
   totalItems : any;
@@ -45,7 +44,14 @@ export class ListeResultatComponent implements OnInit{
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
-
+    if (this.user){
+      if(this.user.role=== 'ELEVE'){
+        this.loadNotesByEleves()
+      }else{
+        this.loadNotes()
+      }
+    }
+   
     this.homeworkService.getAllMatiere().subscribe(
       (data) => {
         this.matieres = data;
@@ -59,17 +65,38 @@ export class ListeResultatComponent implements OnInit{
     );
     this.loadNotes();
   }
-  loadNotes(){
-    this.homeworkService.getAllNote().subscribe(
+
+  loadNotesByEleves(){
+    this.homeworkService.getAllNoteByEleve(this.user.id).subscribe(
       (data) => {
         this.dataSource=data
         this.totalItems = this.dataSource.length;
         this.pageChanged({
-          pageIndex: this.currentPage, pageSize: this.pageSize, length: this.totalItems
+          pageIndex: this.currentPage, 
+          pageSize: this.pageSize, 
+          length: this.totalItems
         });
        
       }
     )
+
+  }
+
+
+  loadNotes(){
+    if(this.user.role != "ELEVE"){
+      this.homeworkService.getAllNote().subscribe(
+        (data) => {
+          this.dataSource=data  
+          this.totalItems = this.dataSource.length;
+          this.pageChanged({
+            pageIndex: this.currentPage, pageSize: this.pageSize, length: this.totalItems
+          });
+         
+        }
+      )
+    }
+    
   }
   isAdmin(): boolean {
     return this.user && this.user.role === 'ADMINISTRATEUR';
@@ -157,7 +184,6 @@ export class ListeResultatComponent implements OnInit{
   
   
   updateNotes(id: any) {
-    console.log(this.note)
     this.homeworkService.updateNOte(id, this.note).subscribe()
     this.loadNotes();
   }

@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
           console.log('Login successful:', response);
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role); // Store the role
+          localStorage.setItem('id',response.id)
           if (response.role === 'TEACHER') {
             this.router.navigate(['/DashboardEnseignant']);
           } else if (response.role === 'STUDENT') {

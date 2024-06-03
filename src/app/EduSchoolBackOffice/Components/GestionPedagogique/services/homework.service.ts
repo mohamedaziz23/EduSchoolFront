@@ -15,6 +15,7 @@ export class HomeworkService {
   private baseURL_Note: string = "http://localhost:8082/eduSchool/Note";
   private baseURL_Salle: string = "http://localhost:8082/eduSchool/salle";
   private baseURL_Examen: string = "http://localhost:8082/eduSchool/Examen";
+  private baseUrl_User: string = "http://localhost:8082/eduSchool/user";
   constructor( private httpClient:HttpClient) { }
              /* ****************Homework services******************* */
   getHomework(): Observable<Homework[]>{
@@ -57,6 +58,10 @@ export class HomeworkService {
   getAllNote():Observable<any[]>{
     return this.httpClient.get<any[]>(`${this.baseURL_Note}/recupere_tous_les_Notes`)
   }
+
+  getAllNoteByEleve(id:any):Observable<any[]>{
+    return this.httpClient.get<any[]>(`${this.baseURL_Note}/recupere_tous_les_notes_par_eleves/${id}`)
+  }
   updateNOte(id : number, note:any):Observable<object>{
     
     return this.httpClient.put (`${this.baseURL_Note}/modifie_Note/${id}`,note);
@@ -87,5 +92,8 @@ deleteExamen(id : number):Observable<object>{
 }
 getAllExamenParClasse(id:any):Observable<any[]>{
   return this.httpClient.get<any[]>(`${this.baseURL_Examen}/recupere_Examen_par_classe/${id}`)
+}
+getUserById(id:any):Observable<any>{
+  return this.httpClient.get<any>(`${this.baseUrl_User}/getById/${id}`)
 }
 }

@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {Sort} from "@angular/material/sort";
 import {TableColumn} from "../../../Tools/TableColumn";
 import {StatusEditDialogComponent} from "../status-edit-dialog/status-edit-dialog.component";
+import {JwtServiceService} from "../../../Services/jwt-service.service";
 
 @Component({
   selector: 'app-leave-list',
@@ -16,12 +17,15 @@ export class LeaveListComponent implements OnInit{
   leaveRequestList:any=[];
   leaveType:any=[];
   leaveRequestTableColumns:TableColumn[] = [];
+
   constructor(private leaveRequest:LeaveRequestService,
               private leaveService:LeaveRequestService,
               private router:Router,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              ) {
   }
   ngOnInit(): void {
+
     this.initializeColumns()
     this.getAllLeaveType()
    this.getAllLeave();
@@ -69,7 +73,7 @@ export class LeaveListComponent implements OnInit{
     this.leaveRequestTableColumns = [
       {
         name: 'EMPLOYEE',
-        dataKey: 'employee',
+        dataKey: 'nom',
         position: 'left',
         isSortable: true
       },

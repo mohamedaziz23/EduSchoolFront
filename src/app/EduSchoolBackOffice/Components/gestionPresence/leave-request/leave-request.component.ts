@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {LeaveRequestService} from "../../../Services/leave-request.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {JwtServiceService} from "../../../Services/jwt-service.service";
+import Swal from "sweetalert2";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-leave-request',
@@ -12,9 +15,13 @@ export class LeaveRequestComponent implements OnInit {
   leaveRequestForm!: FormGroup;
   leaveRequestToPost: any;
   today: any;
+  userInfo:any={};
+  token:any;
 
   constructor(private leaveRequest: LeaveRequestService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private jwtService:JwtServiceService,
+              private router:Router) {
 
     const now = new Date();
     this.today = this.formatDateToDatetimeLocal(now);
@@ -22,6 +29,12 @@ export class LeaveRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userInfo = {
+      id:localStorage.getItem("id"),
+      prenom:localStorage.getItem("prenom"),
+      nom:localStorage.getItem("nom")
+    }
+    console.log(this.userInfo)
     this.leaveRequest.getLeaveTypeList().subscribe((res: any) => {
       this.leaveTypeList = res;
 
@@ -45,7 +58,7 @@ console.log(selectedLeaveType)
     }
 
     this.leaveRequestToPost = {
-      employee: null,
+      employee: this.userInfo,
       startDate: leaveRequest.startDate,
       endDate: leaveRequest.endDate,
       reason: leaveRequest.reason,
@@ -59,7 +72,14 @@ console.log(selectedLeaveType)
 
     this.leaveRequest.addLeaveRequest(this.leaveRequestToPost).subscribe(
       (res: any) => {
-        console.log(res);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.router.navigateByUrl("DashboardEnseignant/My-request")
       },
       (error: any) => {
         console.error('Error submitting leave request', error);

@@ -74,7 +74,10 @@ const routes: Routes = [
 
 
   ]},
-  {path:"DashboardEnseignant",component:DashboardEnseignantComponent},
+  {path:"DashboardEnseignant",component:DashboardEnseignantComponent,children:[
+      {path:"Request-leave",component: LeaveRequestComponent},
+      {path:"My-request",component:MyRequestLeaveComponent}
+    ]},
   {path:"DashboardStudent",component:DashboardEleveComponent},
 
   {path:"Login",component:LoginComponent},

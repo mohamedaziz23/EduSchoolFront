@@ -29,13 +29,16 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       const { email, password } = this.form.value;
       this.authService.login({ email, password }).subscribe(
-        response => {
+        (response:any) => {
           console.log('Login successful:', response);
           localStorage.setItem('token', response.token);
-          localStorage.setItem('role', response.role); // Store the role
-          if (response.role === 'TEACHER') {
+          localStorage.setItem('role', response.role);
+          localStorage.setItem('nom', response.nom);
+          localStorage.setItem('prenom', response.prenom);
+          localStorage.setItem('id', response.id);// Store the role
+          if (response.role === 'ENSEIGNANT') {
             this.router.navigate(['/DashboardEnseignant']);
-          } else if (response.role === 'STUDENT') {
+          } else if (response.role === 'ELEVE') {
             this.router.navigate(['/DashboardStudent']);
           }else if (response.role === 'ADMIN'){
             this.router.navigate(['/Dashboard'])

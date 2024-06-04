@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {LeaveRequestService} from "../../../Services/leave-request.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {JwtServiceService} from "../../../Services/jwt-service.service";
 import Swal from "sweetalert2";
 import {Router} from "@angular/router";
+import {NotificationService} from "../../../Services/notification.service";
 
 @Component({
   selector: 'app-leave-request',
@@ -20,8 +20,8 @@ export class LeaveRequestComponent implements OnInit {
 
   constructor(private leaveRequest: LeaveRequestService,
               private fb: FormBuilder,
-              private jwtService:JwtServiceService,
-              private router:Router) {
+              private router:Router,
+              private notificationService:NotificationService) {
 
     const now = new Date();
     this.today = this.formatDateToDatetimeLocal(now);
@@ -79,6 +79,7 @@ console.log(selectedLeaveType)
           showConfirmButton: false,
           timer: 1500
         });
+        this.notificationService.notifyLeaveRequest(this.leaveRequestToPost);
         this.router.navigateByUrl("DashboardEnseignant/My-request")
       },
       (error: any) => {

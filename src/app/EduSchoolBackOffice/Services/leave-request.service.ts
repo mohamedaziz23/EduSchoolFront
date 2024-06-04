@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {NotificationService} from "./notification.service";
+import {tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LeaveRequestService {
   SERVER_URL: string = "http://localhost:8082/eduSchool"
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private notificationService:NotificationService) { }
 
 
   public  addLeaveType(leaveTpe:any){
@@ -34,6 +36,7 @@ export class LeaveRequestService {
 
   public  addLeaveRequest(leaveRq:any){
     return this.http.post<any>(`${this.SERVER_URL + '/LeaveRequest'}`, leaveRq)
+
   }
 
   public  updateLeaveRequestStatus(id:any,newStatus:any){

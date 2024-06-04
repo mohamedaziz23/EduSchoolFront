@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+import {NotificationService} from "../../../Services/notification.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-dashboard',
@@ -9,28 +11,49 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit{
   isSidebarOpen = true;
-
+  notificationRequests:any
   badgeCount:number;
   role: string | null = null;
-  ngOnInit(): void {
-  }
 
   constructor(
     private router:Router,
-    ) {
-        this.badgeCount=0;
+    private notificationService:NotificationService
+  ) {
+    this.badgeCount=0;
 
 
-     }
+  }
 
-     navigateToUserList() {
-      this.router.navigate(['/listuser']);
-    }
+  navigateToUserList() {
+    this.router.navigate(['/listuser']);
+  }
+  ngOnInit(): void {
+    this.notificationService.leaveRequest$.subscribe((res:any)=>{
+      console.log(res)
+      this.notificationRequests = res;
+      console.log(this.notificationRequests)
+      if(this.notificationRequests){
+        this.showNotification()
+      }
+    })
+  }
+
+
 
 
   logout() {
     localStorage.removeItem("connectedUser");
     this.router.navigate(['']);
+  }
+  showNotification() {
+    Swal.fire({
+      position: "top-end",
+      icon: "info",
+      title: "New leave request created",
+      text: `Reason: ${this.notificationRequests.reason}`,
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 
 

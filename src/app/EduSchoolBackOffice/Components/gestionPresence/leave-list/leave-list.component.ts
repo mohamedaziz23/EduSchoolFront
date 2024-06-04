@@ -6,7 +6,6 @@ import {Router} from "@angular/router";
 import {Sort} from "@angular/material/sort";
 import {TableColumn} from "../../../Tools/TableColumn";
 import {StatusEditDialogComponent} from "../status-edit-dialog/status-edit-dialog.component";
-import {JwtServiceService} from "../../../Services/jwt-service.service";
 
 @Component({
   selector: 'app-leave-list',
@@ -37,7 +36,9 @@ export class LeaveListComponent implements OnInit{
         ...item,
         startDate: new Date(item.startDate).toLocaleDateString('fr-FR'),
         endDate: new Date(item.endDate).toLocaleDateString('fr-FR'),
-        leaveTypeName: item.leaveType.type
+        leaveTypeName: item.leaveType.type,
+        employeeName : item.employee.nom,
+        employeeFirstName:item.employee.prenom
       }));
 
       console.log(this.leaveRequestList)
@@ -72,8 +73,14 @@ export class LeaveListComponent implements OnInit{
   initializeColumns(): void {
     this.leaveRequestTableColumns = [
       {
-        name: 'EMPLOYEE',
-        dataKey: 'nom',
+        name: 'LAST NAME',
+        dataKey: 'employeeName',
+        position: 'left',
+        isSortable: true
+      },
+      {
+        name: 'FIRST NAME',
+        dataKey: 'employeeFirstName',
         position: 'left',
         isSortable: true
       },

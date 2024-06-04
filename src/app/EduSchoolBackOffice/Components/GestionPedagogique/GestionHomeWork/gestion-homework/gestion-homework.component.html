@@ -9,7 +9,7 @@
         <div class="form-row mb-3">
             <mat-form-field appearance="fill" class="w-100">
                 <mat-label>Sujet</mat-label>
-                <input matInput type="text" formControlName="sujet" placeholder="Sujet"
+                <input matInput type="text"  formControlName="sujet" placeholder="Sujet"
                        [ngClass]="{'is-invalid': homeworkForm.get('sujet')?.touched && !homeworkForm.get('sujet')?.valid}">
                 <mat-error *ngIf="homeworkForm.get('sujet')?.errors?.['required']">Nom du sujet est obligatoire</mat-error>
             </mat-form-field>

@@ -4,6 +4,8 @@ import { Homework } from '../../entities/homework.entitie';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { HomeworkService } from '../../services/homework.service';
+import { AuthService } from 'src/app/auth.service';
+import { switchMap, catchError, of, map } from 'rxjs';
 
 @Component({
   selector: 'app-gestion-homework',
@@ -15,11 +17,14 @@ export class GestionHomeworkComponent implements OnInit {
   homework : Homework = new Homework();
   homeworkForm !:FormGroup;
   submitted = false;
-  classes: any;
-  matieres : any;
+  classes: any=[];
+  matieres : any=[];
+  user: any;
+  enseignantList: any;
   constructor(
     private formbuilder: FormBuilder, 
     private homeworkService:HomeworkService,
+    private authService: AuthService,
     private router :Router){
     }
   ngOnInit(): void {
@@ -29,22 +34,49 @@ export class GestionHomeworkComponent implements OnInit {
       dateRecu: new FormControl('',Validators.required),
       classeHomework: new FormControl('',Validators.required),
       description: new FormControl(''),
-      matiereHomework: new FormControl('',Validators.required)
+      matiereHomework: new FormControl('',Validators.required),
+      idEnseignant:new FormControl('')
     });
-    this.homeworkService.getAllMatiere().subscribe(
-      (data) => {
-        this.matieres = data;
-      }
-    )
-    this.homeworkService.getAllClasse().subscribe(
-      (data) => {
-          this.classes = data;        
-      }
-    );
+    
+    this.user = this.authService.getUser();
+    if (this.user.role === "ENSEIGNANT"){
+      this.loadEnseignantAndMatieres();
+       
+    }else{
+      this.homeworkService.getAllMatiere().subscribe(
+        (data) => {
+          this.matieres = data;
+        }
+      )
+      this.homeworkService.getAllClasse().subscribe(
+        (data) => {
+            this.classes = data;        
+        }
+      );
+    }
+  
   }
+  loadEnseignantAndMatieres() {
+    this.homeworkService.getAllEnseignant().subscribe((data : any) => {
+      if (Array.isArray(data)) {
+        data.forEach((enseignant: any) => {
+          if (parseInt(enseignant.idEnseignant) === parseInt(this.user.id) ) {
+            this.homeworkService.getMatiereById(enseignant.idMatiere).subscribe(data=>
+             { if (data) {
+                this.matieres.push(data);
 
+              }}
+            )
+            this.homeworkService.getClasseById(enseignant.idClasse).subscribe(data=>{console.log(data);this.classes.push(data)})
+          }
+        });
+      }
+  })
+  }
+  
   AddHomework() {
   this.submitted = true;
+  this.homeworkForm.get('idEnseignant')?.setValue(this.user.id)
   if (this.homeworkForm.invalid) {
     Swal.fire({
       title: 'Error!',

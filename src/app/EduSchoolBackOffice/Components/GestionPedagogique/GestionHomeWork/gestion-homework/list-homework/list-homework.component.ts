@@ -18,7 +18,7 @@ import { AuthService } from 'src/app/auth.service';
   styleUrls: ['./list-homework.component.css']
 })
 export class ListHomeworkComponent implements OnInit{
-  listHomework: Homework[] =[];
+  listHomework: any =[];
 dataSource: any;
 displayedColumns: string[] = ["sujet", "dateRemis", "dateRecu", "Classe", "matiere", "action"];
 @ViewChild(MatPaginator) paginatior !: MatPaginator;
@@ -45,19 +45,44 @@ user: any;
   isEnseignant(): boolean {
     return this.user && this.user.role === 'ENSEIGNANT';
   }
-  isUser():boolean{
-    return this.user && (this.user.role === 'ADMINISTRATEUR'|| this.user.role === 'ELEVE' || this.user.role === 'ENSEIGNANT')
-  }
   loadHomework(){
     this.homeworkService.getHomework().subscribe(
        (data) => { 
-        this.listHomework = data
-        console.log(this.listHomework)
+        if (this.user.role === 'ENSEIGNANT'){
+          if (Array.isArray(data)) {
+            data.forEach((homework: any) => {
+              if (parseInt(homework.idEnseignant)=== parseInt(this.user.id)){
+                this.listHomework.push(homework) ;
+              }
+            }
+            )}
+        }else if(this.user.role === 'ELEVE') {
+          this.homeworkService.getUserById(this.user.id).subscribe(eleve => 
+            {
+              if (Array.isArray(data)) {
+                data.forEach((homework: any) => {
+                  if (homework.classeHomework.id=== eleve.classe.id){
+                    this.listHomework.push(homework) ;
+                    this.dataSource = new MatTableDataSource<Homework>(this.listHomework.reverse());
+                    this.dataSource.paginator = this.paginatior;
+                    this.dataSource.sort = this.sort ;
+                  }
+                }
+                )}
+             
+            }
+          )
+        }
+        else{
+          this.listHomework=data
+        }
         this.dataSource = new MatTableDataSource<Homework>(this.listHomework.reverse());
         this.dataSource.paginator = this.paginatior;
         this.dataSource.sort = this.sort ;
+        
       }
     )
+    
   }
   deleteHomework(code: any) {
     Swal.fire({

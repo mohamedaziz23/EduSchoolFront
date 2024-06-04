@@ -32,16 +32,22 @@ export class HomeworkService {
     
     return this.httpClient.get<Homework>(`${this.baseURl}/recupere_homework_par_id/${id}`);
   }
+  getByIdClasse(id:number):Observable<any>{
+    return this.httpClient.get<any>(`${this.baseURl}/getByClasseId/${id}`)
+  }
   updateHomework(id : number, homework:Homework):Observable<object>{
     
     return this.httpClient.put (`${this.baseURl}/modifie_homework/${id}`,homework);
+  }
+  getAllEnseignant():Observable<object>{
+    return this.httpClient.get<any>(`${this.baseURl}/getEnseignant`)
   }
         /* ****************************Matiere Services************************** */
   getAllMatiere():Observable<Matiere[]>{
     return this.httpClient.get<Matiere[]>(`${this.baseURl_Matiere}/getAll`);
   }
   getMatiereById(id : number):Observable<Matiere>{
-    return this.httpClient.get<Matiere>(`${this.baseURl}/getById/${id}`)
+    return this.httpClient.get<any>(`${this.baseURl_Matiere}/getById/${id}`)
   }
        /* ********************* Classe Services****************************** */
   getAllClasse():Observable<any[]>{
@@ -96,4 +102,8 @@ getAllExamenParClasse(id:any):Observable<any[]>{
 getUserById(id:any):Observable<any>{
   return this.httpClient.get<any>(`${this.baseUrl_User}/getById/${id}`)
 }
+getClasseById(id:any):Observable<any>{
+  return this.httpClient.get<any>(`${this.baseURL_Classe}/getById/${id}`)
+}
+
 }

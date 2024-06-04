@@ -8,6 +8,9 @@ import { DashboardEleveComponent } from './EduSchoolBackOffice/Components/Dashbo
 import { ListClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/list-classe/list-classe.component';
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/user-list/user-list.component';
+import { AuthGuard } from './auth-guard.service';
+import { RegisterComponent } from './register/register.component';
+import { RegisteradminComponent } from './registeradmin/registeradmin.component';
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -21,13 +24,14 @@ const routes: Routes = [
 
   {path:"Login",component:LoginComponent},
   {path:"listuser",component:UserListComponent},
-
+  {path:"register",component:RegisterComponent},
+  {path:"registeradmin",component:RegisteradminComponent},
 
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{initialNavigation:'enabledBlocking'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './dashboard-enseignant.component.html',
   styleUrls: ['./dashboard-enseignant.component.css']
 })
-export class DashboardEnseignantComponent {
+export class DashboardEnseignantComponent implements OnInit{
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   connectedUser:any;
@@ -17,6 +17,7 @@ export class DashboardEnseignantComponent {
   badgeCount:number;
   mynotification:any=[];
   connected=false;
+  firstname: string | null = null;
 
   constructor(
     private router:Router,
@@ -24,6 +25,12 @@ export class DashboardEnseignantComponent {
 
       this.badgeCount=0;
      }
+  ngOnInit(): void {
+    this.firstname = localStorage.getItem('firstname');
+    console.log(`Nom: ${this.firstname}`); // Ajoutez ceci pour déboguer
+
+
+  }
 
   ngAfterViewInit() {
     

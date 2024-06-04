@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient , HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 
 export interface AuthenticationRequest {
   email: string;
@@ -10,7 +10,7 @@ export interface AuthenticationRequest {
 export interface AuthenticationResponse {
   token: string;
   email: string;
-  nom:string;
+  firstname:string;
   role: string;
 }
 
@@ -23,7 +23,26 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(authenticationRequest: AuthenticationRequest): Observable<AuthenticationResponse> {
-    return this.http.post<AuthenticationResponse>(`${this.baseUrl}/authenticate`, authenticationRequest);
+    return this.http.post<AuthenticationResponse>(`${this.baseUrl}/authenticate`, authenticationRequest).pipe(
+      catchError(error => {
+        if (error.status === 403 && error.error.message === 'Account is locked. Please try again later.') {
+          return throwError({ status: 403, error: { message: 'Account is locked. Please try again later.' } });
+        } else {
+          return throwError(error);
+        }
+      })
+    );
+}
+
+private handleError(error: HttpErrorResponse) {
+  if (error.status === 403 && error.error.message === 'User not approved by admin') {
+    return throwError('L\'administrateur n\'a pas encore approuvé votre compte.');
+  }
+  return throwError('Une erreur inconnue est survenue.');
+}
+  
+  register(registerRequest: AuthenticationRequest): Observable<AuthenticationResponse> {
+    return this.http.post<AuthenticationResponse>(`${this.baseUrl}/register`, registerRequest);
   }
 
    // Method to get the role from localStorage
@@ -39,6 +58,8 @@ export class AuthService {
     localStorage.removeItem('nom');
 
   }
+
+
 
   
 }

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
+
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -23,6 +23,16 @@ import { ListClasseComponent } from './EduSchoolBackOffice/Components/gestionPed
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/user-list/user-list.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RegisterComponent } from './register/register.component';
+import { RegisteradminComponent } from './registeradmin/registeradmin.component';
+import { MatOptionModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -33,7 +43,9 @@ import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/u
     DashboardEleveComponent,
     ListClasseComponent,
     LoginComponent,
-    UserListComponent
+    UserListComponent,
+    RegisterComponent,
+    RegisteradminComponent
   ],
   imports: [
     BrowserModule,
@@ -45,11 +57,19 @@ import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/u
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    MatMenuModule,
     MatButtonModule,
+    MatMenuModule,
+    MatPaginatorModule,
     MatInputModule,
     MatCardModule,
-    ReactiveFormsModule
+    MatSnackBarModule,
+    ReactiveFormsModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatTableModule,
+    MatFormFieldModule,
+    CommonModule
+    
     
   ],
   providers: [],

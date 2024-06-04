@@ -8,6 +8,8 @@ export interface User {
   nom: string;
   prenom: string;
   role: string;
+  isApproved: boolean;
+
 }
 
 @Injectable({
@@ -26,6 +28,18 @@ export class UserService {
 
   getUserLastName(): string | null {
     return localStorage.getItem('prenom');
+  }
+
+  deleteUserById(idUser: any): Observable<any> {  // Method name changed
+    return this.http.delete<any>(`${this.baseUrl}/delete/${idUser}`);
+  }
+
+  approveUser(idUser: number): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/approve/${idUser}`, {});
+  }
+
+  rejectUser(idUser: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/reject/${idUser}`);
   }
 
 }

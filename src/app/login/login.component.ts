@@ -44,9 +44,11 @@ export class LoginComponent implements OnInit {
           console.log(response);
 
           if (response.role === 'ENSEIGNANT') {
-            this.router.navigate(['/DashboardEnseignant']);
+            this.router.navigate(['/Dashboard-enseignant']);
           } else if (response.role === 'ELEVE') {
+            if(this.userCon.classe!=null){
             this.router.navigate(['/Dashboard-eleve']);
+          }else  this.error = 'votre compte est en cours de préparation, faire affectation au classe avant!!!';
           }else if (response.role === 'ADMINISTRATEUR'){
             this.router.navigate(['/Dashboard'])
           } else {

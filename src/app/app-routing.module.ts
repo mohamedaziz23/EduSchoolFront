@@ -42,6 +42,8 @@ const routes: Routes = [
       {path:"Request-leave",component: LeaveRequestComponent},
       {path:"My-request",component:MyRequestLeaveComponent},
        {path:"user_menu",component:MenuUserComponent},
+    {path:"user_reclamation",component:GestionReclamationComponent},
+
 
     ]
   },

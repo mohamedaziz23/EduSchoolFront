@@ -33,7 +33,8 @@ export class MenuComponent {
 
     this.menuFormBuilder=new FormGroup({
       jour:new FormControl('-- Sélectionner un jour --',[Validators.required]),
-      nomPlat:new FormControl('',[Validators.required])
+      nomPlat:new FormControl('',[Validators.required]),
+      qte:new FormControl('',[Validators.required,Validators.min(3)])
    });
 
     this.dateNow=this.getFirstDayOfCurrentWeek();
@@ -73,6 +74,14 @@ export class MenuComponent {
 
         position: 'left',
         isSortable: false
+      },
+      {
+        name: 'Quantité',
+        dataKey: 'qte',
+        dataKeySimple: '',
+
+        position: 'left',
+        isSortable: false
       }
 
 
@@ -88,18 +97,18 @@ export class MenuComponent {
   }
 
 
-  deleteMenu(classe : any){
-    /*  this.cantineService.removeMenu(this.repas.id).subscribe(
+  deleteMenu(menu : any){
+      this.cantineService.removeMenu(this.repas.id,menu.id).subscribe(
       (data) =>{
-        this.menuList = this.menuList.filter((item: { id: any; }) => item.id !==classe.id);
+        this.menuList = this.menuList.filter((item: { id: any; }) => item.id !==menu.id);
 
       }
-    )  */
+    )
   }
   addMenu(){
     this.submitted = true;
     try {
-      if (this.repas.length!=0) {
+      if (this.repas!=null) {
         this.cantineService.addMenu(this.repas.id,this.menuFormBuilder.value).subscribe(
           (response: any) => {
             console.log(response);

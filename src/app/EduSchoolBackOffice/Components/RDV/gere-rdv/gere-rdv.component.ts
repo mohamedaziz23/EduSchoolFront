@@ -1,12 +1,17 @@
+import { ClasseServiceService } from './../../services/ClasseService/classe-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import { CalendarOptions } from '@fullcalendar/core';
-import { ServicesService } from 'src/app/EduSchoolBackOffice/Services/services.service';
-import frLocale from '@fullcalendar/core/locales/fr';
 import Swal from 'sweetalert2';
 import { Observer, forkJoin, map } from 'rxjs';
+import { RdvService } from '../../services/rdvService/rdv.service';
+import { CalendarOptions, DateSelectArg } from '@fullcalendar/core';
+import frLocale from '@fullcalendar/core/locales/fr';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
+import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
+
 
 @Component({
   selector: 'app-gere-rdv',
@@ -14,57 +19,52 @@ import { Observer, forkJoin, map } from 'rxjs';
   styleUrls: ['./gere-rdv.component.css']
 })
 export class GereRdvComponent implements OnInit {
-  plugin = [dayGridPlugin, timeGridPlugin];
-  calendarOptions: CalendarOptions = {
-    initialView: 'timeGridWeek',
-    plugins: this.plugin
-  }
-  eleves: any;
+  calendarOptions!: CalendarOptions
+
+  user!:any;
   rdvs: any;
-  enseignants: any;
   rdvForm!: FormGroup;
   examen:any;
   events :any = [];
-  constructor(private service:ServicesService) { }
+  constructor(private service:RdvService,private ClasseServiceService:ClasseServiceService) { }
 
   ngOnInit(): void {
-    this.rdvForm = new FormGroup({
-      eleve : new FormControl('',Validators.required),
-      date : new FormControl('',Validators.required),
-      enseignant : new FormControl('',Validators.required)
-    });
-    this.service.getAllEleve().subscribe(
-      (data) => {
-        this.eleves = data;
-      }
-    )
-    this.service.getAllEnseignant().subscribe(
-      (data)=>{
+    this.initializeCalendar();
 
-        this.enseignants =data;
-      }
-    )
-   
+    this.rdvForm = new FormGroup({
+      user : new FormControl('',Validators.required),
+      date : new FormControl('',Validators.required),
+    });
+
     this.getAllRdv();
     }
+
+
     getAllRdv(){
       this.service.getAllRdv().subscribe(
         (data)=>{
           this.rdvs = data;
+          console.log(this.rdvs);
+        // this.processRdvs()
+         this.events = data.map(event => ({
+          title: event.user.nom || 'No Title', // Utiliser le nom de l'utilisateur comme titre de l'événement
+          start: new Date(event.date), // Convertir le timestamp en objet Date
+          id: event.id
+        }));
+        this.calendarOptions.events = this.events;
+        })
+      //  this.calendarOptions.events=this.events;
 
-         this.processRdvs()
-        }) 
+
     }
     processRdvs() {
-      const rdvObservables = this.rdvs.map((rdv: { eleve: { id: number; }; enseignant: { id: number; }; id: any; date: any; }) => {
+      const rdvObservables = this.rdvs.map((rdv: { user: { identifiant: number; }; enseignant: { identifiant: number; }; id: any; date: any; }) => {
         return forkJoin({
-          eleve: this.service.getEleveByID(rdv.eleve.id),
-          enseignant: this.service.getEnseignantByID(rdv.enseignant.id)
+          yser: this.ClasseServiceService.getUserByUsername(rdv.user.identifiant),
         }).pipe(
           map(results => ({
             id: rdv.id,
-            eleve: results.eleve.nom,
-            enseignant: results.enseignant.nom,
+            user: rdv.user,
             date: rdv.date
           }))
         );
@@ -76,6 +76,7 @@ export class GereRdvComponent implements OnInit {
     }
     initializeCalendar() {
       this.calendarOptions = {
+      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin, resourceTimelinePlugin],
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
@@ -90,25 +91,23 @@ export class GereRdvComponent implements OnInit {
         eventClick: this.handleEventClick.bind(this)
       };
     }
-      
+
       handleEventClick(info: { event: any; }) {
         const event = info.event;
         const eventData = {
           title: 'Rendez-vous',
           Id:event.id,
           otherInfo: {
-            Eleve: event.extendedProps.eleve,
-            Enseignant: event.extendedProps.enseignant ,
+            user: event.extendedProps.user,
             Date: event.extendedProps.date
           }
         };
         Swal.fire({
           html: `
             <p><strong>Title:</strong> ${eventData.title}</p>
-            <p><strong>Eleve:</strong> ${eventData.otherInfo.Eleve}</p>
-            <p><strong>Enseignant:</strong> ${eventData.otherInfo.Enseignant}</p> 
+            <p><strong>Eleve:</strong> ${eventData.otherInfo.user}</p>
             <button id="edit-date-btn" class="btn btn-primary">Modifier la date</button>`,
-            
+
             icon: 'info',
             showCloseButton: true,
             showDenyButton: true,
@@ -131,7 +130,7 @@ export class GereRdvComponent implements OnInit {
                 Swal.fire('Deleted!', 'Le rendez-vous a étè supprimer', 'success');
               } else if (confirmResult.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire('Annulation', "Votre rendez-vous n'est pas supprime :)", 'info');
-                
+
               }
               this.getAllRdv();
             });
@@ -179,19 +178,20 @@ export class GereRdvComponent implements OnInit {
             throw new Error('Function not implemented.');
           }
         };
-      
+
         // Appeler la méthode de mise à jour avec la nouvelle date et l'ID de l'événement
         this.service.updateRdv(newDate, eventId).subscribe(observer);
       }
-      
+
   deleteEvent(event: any) {
     this.service.deleteRdv(event.id).subscribe()
+    location.reload();
   }
-      
+
   toggleWeekends() {
-    this.calendarOptions.weekends = !this.calendarOptions.weekends 
+    this.calendarOptions.weekends = !this.calendarOptions.weekends
   }
-  ajouterExamen(){
+  ajouterRDV(){
     if (this.rdvForm.invalid) {
       Swal.fire({
         title: 'Error!',
@@ -200,10 +200,10 @@ export class GereRdvComponent implements OnInit {
         confirmButtonText: 'ok',
         showCancelButton: true
       });
-      return; 
+      return;
     }
-    this.service.createRdv(this.rdvForm.value).subscribe(  )
-     
+    this.service.createRdv(this.rdvForm.value).subscribe(()=>{location.reload()}  )
+
     Swal.fire({
       position: 'center',
       icon: 'success',

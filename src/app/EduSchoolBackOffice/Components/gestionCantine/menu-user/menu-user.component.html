@@ -1,0 +1,41 @@
+<div *ngIf="access" class="col-md-7">
+  <div class="container">
+    <div class="title">
+      <h1 >Listes Plats de la semaine de <span class="fw-bold">{{dataCan}}</span>  </h1>
+    </div>
+    <br>
+    <br>
+  </div>
+      <!-- Table -->
+      <table class="table">
+
+        <!-- En-tête de la table -->
+        <ng-container>
+          <th class="table-active">Jour</th>
+          <th class="table-active">Plat</th>
+          <th class="table-active">Quantité</th>
+          <th class="table-active" colspan="3">Actions</th>
+          <tr *ngFor="let element of menuList">
+            <td>
+              {{element["jour"]}}
+            </td>
+            <td>
+              {{element["nomPlat"]}}
+            </td>
+            <td>
+              {{element["qte"]}}
+            </td>
+            <td >
+              <img (click)="reserverMenu(element)" src="../../../../../assets/img/reserve.png" />
+            </td>
+          </tr>
+        </ng-container>
+
+      </table>
+</div>
+
+<div  *ngIf="!access"  class="centered-title">
+  <img  src="../../../../../assets/img/sad.png"/>
+  <h1  >vous n'êtes pas inscrit à la cantine de l'école <span class="fw-bold">tu peut l'inscrire?</span> </h1>
+  <button (click)="demandeInscrit()" class="btn btn-success">demande inscription</button>
+</div>

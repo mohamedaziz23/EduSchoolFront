@@ -31,16 +31,25 @@ import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/user-list/user-list.component';
 import { GereRdvComponent } from './EduSchoolBackOffice/Components/RDV/gere-rdv/gere-rdv.component';
 import { DashboardEnseignantComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-enseignant/dashboard-enseignant.component';
+import { MenuUserComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu-user/menu-user.component';
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
   {path:"Dashboard-enseignant",component:DashboardEnseignantComponent,children:
     [
       {path:"Request-leave",component: LeaveRequestComponent},
-      {path:"My-request",component:MyRequestLeaveComponent}
+      {path:"My-request",component:MyRequestLeaveComponent},
+       {path:"user_menu",component:MenuUserComponent},
+
     ]
   },
-  {path:"Dashboard-eleve",component:DashboardEleveComponent},
+  {path:"Dashboard-eleve",component:DashboardEleveComponent,children:[
+    {path:"emplois-temps",component:EmploisTempsComponent},
+    {path:"enseignant-classe",component:EnseignantClasseComponent},
+    {path:"user_menu",component:MenuUserComponent},
+
+
+  ]},
 
   {path:"Dashboard",component:DashboardComponent,children:
       [
@@ -90,8 +99,6 @@ const routes: Routes = [
     { path: 'rdv', component: GereRdvComponent }
 
   ]},
-  {path:"DashboardEnseignant",component:DashboardEnseignantComponent},
-  {path:"DashboardStudent",component:DashboardEleveComponent},
 
   {path:"Login",component:LoginComponent},
   {path:"listuser",component:UserListComponent},

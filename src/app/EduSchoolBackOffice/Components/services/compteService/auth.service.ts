@@ -34,10 +34,8 @@ export class AuthService {
 
   // Method to clear user data from localStorage (for logout)
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    localStorage.removeItem('email');
-    localStorage.removeItem('nom');
+    localStorage.clear();
+
 
   }
 

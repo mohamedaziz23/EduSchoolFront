@@ -1,16 +1,16 @@
 <mat-toolbar >
-    Dashboard Enseignant
+    Bienvenue {{user.nom}}  {{user.prenom}}
     <nav class="navbar navbar-expand bg-blue  navbar-light sticky-top px-4 py-0" >
         <div class="navbar-nav align-items-center ">
             <div class="nav-item dropdown " >
-                <a href="#" class="nav-link " data-bs-toggle="dropdown">
+                <!-- <a href="#" class="nav-link " data-bs-toggle="dropdown">
                     <div class=" d-lg-inline-flex align-items-center " (click)="clearCount()">
                         <mat-icon class="icon">notifications</mat-icon>
                         <span class="badge ml-5 mb-2" *ngIf="badgeCount >= 0"  (click)="reload()">{{badgeCount}}</span>
                         <span   (click)="reload()">Notifications   </span>
                     </div>
-                    
-                </a>
+
+                </a> -->
                 <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                     <a class="dropdown-item">
                         <ng-container >
@@ -47,7 +47,7 @@
         </mat-icon>
     </button>
 
-    
+
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
@@ -62,20 +62,24 @@
             <mat-icon>person</mat-icon>
             <span>Profile</span>
         </button>
-        
-        
+
+
         <mat-divider></mat-divider>
-       
-        <button mat-button class="menu-button" [matMenuTriggerFor]="menu1">
-            <mat-icon>school</mat-icon>
-            <span>Gestion Pédagogique</span>
-            <mat-menu #menu1="matMenu">
-                <button mat-menu-item routerLink="statuscour">Matière</button>
-                <button mat-menu-item routerLink="addcour">HomeWork</button>
-                <button mat-menu-item routerLink="addcour">Resultat</button>
-            </mat-menu>
+
+        <button mat-button class="menu-button" routerLink="emplois-temps">
+          <mat-icon>calendar_today</mat-icon>
+          <span>Emplois de Temps</span>
         </button>
-     
+        <mat-divider></mat-divider>
+        <button mat-button class="menu-button" routerLink="enseignant-classe">
+          <mat-icon>person</mat-icon>
+          <span>Enseignants</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-button class="menu-button" routerLink="user_menu">
+          <mat-icon> fastfood</mat-icon>
+            <span> Cantine</span>
+        </button>
         <mat-divider></mat-divider>
         <button mat-button class="menu-button" routerLink="absenceeleves">
             <mat-icon>no_meeting_room</mat-icon>
@@ -87,9 +91,9 @@
             <span>Consulter les  Notes</span>
         </button>
         <mat-divider></mat-divider>
-        <button mat-button class="menu-button" routerLink="calender">
-            <mat-icon>calendar_today</mat-icon>
-            <span>Emploi de Temps</span>
+        <button mat-button class="menu-button" routerLink="reclamation">
+          <mat-icon> <img src="../../../../../assets/img/claim.png" alt=""></mat-icon>
+            <span> Réclamation</span>
         </button>
         <mat-divider></mat-divider>
         <button mat-button class="menu-button" (click)="logout()">

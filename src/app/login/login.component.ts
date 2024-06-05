@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../EduSchoolBackOffice/Components/services/compteService/auth.service';
 import { Router } from '@angular/router';
+import { UserService } from '../EduSchoolBackOffice/Components/services/compteService/user.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -11,11 +13,13 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   form: FormGroup;
   error: string | null = null;
+  userCon!:any;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private userSer:UserService
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -29,17 +33,20 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       const { email, password } = this.form.value;
       this.authService.login({ email, password }).subscribe(
-        response => {
+        async response => {
+         this.userCon= await firstValueFrom(this.userSer.getUserByUsername(response.identifiant));
+          localStorage.setItem("user",JSON.stringify(this.userCon));
           console.log('Login successful:', response);
+          console.log('user',localStorage.getItem('user'));
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role); // Store the role
-          localStorage.setItem('user', response.identifiant); // Store the role
+
           console.log(response);
 
           if (response.role === 'ENSEIGNANT') {
             this.router.navigate(['/DashboardEnseignant']);
           } else if (response.role === 'ELEVE') {
-            this.router.navigate(['/DashboardStudent']);
+            this.router.navigate(['/Dashboard-eleve']);
           }else if (response.role === 'ADMINISTRATEUR'){
             this.router.navigate(['/Dashboard'])
           } else {

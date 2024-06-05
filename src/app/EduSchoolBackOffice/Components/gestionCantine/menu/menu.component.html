@@ -23,7 +23,6 @@
                     (rowDetailAction)="detailMenu($event)">
       </app-table>
        </div>
-
       </div>
       <div class="col-md-4" >
           <form  [formGroup]="menuFormBuilder">
@@ -48,6 +47,16 @@
                 </select>
                 <div *ngIf="menuFormBuilder.get('jour')?.value==='-- Sélectionner un jour --' && submitted"  >
                   <div  class="alert alert-danger">selectionner le jour</div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="validationCustom04" class="form-label" >Quantité <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" formControlName="qte" >
+                <div *ngIf="validateError('qte','required') && submitted"  >
+                  <div  class="alert alert-danger">quantité est Obligatoire </div>
+                </div>
+                <div *ngIf="validateError('qte','min') && submitted"  >
+                  <div  class="alert alert-danger">minimu de la quantité doit étre supérier 3 </div>
                 </div>
               </div>
               <div class="form-group">

@@ -1,0 +1,10 @@
+.create-account{
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color:#06BBCC;
+  border: none;
+  color: white;
+  margin-top: 20px;
+}

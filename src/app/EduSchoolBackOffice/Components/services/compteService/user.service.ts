@@ -14,7 +14,7 @@ export interface User {
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:8082/eduSchool/api/users'; 
+  private baseUrl = 'http://localhost:8082/eduSchool/api/users';
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<User[]> {
@@ -26,6 +26,10 @@ export class UserService {
 
   getUserLastName(): string | null {
     return localStorage.getItem('prenom');
+  }
+
+  public getUserByUsername(username:any) {
+    return this.http.get(`${'http://localhost:8082/eduSchool/user/getByUsername'}/${username}`);
   }
 
 }

@@ -66,6 +66,7 @@ import { GereRdvComponent } from './EduSchoolBackOffice/Components/RDV/gere-rdv/
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatOptionModule, DateAdapter } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
+import { MenuUserComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu-user/menu-user.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { CommonModule } from '@angular/common';
     ListClasseComponent,
     LoginComponent,
     UserListComponent,
-    GereRdvComponent
+    GereRdvComponent,
+    MenuUserComponent
   ],
   imports: [
     BrowserModule,

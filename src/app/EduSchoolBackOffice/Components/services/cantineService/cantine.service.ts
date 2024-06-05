@@ -36,13 +36,13 @@ export class CantineService {
     return this.httpClient.put(`${this.SERVER_URL + '/groupCantine/update'}/${id}`, repas)
   }
   public getGroupCantineById(id: any) {
-    return this.httpClient.get<{ repas: any }>(`${this.SERVER_URL + '/groupCantine/getById'}/${id}`);
+    return this.httpClient.get(`${this.SERVER_URL + '/groupCantine/getById'}/${id}`);
   }
   public deleteGroupCantine(id: any) {
     return this.httpClient.delete(`${this.SERVER_URL + '/groupCantine/delete'}/${id}`)
   }
   public getUserCantine() {
-    return this.httpClient.get<{ repass: any }>(this.SERVER_URL + '/groupCantine/getAllUser');
+    return this.httpClient.get<any>(this.SERVER_URL + '/groupCantine/getAllUser');
   }
 
   public addMenu(idRepas: any,plat:any) {
@@ -53,5 +53,21 @@ export class CantineService {
   }
   public removeMenu(idRepas: any,idMenu: any) {
     return this.httpClient.put(`${this.SERVER_URL + '/remove_menus'}/${idRepas}/${idMenu}`,null);
+  }
+
+  public addUserCantine(insc: any) {
+    return this.httpClient.post(this.SERVER_URL + '/groupCantine/addUser', insc);
+  }
+
+  public removeUserCantine(idGroup: any,idUser: any) {
+    return this.httpClient.put(`${this.SERVER_URL + '/remove_users'}/${idGroup}/${idUser}`,null);
+  }
+
+  public accepterUSer(idGroup: any,idUser:any) {
+    return this.httpClient.put(`${this.SERVER_URL + '/groupCantine/accepterUser'}/${idGroup}/${idUser}`, null)
+  }
+
+  public reserverMenu(idRepas: any,idMenu: any,idUser: any) {
+    return this.httpClient.put(`${this.SERVER_URL + '/reserver_menu'}/${idRepas}/${idMenu}/${idUser}`,null);
   }
 }

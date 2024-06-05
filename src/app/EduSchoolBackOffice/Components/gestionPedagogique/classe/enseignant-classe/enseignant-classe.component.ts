@@ -32,6 +32,7 @@ export class EnseignantClasseComponent {
   enseignant!: any;
   matiere!: any;
   affecterObj: any = {};
+  role!:any;
 
 
   constructor(
@@ -45,7 +46,7 @@ export class EnseignantClasseComponent {
 
 
   ngOnInit(): void {
-
+    this.role=localStorage.getItem('role');
     this.storageClasse = localStorage.getItem('classe');
     this.classe = JSON.parse(this.storageClasse);
     console.log(this.classe.id);

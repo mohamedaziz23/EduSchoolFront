@@ -43,6 +43,7 @@ export class EmploisTempsComponent {
   dateNow!:any;
   btnName:string="Ajouter";
   idEvent!:any;
+  role!:any;
 
 
   constructor(
@@ -55,6 +56,7 @@ export class EmploisTempsComponent {
 
 
   ngOnInit(): void {
+    this.role=localStorage.getItem('role');
     this.dateNow=this.datePipe.transform(Date.now(),'yyyy-MM-dd');
     this.storageClasse = localStorage.getItem('classe');
     this.classe=JSON.parse(this.storageClasse);
@@ -172,7 +174,7 @@ if(this.btnName==="Ajouter"){
     this.calendarOptions = {
       initialView: 'timeGridWeek',
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin, resourceTimelinePlugin],
-      selectable: true,
+      selectable: localStorage.getItem('role')=='ADMINISTRATEUR'?true:false,
       locale: frLocale,
       editable:true,
       headerToolbar: {
@@ -191,15 +193,7 @@ if(this.btnName==="Ajouter"){
       displayEventTime: false,
       displayEventEnd: false,
       events: this.events,
-      select: (info) => {
-        console.log("jour selected",Object.values(Jour)) ;
-        this.visible=true;
-        this.startDateSelected=info.startStr;
-        this.endDateSelected=info.endStr;
-        this.addeventform.get('jour')?.setValue(new Date(info.startStr).toLocaleDateString('fr-FR', { weekday: 'long' }).toUpperCase());
-        this.addeventform.get('heureD')?.setValue( this.datePipe.transform( info.start.getTime(), 'HH:mm'));
-        this.addeventform.get('heureF')?.setValue( this.datePipe.transform( info.end.getTime(), 'HH:mm'));
-      },
+      select: this.eventSelect.bind(this),
       eventClick: this.handleEventClick.bind(this)
 
     };
@@ -209,6 +203,17 @@ if(this.btnName==="Ajouter"){
     return Jour[dayName as keyof typeof Jour];
   }
 
+
+
+  eventSelect(eventSelect:any){
+      console.log("jour selected",Object.values(Jour)) ;
+      this.visible=true;
+      this.startDateSelected=eventSelect.startStr;
+      this.endDateSelected=eventSelect.endStr;
+      this.addeventform.get('jour')?.setValue(new Date(eventSelect.startStr).toLocaleDateString('fr-FR', { weekday: 'long' }).toUpperCase());
+      this.addeventform.get('heureD')?.setValue( this.datePipe.transform( eventSelect.start.getTime(), 'HH:mm'));
+      this.addeventform.get('heureF')?.setValue( this.datePipe.transform( eventSelect.end.getTime(), 'HH:mm'));
+  }
 
   handleEventClick(eventData: any) {
     const dialogRef = this.dialog.open(EventDialogComponent, {

@@ -20,7 +20,7 @@
               <ng-container>
                 <th class="table-active">Enseignant</th>
                 <th class="table-active">Matiere Enseignés</th>
-                <th class="table-active" colspan="3">Actions</th>
+                <th *ngIf="role=='ADMINISTRATEUR'" class="table-active" colspan="3">Actions</th>
                 <tr *ngFor="let element of enseignantsClasseList">
                   <td>
                     {{element["enseignant"]["nom"]}}
@@ -28,12 +28,12 @@
                   <td>
                     <span *ngFor="let e of element['matiereEnseignees']">{{ e['nom'] }},</span>
                   </td>
-                  <td (click)="editRow(element)">
+                  <td *ngIf="role=='ADMINISTRATEUR'" (click)="editRow(element)">
                     <button mat-button>
                       <mat-icon>edit</mat-icon>
                     </button>
                   </td>
-                  <td (click)="deleteRow(element)">
+                  <td *ngIf="role=='ADMINISTRATEUR'" (click)="deleteRow(element)">
                     <button mat-button>
                       <mat-icon>delete</mat-icon>
                     </button>
@@ -44,7 +44,7 @@
             </table>
 
       </div>
-      <div class="col-md-5"  >
+      <div *ngIf="role=='ADMINISTRATEUR'" class="col-md-5"  >
         <form  [formGroup]="clEnsForm">
 
           <h2 class="title">Affecter un enseignant </h2>

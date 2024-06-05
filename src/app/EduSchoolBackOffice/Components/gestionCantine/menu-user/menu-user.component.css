@@ -1,0 +1,7 @@
+.centered-title {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-weight: bold;
+  text-align: center;
+}

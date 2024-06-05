@@ -27,6 +27,9 @@ import {   MatCardModule } from '@angular/material/card';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CommonModule } from '@angular/common';
 import { MatRadioModule } from '@angular/material/radio';
+import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/user-list/user-list.component';
+import { ListClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/list-classe/list-classe.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,9 @@ import { MatRadioModule } from '@angular/material/radio';
     HomePageComponent,
     DashboardEnseignantComponent,
     DashboardEleveComponent,
+    ListClasseComponent,
+    LoginComponent,
+    UserListComponent,
     GereRdvComponent
   ],
   imports: [
@@ -61,7 +67,7 @@ import { MatRadioModule } from '@angular/material/radio';
     FullCalendarModule,
     CommonModule,
     MatRadioModule
-
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,17 @@
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .button {
+    text-align: center;
+  }
+  
+  .error {
+    color: red;
+  }
+  

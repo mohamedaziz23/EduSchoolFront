@@ -7,6 +7,7 @@ import { ServicesService } from 'src/app/EduSchoolBackOffice/Services/services.s
 import frLocale from '@fullcalendar/core/locales/fr';
 import Swal from 'sweetalert2';
 import { Observer, forkJoin, map } from 'rxjs';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-gere-rdv',
@@ -20,60 +21,81 @@ export class GereRdvComponent implements OnInit {
     plugins: this.plugin
   }
   eleves: any;
-  rdvs: any;
+  rdvs: any=[];
   enseignants: any;
   rdvForm!: FormGroup;
   examen:any;
   events :any = [];
-  constructor(private service:ServicesService) { }
+  user: any;
+  Utilisateurs: any=[];
 
-  ngOnInit(): void {
+  constructor(private service:ServicesService,    private authService: AuthService
+  ) { }
+
+  ngOnInit(): void { 
+
+    this.user = this.authService.getUser();
+    console.log(this.user.id)
     this.rdvForm = new FormGroup({
       eleve : new FormControl('',Validators.required),
       date : new FormControl('',Validators.required),
       enseignant : new FormControl('',Validators.required)
     });
-    this.service.getAllEleve().subscribe(
-      (data) => {
-        this.eleves = data;
-      }
-    )
-    this.service.getAllEnseignant().subscribe(
-      (data)=>{
-
-        this.enseignants =data;
-      }
-    )
-   
+    this.loadUtilisateurs();
     this.getAllRdv();
     }
+    loadUtilisateurs() {
+      this.service.getAll().subscribe((data: any[]) => {
+        this.Utilisateurs = data;
+  
+        this.eleves = this.Utilisateurs.filter((user: { role: string; }) => user.role === 'ELEVE');
+        this.enseignants = this.Utilisateurs.filter((user: { role: string; }) => user.role === 'ENSEIGNANT');  
+        this.processRdvs();
+      });
+    }
     getAllRdv(){
-      this.service.getAllRdv().subscribe(
-        (data)=>{
-          this.rdvs = data;
-
-         this.processRdvs()
-        }) 
+      if (this.user.role === "ENSEIGNANT"){
+        this.service.getByEnseignant(this.user.id).subscribe(data => {this.rdvs =data; this.processRdvs()})
+      }else if (this.user.role === "ELEVE"){
+        this.service.getRdvByEleve(this.user.id).subscribe (data => {this.rdvs =data; this.processRdvs()})
+      }else{
+        this.service.getAllRdv().subscribe(
+          (data)=>{
+            this.rdvs = data;
+  
+            this.processRdvs()
+          }) 
+      }
+      
+       
     }
     processRdvs() {
+      if (!Array.isArray(this.rdvs)) {
+        console.error('rdvs is not an array');
+        return;
+      }
+    
       const rdvObservables = this.rdvs.map((rdv: { eleve: { id: number; }; enseignant: { id: number; }; id: any; date: any; }) => {
-        return forkJoin({
-          eleve: this.service.getEleveByID(rdv.eleve.id),
-          enseignant: this.service.getEnseignantByID(rdv.enseignant.id)
-        }).pipe(
-          map(results => ({
-            id: rdv.id,
-            eleve: results.eleve.nom,
-            enseignant: results.enseignant.nom,
-            date: rdv.date
-          }))
-        );
-      });
-      forkJoin(rdvObservables).subscribe(events => {
-        this.events = events;
-        this.initializeCalendar();
-      });
+        const eleve = this.eleves.find((eleve: { id: number; }) => eleve.id === rdv.eleve.id);
+        const enseignant = this.enseignants.find((enseignant: { id: number; }) => enseignant.id === rdv.enseignant.id);
+    
+        if (!eleve || !enseignant) {
+          console.error('Eleve or enseignant not found', { rdv, eleve, enseignant });
+          return null;
+        }
+    
+        return {
+          id: rdv.id,
+          eleve: eleve.nom,
+          enseignant: enseignant.nom,
+          date: rdv.date
+        };
+      }).filter(rdv => rdv !== null);
+    
+      this.events = rdvObservables;
+      this.initializeCalendar();
     }
+    
     initializeCalendar() {
       this.calendarOptions = {
         headerToolbar: {
@@ -187,7 +209,16 @@ export class GereRdvComponent implements OnInit {
   deleteEvent(event: any) {
     this.service.deleteRdv(event.id).subscribe()
   }
-      
+  isAdmin(): boolean {
+    return this.user && this.user.role === 'ADMINISTRATEUR';
+  }
+
+  isEleve(): boolean {
+    return this.user && this.user.role === 'ELEVE';
+  }
+  isEnseignant(): boolean {
+    return this.user && this.user.role === 'ENSEIGNANT';
+  } 
   toggleWeekends() {
     this.calendarOptions.weekends = !this.calendarOptions.weekends 
   }

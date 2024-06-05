@@ -36,6 +36,7 @@
       </div>
     </div>
   </nav>
+
   <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
     <mat-icon *ngIf="!sidenav.opened">
       menu
@@ -63,7 +64,9 @@
           <mat-menu #menu1="matMenu">
               <button mat-menu-item routerLink="classe"  >Classe</button>
               <button mat-menu-item routerLink="matiere">Matière</button>
-              <button mat-menu-item routerLink="resultat">Resultat</button>
+              <button mat-menu-item routerLink="ListHomework">HomeWork</button>
+              <button mat-menu-item routerLink="ListNote">Resultat</button>
+              <button mat-menu-item routerLink="AjouterExamen">Examen</button>
           </mat-menu>
       </button>
       <mat-divider></mat-divider>

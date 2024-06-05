@@ -1,0 +1,84 @@
+<mat-card>
+ 
+  <mat-card-header class="d-flex justify-content-between align-items-center">
+   
+    <div *ngIf="isAdmin() || isEnseignant()" class="margin-right-3">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Matière</mat-label>
+        <mat-select [(ngModel)]="note.matiereNote" (selectionChange)="onSubjectChange($event)">
+          <mat-option value="">Sélectionner une matière</mat-option>
+          <mat-option *ngFor="let matiere of matieres" [value]="matiere.nom">{{ matiere.nom }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="isAdmin() || isEnseignant()">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Classe</mat-label>
+        <mat-select [(ngModel)]="note.classe" (selectionChange)="onClassChange($event)">
+          <mat-option value="">Sélectionner une classe</mat-option>
+          <mat-option *ngFor="let classe of classes" [value]="classe.id">{{ classe.nom }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <button *ngIf="isAdmin() || isEnseignant()" class="button" (click)="ajouterNote()">
+        <!-- SVG d'ajout -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 448 512"
+          class="svgIcon"
+        >
+          <path
+            fill="black"
+            d="M224 32C206.3 32 192 46.3 192 64V224H64C46.3 224 32 238.3 32 256C32 273.7 46.3 288 64 288H192V448C192 465.7 206.3 480 224 480C241.7 480 256 465.7 256 448V288H384C401.7 288 416 273.7 416 256C416 238.3 401.7 224 384 224H256V64C256 46.3 241.7 32 224 32z"
+          ></path>
+        </svg>
+      </button>
+      
+    </div>
+  </mat-card-header>
+  
+    <mat-card-content>
+      <table matSort mat-table [dataSource]="items" class="mat-elevation-z8">
+  
+          <ng-container matColumnDef="Eleve">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Eleve</th>
+            <td mat-cell *matCellDef="let element">{{element.eleve.nom}}</td>
+          </ng-container>
+         
+            <ng-container matColumnDef="NoteOrale">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Note orale</th>
+              <td mat-cell *matCellDef="let element">{{element.noteOrale}}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="NoteExamen">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Note examen</th>
+              <td mat-cell *matCellDef="let element">{{element.noteExamen}}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="Action">
+              <th mat-header-cell mat-sort-header *matHeaderCellDef> Action</th>
+              <td mat-cell *matCellDef="let element">
+                  <i *ngIf="isAdmin() || isEnseignant()" (click)="editNote(element.id)" class='fas fa-edit'></i>
+                  <i (click)="detailNote(element.id)"  class='fas fa-eye'></i>
+                  <i  *ngIf="isAdmin() || isEnseignant()"(click)="deleteNote(element.id)" class='fas fa-trash-alt'></i>
+
+              </td>
+            </ng-container>
+  
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+  
+      </table>
+  
+    </mat-card-content> 
+  <br>
+  <mat-card-footer>
+  
+      <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageIndex]="currentPage" (page)="pageChanged($event)"
+      [pageSizeOptions]="[pageSize]" showFirstLastButtons></mat-paginator>
+  
+  </mat-card-footer>
+ </mat-card>

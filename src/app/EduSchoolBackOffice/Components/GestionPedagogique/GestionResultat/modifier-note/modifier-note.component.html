@@ -1,0 +1,44 @@
+<div class="registration-form">
+    <form [formGroup]="noteForm" (ngSubmit)="AddNote()">
+        <div class="form-icon">
+            <img src="assets/img/cour.png">
+        </div>
+        
+        <!-- Displaying retrieved matiere information -->
+        <div class="form-row">
+            <select formControlName="matiereNote" 
+            class="form-select" 
+            id="validationCustom04" 
+            name="idMatiere" placeholder="Nom Matiere" 
+            required>
+                <option *ngFor="let matiere of matieres" [value]="matiere.nom">{{ matiere.nom }}</option>
+            </select>
+            <div *ngIf="submitted && noteForm.get('matiere')?.errors?.['required']" class="invalid-feedback">
+                <div>Nom de Matiere est Obligatoire</div>
+            </div>
+        </div>
+        
+       
+        
+        <!-- Input for note orale -->
+        <div class="form-row">
+            <input type="text" formControlName="noteOrale" placeholder="note orale" [ngClass]="{'is-invalid': noteForm.get('noteOrale')?.touched && !noteForm.get('noteOrale')?.valid}">
+            <div class="invalid-feedback">
+                <span *ngIf="noteForm.get('noteOrale')?.errors?.['required']">Note orale est Obligatoire</span>
+            </div>
+        </div>
+
+        <!-- Input for note examen -->
+        <div class="form-row">
+            <input type="text" formControlName="noteExamen" placeholder="Note Examen" [ngClass]="{'is-invalid': noteForm.get('noteExamen')?.touched && !noteForm.get('noteExamen')?.valid}">
+            <div class="invalid-feedback">
+                <span *ngIf="noteForm.get('noteExamen')?.errors?.['required']">Note examen est Obligatoire</span>
+            </div>
+        </div>
+        
+        <!-- Submit button -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-block create-account">Ajouter note</button>
+        </div>
+    </form>
+</div>

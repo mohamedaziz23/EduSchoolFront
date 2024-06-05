@@ -1,0 +1,83 @@
+<div class="registration-form">
+    <form [formGroup]="homeworkForm" (ngSubmit)="AddHomework()">
+        <div class="form-icon">
+            <img src="assets/img/homework.png">
+        </div>
+    
+        <!-- input sujet -->
+        
+        <div class="form-row mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Sujet</mat-label>
+                <input matInput type="text"  formControlName="sujet" placeholder="Sujet"
+                       [ngClass]="{'is-invalid': homeworkForm.get('sujet')?.touched && !homeworkForm.get('sujet')?.valid}">
+                <mat-error *ngIf="homeworkForm.get('sujet')?.errors?.['required']">Nom du sujet est obligatoire</mat-error>
+            </mat-form-field>
+        </div>
+    
+        <!-- list nom matiere -->
+        <div class="form-row mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Matière</mat-label>
+                <mat-select formControlName="matiereHomework" required>
+                    <mat-option value="">Sélectionner une matière</mat-option>
+                    <mat-option *ngFor="let matiere of matieres" [value]="matiere.nom">{{ matiere.nom }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="homeworkForm.get('matiereHomework')?.errors?.['required']">Nom de la matière est obligatoire</mat-error>
+            </mat-form-field>
+        </div>
+    
+        <!-- date remise -->
+        <div class="form-row mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Date de Remise</mat-label>
+                <input matInput readonly [matDatepicker]="picker1" formControlName="dateRemise" placeholder="Choisir une date">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="homeworkForm.get('dateRemise')?.errors?.['required']">Date de remise est obligatoire</mat-error>
+            </mat-form-field>
+
+        </div>
+    
+        <!-- date recu -->
+        <div class="form-row mb-3">
+
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Date de Réception</mat-label>
+                <input matInput readonly [matDatepicker]="picker2" formControlName="dateRecu" placeholder="Choisir une date">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="homeworkForm.get('dateRecu')?.errors?.['required']">Date de réception est obligatoire</mat-error>
+            </mat-form-field>
+           
+        </div>
+    
+        <!-- select classeHomework -->
+        <div class="form-row mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Classe</mat-label>
+                <mat-select formControlName="classeHomework" required>
+                    <mat-option value="">Sélectionner une classe</mat-option>
+                    <mat-option *ngFor="let classe of classes" [value]="classe.nom">{{ classe.nom }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="homeworkForm.get('classeHomework')?.errors?.['required']">Sélectionner la classe</mat-error>
+            </mat-form-field>
+        </div>
+    
+        <!-- description -->
+        <div class="form-group mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Détail</mat-label>
+                <textarea matInput formControlName="description" placeholder="Détail"
+                          [ngClass]="{'is-invalid': homeworkForm.get('description')?.touched && !homeworkForm.get('description')?.valid}"></textarea>
+                <mat-error *ngIf="homeworkForm.get('description')?.errors?.['required']">Expliquer le sujet</mat-error>
+            </mat-form-field>
+        </div>
+    
+        <!-- button -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Ajouter Homework</button>
+        </div>
+    </form>
+    
+</div>

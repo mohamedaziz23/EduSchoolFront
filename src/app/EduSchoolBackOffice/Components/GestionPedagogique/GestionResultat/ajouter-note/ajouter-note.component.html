@@ -1,0 +1,72 @@
+<div class="registration-form">
+    <form [formGroup] ="noteForm"  (ngSubmit)="AddNote()">
+        <div class="form-icon">
+            <img src="assets/img/addNote.png">
+        </div>
+        
+        <!-- list nom matiere -->
+        <div class="form-row mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Matière</mat-label>
+              <mat-select formControlName="matiere" required>
+                <mat-option *ngFor="let matiere of matieres" [value]="matiere.id">{{ matiere.nom }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="submitted && noteForm.get('matiere')?.errors?.['required']">
+                Nom de Matiere est Obligatoire
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+           <!-- Classe -->
+           <div class="form-row mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Classe</mat-label>
+              <mat-select formControlName="classe" required [ngClass]="{'is-invalid': noteForm.get('classe')?.touched && !noteForm.get('classe')?.valid}">
+                <mat-option *ngFor="let classe of classes" [value]="classe.id">{{ classe.nom }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="noteForm.get('classe')?.errors?.['required']">
+                Selectionné le classe
+              </mat-error>
+            </mat-form-field>
+          </div>
+       <!-- Liste eleves -->
+       <div class="form-row mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Élève</mat-label>
+          <mat-select formControlName="eleve" required [ngClass]="{'is-invalid': noteForm.get('eleve')?.touched && !noteForm.get('eleve')?.valid}">
+            <mat-option *ngFor="let eleve of eleves" [value]="eleve.id">{{ eleve.nom }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="noteForm.get('eleve')?.errors?.['required']">
+            Selectionné le eleve
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-row mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Note Orale</mat-label>
+          <input matInput type="number" min="0" max="20" formControlName="noteOrale" required [ngClass]="{'is-invalid': noteForm.get('noteOrale')?.touched && !noteForm.get('noteOrale')?.valid}">
+          <mat-error *ngIf="noteForm.get('noteOrale')?.errors?.['required']">
+            Note Orale est Obligatoire
+          </mat-error>
+          <mat-error *ngIf="noteForm.get('noteOrale')?.hasError('invalidNote')">La note doit être entre 0 et 20</mat-error>
+
+        </mat-form-field>
+      </div>
+      <div class="form-row mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Note Examen</mat-label>
+          <input matInput type="number" min="0" max="20" formControlName="noteExamen" required [ngClass]="{'is-invalid': noteForm.get('noteExamen')?.touched && !noteForm.get('noteExamen')?.valid}">
+          <mat-error *ngIf="noteForm.get('noteExamen')?.errors?.['required']">
+            Note examen est Obligatoire
+          </mat-error>
+          <mat-error *ngIf="noteForm.get('noteExamen')?.hasError('invalidNote')">La note doit être entre 0 et 20</mat-error>
+
+        </mat-form-field>
+      </div>
+        <div class="form-group mb-3">
+            <button type="submit" class="btn btn-block create-account" >Ajouter note</button>
+            <!--  -->
+        </div>
+    </form>
+
+</div>

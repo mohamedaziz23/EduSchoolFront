@@ -75,10 +75,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AppComponent,
     DashboardComponent,
     HomePageComponent,
-    LeaveRequestComponent,
     LeaveTypeComponent,
     LeaveListComponent,
-    MyRequestLeaveComponent,
     LeaveTypeListComponent,
     DashboardEnseignantComponent,
     DashboardEleveComponent,
@@ -155,7 +153,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FullCalendarModule,
     CommonModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule,
+    MatButtonModule
 
   ],
   providers: [DatePipe],

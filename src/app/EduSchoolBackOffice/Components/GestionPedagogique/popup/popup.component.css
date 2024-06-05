@@ -1,0 +1,11 @@
+::ng-deep .mat-dialog-container {
+  max-width: 200%; /* Largeur maximale de la fenêtre modale (90% de la largeur de la vue) */
+  max-height: 100%; /* Hauteur maximale de la fenêtre modale (90% de la hauteur de la vue) */
+}
+button{
+    background-color: transparent;
+    border: none;
+}
+.titre{
+    align-content: center;
+}

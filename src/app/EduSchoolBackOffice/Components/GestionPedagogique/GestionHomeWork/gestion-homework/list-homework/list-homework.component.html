@@ -1,0 +1,76 @@
+<mat-card>
+  <mat-card-header>
+    <mat-form-field>
+      <input matInput class="w-100" (keyup)="filterChange($event)" placeholder="Filter par date ou sujet" />
+    </mat-form-field>
+    <div class="align" *ngIf="isAdmin() || isEnseignant()">
+      <button class="button" (click)="ajouterHomework()">
+        <!-- SVG d'ajout -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 448 512"
+          class="svgIcon"
+        >
+          <path
+            fill="black"
+            d="M224 32C206.3 32 192 46.3 192 64V224H64C46.3 224 32 238.3 32 256C32 273.7 46.3 288 64 288H192V448C192 465.7 206.3 480 224 480C241.7 480 256 465.7 256 448V288H384C401.7 288 416 273.7 416 256C416 238.3 401.7 224 384 224H256V64C256 46.3 241.7 32 224 32z"
+          ></path>
+        </svg>
+      </button>
+
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+
+    <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="sujet">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef> Sujet</th>
+          <td mat-cell *matCellDef="let element">{{element.sujet}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateRemis">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Date Remis</th>
+            <td mat-cell *matCellDef="let element">{{element.dateRemise}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="dateRecu">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Date Reçu</th>
+            <td mat-cell *matCellDef="let element">{{element.dateRecu}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Classe">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Classe</th>
+            <td mat-cell *matCellDef="let element">{{element.classeHomework.nom}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="matiere">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Matiére</th>
+            <td mat-cell *matCellDef="let element">{{element.matiereHomework.nom}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef> Action</th>
+            <td mat-cell *matCellDef="let element">
+                <i *ngIf="isAdmin() || isEnseignant()" (click)="editHomework(element.id)" class='fas fa-edit'></i>
+                <i *ngIf="isAdmin() || isEnseignant()" (click)="deleteHomework(element.id)" class='fas fa-trash-alt'></i>
+                <i (click)="detailHomework(element.id)"  class='fas fa-eye'></i>
+              
+            </td>
+          </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+
+    </table>
+
+  </mat-card-content>
+<br>
+<mat-card-footer>
+
+    <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+
+</mat-card-footer>
+</mat-card>

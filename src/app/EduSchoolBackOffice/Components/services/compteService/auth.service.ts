@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 export interface AuthenticationRequest {
   email: string;
@@ -11,15 +11,13 @@ export interface AuthenticationResponse {
   token: string;
   email: string;
   nom:string;
-  id:string;
-  prenom:string;
   role: string;
   identifiant: string;
 }
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   private baseUrl = 'http://localhost:8082/eduSchool/v1/auth';
 
@@ -33,11 +31,22 @@ export class AuthService {
    getRole(): string | null {
     return localStorage.getItem('role');
   }
+  getUser(): any | null {
+    return {
+      token: localStorage.getItem('token'),
+      role: localStorage.getItem('role'),
+      email: localStorage.getItem('email'),
+      id: localStorage.getItem('id')
+    };
+  }
+
 
   // Method to clear user data from localStorage (for logout)
   logout(): void {
-    localStorage.clear();
-
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('email');
+    localStorage.removeItem('nom');
 
   }
 

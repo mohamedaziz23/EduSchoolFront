@@ -1,0 +1,70 @@
+mat-card{
+    margin: 2%;
+}
+
+button{
+    margin: 2px;
+}
+
+th{
+    background-color: rgba(165, 172, 173, 0.575) !important;
+    color: black;
+}
+mat-card-content{
+    background: none;
+}
+.align{
+    margin-left: auto;
+}
+
+i {
+    padding-left: 20px;
+    font-size: 15px;
+    color: rgb(2, 39, 61);
+}
+.transparent-table {
+    background-color: transparent;
+}
+.button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: relative;
+    gap: 2px;
+  }
+  
+  .svgIcon {
+    width: 12px;
+    transition-duration: 0.3s;
+  }
+  
+  .svgIcon path {
+    fill: white;
+  }
+  
+  .button:hover {
+    transition-duration: 0.3s;
+    background-color: rgb(61, 221, 21);
+    align-items: center;
+    gap: 0;
+  }
+  
+  .bin-top {
+    transform-origin: bottom right;
+  }
+  .button:hover .bin-top {
+    transition-duration: 0.5s;
+    transform: rotate(160deg);
+  }
+  

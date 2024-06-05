@@ -1,0 +1,74 @@
+<div mat-dialog-content class="container ">
+  <div mat-dialog-actions class="float-right">
+    <button mat-icon-button color="warn" (click)="closepopup()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="inputdata.type === 'homework'">
+    <h2>{{ custdata.sujet }}</h2>
+    <table class="table">
+      <tbody>
+        <!-- Date Remis -->
+        <tr >
+          <td class="titre">Date Remis:</td>
+          <td>{{ custdata.dateRemise }}</td>
+        </tr>
+        <!-- Date Recu -->
+        <tr>
+          <td class="titre">Date Recu:</td>
+          <td>{{ custdata.dateRecu }}</td>
+        </tr>
+        <!-- Matière -->
+        <tr>
+          <td class="titre">Matière:</td>
+          <td>{{ custdata.matiereHomework.nom }}</td>
+        </tr>
+        <!-- Classe -->
+        <tr>
+          <td class="titre">Classe:</td>
+          <td>{{ custdata.classeHomework.nom }}</td>
+        </tr>
+        <!-- Description -->
+        <tr>
+          <td class="titre">Description:</td>
+          <td>{{ custdata.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="inputdata.type === 'resultat'">
+    <h2>{{ custdata.eleve.id }}</h2>
+    <table class="table">
+      <tbody>
+        <!-- Matiere -->
+        <tr >
+          <td class="titre">Matière:</td>
+          <td>{{ custdata.matiereNote.nom }}</td>
+        </tr>
+        <!-- Examen -->
+        <tr>
+          <td class="titre">Note Examen:</td>
+          <td>{{ custdata.noteExamen }}</td>
+        </tr>
+        <!-- Orale -->
+        <tr>
+          <td class="titre">Note orale:</td>
+          <td>{{ custdata.noteOrale }}</td>
+        </tr>
+        <!-- Moyenn -->
+        <tr>
+          <td class="titre">Moyenne:</td>
+          <td>{{ custdata.resultat.moyenne }}</td>
+        </tr>
+        <!-- Mention -->
+        <tr>
+          <td class="titre">Mention:</td>
+          <td>{{ custdata.resultat.mention }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  
+ 
+</div>

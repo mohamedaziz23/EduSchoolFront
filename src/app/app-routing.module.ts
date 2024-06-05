@@ -34,6 +34,13 @@ import { DashboardEnseignantComponent } from './EduSchoolBackOffice/Components/D
 import { MenuUserComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu-user/menu-user.component';
 import { ReclamationService } from './EduSchoolBackOffice/Components/services/reclamationService/reclamation.service';
 import { GestionReclamationComponent } from './EduSchoolBackOffice/Components/gestion-reclamation/gestion-reclamation.component';
+import { AjouterExamenComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/GestionExamen/ajouter-examen/ajouter-examen.component';
+import { GestionHomeworkComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/GestionHomeWork/gestion-homework/gestion-homework.component';
+import { ListHomeworkComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/GestionHomeWork/gestion-homework/list-homework/list-homework.component';
+import { UpdateHomeworkComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/GestionHomeWork/gestion-homework/update-homework/update-homework.component';
+import { AjouterNoteComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/GestionResultat/ajouter-note/ajouter-note.component';
+import { ListeResultatComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/GestionResultat/liste-resultat/liste-resultat.component';
+import { ModifierNoteComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/GestionResultat/modifier-note/modifier-note.component';
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -106,6 +113,14 @@ const routes: Routes = [
 
     // gestion reclamation
     {path:"user_reclamation",component:GestionReclamationComponent},
+
+    { path: 'GestionHomeWork', component: GestionHomeworkComponent },
+    { path: 'ListHomework', component: ListHomeworkComponent },
+    { path: 'UpdateHomework/:id', component: UpdateHomeworkComponent },
+    { path: 'AjouterNote', component: AjouterNoteComponent },
+    { path: 'AjouterExamen', component: AjouterExamenComponent },
+    { path: 'ListNote', component: ListeResultatComponent },
+    { path: 'ModifierNote/:id', component: ModifierNoteComponent }
 
 
   ]},

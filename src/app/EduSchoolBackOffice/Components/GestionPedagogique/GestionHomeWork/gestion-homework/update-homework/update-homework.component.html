@@ -1,0 +1,77 @@
+<div class="registration-form">
+    <form (ngSubmit)="updateHomework()">
+        <div class="form-icon">
+            <img src="assets/img/homework.png">
+        </div>
+    
+        <!-- input sujet -->
+        <div class="form-row mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Sujet</mat-label>
+                <input matInput type="text" [(ngModel)]="homework.sujet" name="sujet" placeholder="Sujet" required>
+                <mat-error *ngIf="!homework.sujet">Nom du sujet est obligatoire</mat-error>
+            </mat-form-field>
+        </div>
+    
+        <!-- list nom matiere -->
+        <div class="form-row mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Matière</mat-label>
+                <mat-select [(ngModel)]="homework.matiereHomework.nom" name="matiereHomework" required>
+                    <mat-option value="">Sélectionner une matière</mat-option>
+                    <mat-option *ngFor="let matiere of matieres" [value]="matiere.nom">{{ matiere.nom }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="!homework.matiereHomework">Nom de la matière est obligatoire</mat-error>
+            </mat-form-field>
+        </div>
+    
+        <!-- date remise -->  
+        <div class="form-row mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Date de Remise</mat-label>
+                <input matInput [matDatepicker]="picker1" [(ngModel)]="homework.dateRemise" name="dateRemise" placeholder="Date de Remise" required>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="!homework.dateRemise">Date de remise est obligatoire</mat-error>
+            </mat-form-field>
+        </div>
+    
+        <!-- date recu --> 
+        <div class="form-row mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Date de Réception</mat-label>
+                <input matInput [matDatepicker]="picker2" [(ngModel)]="homework.dateRecu" name="dateRecu" placeholder="Date de Réception" required>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="!homework.dateRecu">Date de réception est obligatoire</mat-error>
+            </mat-form-field>
+        </div>
+          
+        <!-- select classe -->
+        <div class="form-row mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Classe</mat-label>
+                <mat-select [(ngModel)]="homework.classeHomework.nom" name="classeHomework" required>
+                    <mat-option value="">Sélectionner une classe</mat-option>
+                    <mat-option *ngFor="let classe of classes" [value]="classe.nom">{{ classe.nom }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="!homework.classeHomework">Sélectionner la classe</mat-error>
+            </mat-form-field>
+        </div>
+    
+        <!-- description -->
+        <div class="form-group mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Détail</mat-label>
+                <textarea matInput [(ngModel)]="homework.description" name="description" placeholder="Description" required></textarea>
+                <mat-error *ngIf="!homework.description">Expliquer le sujet</mat-error>
+            </mat-form-field>
+        </div>
+    
+        <div class="form-group">
+            <button type="submit" mat-raised-button  class="btn btn-primary btn-block ">Modifier Homework</button>
+        </div>
+    </form>
+    
+
+</div>

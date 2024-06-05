@@ -15,6 +15,14 @@ import 'default-passive-events';
 import { DatePipe } from '@angular/common';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { EventDialogComponent } from 'src/app/EduSchoolBackOffice/Tools/event-dialog/event-dialog.component';
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
+
+
+
+
+
+
 
 
 @Component({
@@ -44,6 +52,7 @@ export class EmploisTempsComponent {
   btnName:string="Ajouter";
   idEvent!:any;
   role!:any;
+  emploiDuTemps!:any;
 
 
   constructor(
@@ -89,7 +98,10 @@ export class EmploisTempsComponent {
 
   getAllEvents() {
     this.emploisService.getseances().subscribe((response: any) => {
+      console.log(response);
+      this.emploiDuTemps=response;
       this.events = response.map((event: any) => ({
+
         id:event.id,
         codeMat:event.matiere.code,
         title: "matiere: "+event.matiere.nom +'\n salle: '+ event.classe.salle.num,
@@ -260,6 +272,113 @@ if(this.btnName==="Ajouter"){
       }
     });
   }
+
+  generatePDF() {
+    const doc = new jsPDF('l', 'mm', 'a4');
+
+    const head = [['Titre', 'Jour', 'Heure Début', 'Heure Fin']];
+    const data = this.events;
+
+    autoTable(doc, {
+        head: head,
+        body: data,
+        didDrawCell: (data) => { },
+    });
+
+    doc.save('table.pdf');
+  }
+
+
+  generatePDsF() {
+    const doc = new jsPDF('l', 'mm', 'a4');
+
+
+
+    // Création des en-têtes
+    const head = [['ID', 'Niveau', 'Nom Classe', 'Numéro Salle', 'Jour', 'Heure Début', 'Heure Fin', 'Code Matière', 'Nom Matière']];
+
+    // Création des données à partir de votre exemple
+    const data =this.emploiDuTemps.map((emploi:any) => [
+        emploi.id,
+        emploi.classe.niveau,
+        emploi.classe.nom,
+        emploi.classe.salle.num,
+        this.getJourSemaine(emploi.jour), // Convertir le numéro de jour en nom de jour
+        emploi.heureD,
+        emploi.heureF,
+        emploi.matiere.code,
+        emploi.matiere.nom
+    ]);
+
+    // Génération du tableau dans le PDF
+    autoTable(doc, {
+      head: head,
+      body: data,
+      didDrawCell: (data) => { },
+  });
+
+    // Enregistrement du fichier PDF
+    doc.save('emplois_du_temps.pdf');
+}
+
+public printTable() {
+  const doc = new jsPDF('l', 'mm', 'a4');
+
+  // Définir le titre et les informations supplémentaires
+  const title = "Emplois du Temps";
+  const className = "Classe: " + this.classe.nom;
+  const academicYear = "Année Universitaire: " + this.getCurrentAcademicYear();
+
+  // Ajouter le titre centré
+  doc.setFontSize(18);
+  doc.text(title, doc.internal.pageSize.width / 2, 20, { align: 'center' });
+
+  // Ajouter le nom de la classe
+  doc.setFontSize(12);
+  doc.text(className, doc.internal.pageSize.width / 2, 30, { align: 'center' });
+
+  // Ajouter l'année universitaire
+  doc.setFontSize(12);
+  doc.text(academicYear, doc.internal.pageSize.width / 2, 40, { align: 'center' });
+
+  // Définir la tête du tableau
+  const head = [['Jour', 'Heure Début', 'Heure Fin', 'Matière', 'Salle']];
+
+  // Transformer les données de l'emploi du temps pour le tableau
+  const data = this.emploiDuTemps.map((event: any) => [
+    this.getJourSemaine(event.jour),
+    event.heureD,
+    event.heureF,
+    event.matiere.nom,
+    event.classe.salle.num
+  ]);
+
+  const marginTop = 50;
+
+  autoTable(doc, {
+    head: head,
+    body: data,
+    startY: marginTop,  // Position de départ du tableau
+    didDrawCell: (data) => { },
+  });
+
+  doc.save('emplois_du_temps.pdf');
+}
+
+private getCurrentAcademicYear(): string {
+  const currentYear = new Date().getFullYear();
+  return `${currentYear-1}-${currentYear}`;
+}
+
+getJourSemaine(jour:any) {
+    const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+    return jours[jour];
+
+
+}
+
+
+
 
 
 }

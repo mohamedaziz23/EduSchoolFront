@@ -7,6 +7,8 @@
             <mat-icon>arrow_back_ios</mat-icon>
           </div>
           <h1 class="title">Emplois du temps de la classe <span class="fw-bold">{{classe.nom}}</span>  </h1>
+          <button (click)="printTable()">Générer PDF</button>
+
         </div>
           <full-calendar  [options]="calendarOptions" ></full-calendar>
 

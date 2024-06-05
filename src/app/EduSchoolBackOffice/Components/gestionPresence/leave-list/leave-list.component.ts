@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LeaveRequestService} from "../../../Services/leave-request.service";
+import {LeaveRequestService} from "../../services/presenceService/leave-request.service";
 import {MatDialog} from '@angular/material/dialog';
 import {LeaveTypeComponent} from "../leave-type/leave-type.component";
 import {Router} from "@angular/router";
@@ -75,42 +75,49 @@ export class LeaveListComponent implements OnInit{
       {
         name: 'LAST NAME',
         dataKey: 'employeeName',
+        dataKeySimple: '',
         position: 'left',
         isSortable: true
       },
       {
         name: 'FIRST NAME',
         dataKey: 'employeeFirstName',
+        dataKeySimple: '',
         position: 'left',
         isSortable: true
       },
       {
         name: 'DATE DEBUT',
         dataKey: 'startDate',
+        dataKeySimple:"",
         position: 'left',
         isSortable: false
       },
       {
         name: 'DATE FIN',
         dataKey: 'endDate',
+        dataKeySimple:"",
         position: 'left',
         isSortable: false
       },
       {
         name: 'RAISON',
         dataKey: 'reason',
+        dataKeySimple:"",
         position: 'left',
         isSortable: true
       },
       {
         name: 'TYPE',
         dataKey: 'leaveTypeName',
+        dataKeySimple:"",
         position: 'left',
         isSortable: true
       },
       {
         name: 'STATUS',
         dataKey: 'status',
+        dataKeySimple:"",
         position: 'left',
         isSortable: false
       },

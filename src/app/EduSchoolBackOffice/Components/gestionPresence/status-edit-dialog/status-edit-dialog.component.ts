@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {LeaveRequestService} from "../../../Services/leave-request.service";
+import {LeaveRequestService} from "../../services/presenceService/leave-request.service";
 
 @Component({
   selector: 'app-status-edit-dialog',

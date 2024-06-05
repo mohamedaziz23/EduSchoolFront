@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { MatiereService } from '../../service/matiereService/matiere.service';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TableColumn } from 'src/app/EduSchoolBackOffice/Tools/TableColumn';
+import { MatiereService } from '../../../services/matiereService/matiere.service';
 
 @Component({
   selector: 'app-list-matiere',
@@ -35,30 +35,39 @@ export class ListMatiereComponent {
       {
         name: 'Nom',
         dataKey: 'nom',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: true
       },
       {
         name: 'Code',
         dataKey: 'code',
+        dataKeySimple: '',
         position: 'left',
         isSortable: false
       },
       {
         name: 'Niveau',
         dataKey: 'niveau',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: false
       },
       {
         name: 'Nombre d\'Heure',
         dataKey: 'nbHeure',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: true
       },
       {
         name: 'Ressources',
         dataKey: 'ressources',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: false
       },

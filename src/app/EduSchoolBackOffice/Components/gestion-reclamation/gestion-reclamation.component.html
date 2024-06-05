@@ -1,0 +1,88 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <!-- Tableau des réclamations -->
+      <div class="card">
+        <div class="card-header">
+          Liste des Réclamations
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th *ngIf="user.role=='ADMINISTRATEUR'" scope="col">Identifiant éléve/enseignant</th>
+                <th scope="col">Date Soumission</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Description</th>
+                <th scope="col">Type</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Répéter pour chaque réclamation dans la liste des réclamations -->
+              <tr *ngFor="let reclamation of reclamations">
+                <td *ngIf="user.role=='ADMINISTRATEUR'">{{ reclamation.user.identifiant}}</td>
+                <td>{{ reclamation.dateSoumission | date: 'yyyy-MM-dd' }}</td>
+                <td>{{ reclamation.titre }}</td>
+                <td>{{ reclamation.description }}</td>
+                <td>{{ reclamation.typeReclamation }}</td>
+                <td>{{ reclamation.status }}</td>
+                <td *ngIf="user.role!='ADMINISTRATEUR'" >
+                  <button class="btn btn-danger" (click)="cancelReclamation(reclamation)" [disabled]="reclamation.expiredCancellation || reclamation.status!='EN_ATTENTE' ">
+                    Cancel
+                  </button>
+                </td>
+                <td *ngIf="user.role=='ADMINISTRATEUR'" >
+                  <button class="btn btn-success" (click)="accepter(reclamation)" [disabled]="reclamation.status!='EN_ATTENTE'" >
+                    Accepter
+                  </button>
+                </td>
+                <td *ngIf="user.role=='ADMINISTRATEUR'" >
+                  <button class="btn btn-danger" (click)="rejete(reclamation)" [disabled]="reclamation.status!='EN_ATTENTE'"  >
+                    Refusé
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="user.role!='ADMINISTRATEUR'" class="col-lg-4">
+      <!-- Formulaire d'ajout de réclamation -->
+      <div class="card">
+        <div class="card-header">
+          Ajouter une Réclamation
+        </div>
+        <div class="card-body">
+          <form (submit)="addNewReclamation()">
+            <div class="form-group">
+              <label for="dateSoumission">Date Soumission</label>
+              <input type="datetime-local" class="form-control" id="dateSoumission" [(ngModel)]="newReclamation.dateSoumission" name="dateSoumission">
+            </div>
+            <div class="form-group">
+              <label for="titre">Titre</label>
+              <input type="text" class="form-control" id="titre" [(ngModel)]="newReclamation.titre" name="titre">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" class="form-control" id="description" [(ngModel)]="newReclamation.description" name="description">
+            </div>
+            <div class="form-group">
+              <label for="type">Type</label>
+              <select class="form-control" id="type" [(ngModel)]="newReclamation.typeReclamation" name="typeReclamation">
+                <option value="Problèmes_Académiques" selected>Problèmes Académiques</option>
+                <option value="Problèmes_Infrastructure">Problèmes Infrastructure</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

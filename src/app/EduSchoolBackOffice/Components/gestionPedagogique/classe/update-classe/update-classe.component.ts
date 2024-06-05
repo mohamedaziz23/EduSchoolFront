@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ClasseServiceService } from '../../service/ClasseService/classe-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Niveau } from 'src/app/EduSchoolBackOffice/Tools/Niveau';
 import Swal from 'sweetalert2';
+import { ClasseServiceService } from '../../../services/ClasseService/classe-service.service';
 
 @Component({
   selector: 'app-update-classe',
@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 export class UpdateClasseComponent {
 
   classeForm !: FormGroup;
+  storageClasse!:any;
   classe: any = {};
   submitted = false;
 
@@ -23,11 +24,11 @@ selectedNiveau: string="----selectionner niveau----";
     private classeService: ClasseServiceService,
     private route:Router,
    ) {
-
     }
 
   ngOnInit(): void {
-    this.classe=window.history.state.myData;
+    this.storageClasse=localStorage.getItem('classe');
+    this.classe=JSON.parse(this.storageClasse);
     console.log(this.classe);
    this.classeForm=new FormGroup({
       nom:new FormControl(this.classe.nom,[Validators.required,Validators.minLength(2)]),

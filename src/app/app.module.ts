@@ -23,7 +23,7 @@ import { ListClasseComponent } from './EduSchoolBackOffice/Components/gestionPed
 import {DashboardComponent} from "./EduSchoolBackOffice/Components/Dashboards/dashboard/dashboard.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import { HttpClientModule } from '@angular/common/http';
-import { TableComponent } from './EduSchoolBackOffice/table/table.component';
+import { TableComponent } from './EduSchoolBackOffice/Tools/table/table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -48,23 +48,27 @@ import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 import { CantineComponent } from './EduSchoolBackOffice/Components/gestionCantine/cantine/cantine.component';
 import { MenuComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu/menu.component';
 import { GroupUserComponent } from './EduSchoolBackOffice/Components/gestionCantine/group-user/group-user.component';
+import { DatePipe } from '@angular/common';
+import { ListSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/list-salle/list-salle.component';
+import { AddSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/add-salle/add-salle.component';
+import { UpdateSalleComponent } from './EduSchoolBackOffice/Components/gestionSalle/update-salle/update-salle.component';
+import { EleveClasseComponent } from './EduSchoolBackOffice/Components/gestionPedagogique/classe/eleve-classe/eleve-classe.component';
+import { EventDialogComponent } from './EduSchoolBackOffice/Tools/event-dialog/event-dialog.component';
 import { StatusEditDialogComponent } from './EduSchoolBackOffice/Components/gestionPresence/status-edit-dialog/status-edit-dialog.component';
 import {MatSelectModule} from "@angular/material/select";
 import { AddAbsenceComponent } from './EduSchoolBackOffice/Components/gestionPresence/add-absence/add-absence.component';
 import {MatRadioModule} from "@angular/material/radio";
 import { LeaveDetailsComponent } from './EduSchoolBackOffice/Components/gestionPresence/leave-details/leave-details.component';
-
-/* FullCalendarModule.registerPlugins([
-  dayGridPlugin,
-  timeGridPlugin,
-  interactionPlugin,
-  listPlugin,
-  resourceTimelinePlugin
-
-]); */
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/user-list/user-list.component';
 import {MatCardModule} from "@angular/material/card";
+import { GereRdvComponent } from './EduSchoolBackOffice/Components/RDV/gere-rdv/gere-rdv.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MatOptionModule, DateAdapter } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
+import { MenuUserComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu-user/menu-user.component';
+import { GestionReclamationComponent } from './EduSchoolBackOffice/Components/gestion-reclamation/gestion-reclamation.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -91,12 +95,20 @@ import {MatCardModule} from "@angular/material/card";
     CantineComponent,
     MenuComponent,
     GroupUserComponent,
+    ListSalleComponent,
+    AddSalleComponent,
+    UpdateSalleComponent,
+    EleveClasseComponent,
+    EventDialogComponent,
     StatusEditDialogComponent,
     AddAbsenceComponent,
     LeaveDetailsComponent,
     ListClasseComponent,
     LoginComponent,
-    UserListComponent
+    UserListComponent,
+    GereRdvComponent,
+    MenuUserComponent,
+    GestionReclamationComponent
   ],
   imports: [
     BrowserModule,
@@ -119,6 +131,7 @@ import {MatCardModule} from "@angular/material/card";
     FormsModule,
     ReactiveFormsModule,
     FullCalendarModule,
+    MatDialogModule,
     MatMenuModule,
     MatFormFieldModule,
     MatDialogModule,
@@ -126,9 +139,26 @@ import {MatCardModule} from "@angular/material/card";
     MatButtonModule,
     MatSelectModule,
     MatRadioModule,
-    MatCardModule
+    MatCardModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatDatepickerModule,
+    HttpClientModule,
+    MatNativeDateModule,
+    MatInputModule ,
+    MatPaginatorModule,
+    MatTableModule,
+    MatDialogModule,
+    MatCardModule,
+    MatOptionModule,
+    FullCalendarModule,
+    CommonModule,
+    MatRadioModule,
+    FormsModule
+
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

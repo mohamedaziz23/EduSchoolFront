@@ -20,6 +20,8 @@ mat-sidenav {
   margin-left: 32px;
   justify-content: center;
   align-items: auto;
+
+
 }
 
 
@@ -77,6 +79,7 @@ mat-divider{
 mat-icon-button{
   background-color: transparent;
 }
+
 
 
 

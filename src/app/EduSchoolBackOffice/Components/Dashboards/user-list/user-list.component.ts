@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { User, UserService } from 'src/app/user.service';
+import { User, UserService } from 'src/app/EduSchoolBackOffice/Components/services/compteService/user.service';
 
 @Component({
   selector: 'app-user-list',

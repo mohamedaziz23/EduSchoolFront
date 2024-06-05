@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import {NotificationService} from "../../../Services/notification.service";
+import { AuthService } from '../../services/compteService/auth.service';
 import Swal from "sweetalert2";
+import { NotificationService } from '../../services/presenceService/notification.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,9 +18,13 @@ export class DashboardComponent implements OnInit{
 
   constructor(
     private router:Router,
+    private authService:AuthService,
     private notificationService:NotificationService
-  ) {
+
+    ) {
+        this.badgeCount=0;
     this.badgeCount=0;
+
 
 
   }
@@ -42,8 +47,9 @@ export class DashboardComponent implements OnInit{
 
 
   logout() {
-    localStorage.removeItem("connectedUser");
+    this.authService.logout();
     this.router.navigate(['']);
+
   }
   showNotification() {
     Swal.fire({

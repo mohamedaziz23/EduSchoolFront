@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LeaveRequestService} from "../../../Services/leave-request.service";
+import {LeaveRequestService} from "../../services/presenceService/leave-request.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
 import {Router} from "@angular/router";

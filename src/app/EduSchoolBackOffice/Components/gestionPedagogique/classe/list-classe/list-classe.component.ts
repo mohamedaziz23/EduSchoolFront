@@ -1,8 +1,8 @@
-import { ClasseServiceService } from '../../service/ClasseService/classe-service.service';
 import { Component } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TableColumn } from 'src/app/EduSchoolBackOffice/Tools/TableColumn';
+import { ClasseServiceService } from '../../../services/ClasseService/classe-service.service';
 
 @Component({
   selector: 'app-list-classe',
@@ -35,26 +35,18 @@ export class ListClasseComponent {
   initializeColumns(): void {
     this.classesTableColumns = [
       {
-        name: 'NOM ET PRENOM',
-        dataKey: 'id',
+        name: 'Nom',
+        dataKey: 'nom',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: true
       },
       {
-        name: 'DATE DEBUT -- DATE FIN',
-        dataKey: 'startDate -- endDate',
-        position: 'left',
-        isSortable: false
-      },
-      {
-        name: 'RAISON',
-        dataKey: 'reason',
-        position: 'left',
-        isSortable: true
-      },
-      {
-        name: 'DATE DEBUT -- DATE FIN',
-        dataKey: 'startDate -- endDate',
+        name: 'Niveau',
+        dataKey: 'niveau',
+        dataKeySimple: '',
+
         position: 'left',
         isSortable: false
       },
@@ -81,11 +73,13 @@ export class ListClasseComponent {
 
 
   editerClasse(classe : any){
-    this.router.navigate(['Dashboard/update-classe'], { state: { myData: classe } });
+    localStorage.setItem('classe', JSON.stringify(classe));
+    this.router.navigate(['Dashboard/update-classe']);
   }
 
   detailClasse(classe: any) {
-    this.router.navigate(['Dashboard/detail-classe'], { state: { myData: classe } });
+    localStorage.setItem('classe', JSON.stringify(classe));
+    this.router.navigate(['Dashboard/detail-classe']);
 
 
     }

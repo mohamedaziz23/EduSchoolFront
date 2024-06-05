@@ -1,3 +1,7 @@
+<div  routerLink="../matiere">
+  <mat-icon>arrow_back_ios</mat-icon>
+</div>
+
 <div class="registration-form">
   <form  [formGroup]="matiereForm">
 
@@ -22,12 +26,7 @@
             <label for="validationCustom04" class="form-label" >Niveau de la matiere <span style="color: red;">*</span></label>
             <select class="form-select" required formControlName="niveau">
               <option value="-- Sélectionner un niveau --"  selected>-- Sélectionner un niveau --</option>
-              <option value="PREMIERE">PREMIERE</option>
-              <option value="DEUXIEME">DEUXIEME</option>
-              <option value="TROISIEME">TROISIEME</option>
-              <option value="QUATRIEME">QUATRIEME</option>
-              <option value="CINQUIEME">CINQUIEME</option>
-              <option value="SIXIEME">SIXIEME</option>
+              <option *ngFor="let n of niveaux" [value]="n">{{n}}</option>
             </select>
             <div *ngIf="matiereForm.get('niveau')?.value==='-- Sélectionner un niveau --' && submitted"  >
               <div  class="alert alert-danger">selectionner un niveau</div>
@@ -50,11 +49,8 @@
 
     <div class="form-row">
       <div class="col-md-12">
-          <label for="validationCustom04" class="form-label" >Ressources <span style="color: red;">*</span></label>
+          <label for="validationCustom04" class="form-label" >Ressources </label>
         <input type="text" class="form-control" formControlName="ressources" >
-      <div *ngIf="validateError('ressources','required') && submitted"  >
-        <div  class="alert alert-danger">Ressources est Obligatoire </div>
-      </div>
 
       </div>
     </div>

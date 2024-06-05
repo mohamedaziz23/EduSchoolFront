@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {PresenceService} from "../../../Services/presence.service";
+import {PresenceService} from "../../services/presenceService/presence.service";
 
 @Component({
   selector: 'app-add-absence',

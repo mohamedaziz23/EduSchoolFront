@@ -1,180 +1,388 @@
-import { SeanceService } from './../../service/seanceService/seance.service';
+import { EmploisTempsService } from './../../../services/emploisTemps/emplois-temps.service';
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CalendarOptions } from '@fullcalendar/core';
+import { CalendarOptions, DateSelectArg } from '@fullcalendar/core';
 import Swal from 'sweetalert2';
 import frLocale from '@fullcalendar/core/locales/fr';
-import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
+import { Jour } from 'src/app/EduSchoolBackOffice/Tools/Jour';
+import 'default-passive-events';
+import { DatePipe } from '@angular/common';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { EventDialogComponent } from 'src/app/EduSchoolBackOffice/Tools/event-dialog/event-dialog.component';
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
+
+
+
+
+
+
+
 
 @Component({
   selector: 'app-emplois-temps',
   templateUrl: './emplois-temps.component.html',
   styleUrls: ['./emplois-temps.component.css']
+
 })
 export class EmploisTempsComponent {
-  calendarOptions: CalendarOptions = {
-    initialView: 'timeGridWeek',
-    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin, resourceTimelinePlugin],
-    headerToolbar: {
-      right: 'timeGridWeek'
-    },
-    selectable: true,
-    locale: frLocale,
-    slotMinTime: '8:00:00',
-    slotMaxTime: '18:00:00',
-    slotDuration: '00:30:00', // Durée des intervalles de temps (30 minutes)
-    weekends: true, // Ne pas afficher les week-ends
-    height: 'auto', // Hauteur automatique du calendrier en fonction du contenu
-    eventBackgroundColor: '#36c2cf', // Couleur de fond des événements
-    eventBorderColor: '#1e5d7a', // Couleur de la bordure des événements
-    firstDay: 1,
-    events: [
-      {
-        title: 'Mathématiques',
-        start: '2024-05-06T08:00:00',
-        end: '2024-05-06T09:30:00'
-      },
-      { title: 'Français', start: '2024-05-05T10:00:00', end: '2024-05-05T11:30:00' },
-      { title: 'Récréation', start: '2024-05-06T11:30:00', end: '2024-05-06T12:00:00' },
-    ]
-  };
 
 
-  posts: any;
+
+  storageClasse!: any;
+  classe!: any;
   addeventform!: FormGroup;
-  error: any;
   event: any = {};
-  events:any;
+  clicked!:boolean;
+  submitted!: boolean;
+  events: any[] = [];
+  calendarOptions!: CalendarOptions
+  jours = Object.values(Jour).filter((val: any) => isNaN(val));
+  visible:boolean=false;
+  startDateSelected!:any;
+  endDateSelected!:any;
+  result!:any;
+  dateNow!:any;
+  btnName:string="Ajouter";
+  idEvent!:any;
+  role!:any;
+  emploiDuTemps!:any;
 
 
+  constructor(
+    private emploisService: EmploisTempsService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe,
+    public dialog: MatDialog,
+  ) { }
 
-  constructor(private seanceService: SeanceService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-
+    this.role=localStorage.getItem('role');
+    this.dateNow=this.datePipe.transform(Date.now(),'yyyy-MM-dd');
+    this.storageClasse = localStorage.getItem('classe');
+    this.classe=JSON.parse(this.storageClasse);
+    this.initializeCalendar();
     this.getAllEvents();
-    this.addeventform = this.formBuilder.group({
-      title: [''],
-      date: [''],
-      datefin: ['']
-
-
-
-    })
-  }
- /*  handleDateClick(arg) {
-    alert('date click! ' + arg.dateStr)
-  } */
-  toggleWeekends() {
-    this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
-  }
-
-
- /*  deleteEvent(id) {
-    this.seanceService.deleteSingleEvent(id).subscribe((data: any) => {
-
+    this.addeventform = new FormGroup({
+      idMat: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      jour: new FormControl('', [Validators.required]),
+      heureD: new FormControl('', [Validators.required]),
+      heureF: new FormControl('', [Validators.required]),
     });
-  } */
+
+  }
+
+
+
+
+
+
+  validateError(name: string, typeErr: string): boolean {
+    return this.addeventform.get(name)!.hasError(typeErr);
+  }
+
+
+  /*  deleteEvent(id) {
+     this.seanceService.deleteSingleEvent(id).subscribe((data: any) => {
+
+     });
+   } */
 
   getAllEvents() {
-  /*   this.seanceService.getAllSeances().subscribe((data: any) => {
-      this.posts = data.posts;
-      const self = this;
-      this.calendarOptions = {
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        selectable: true,
-        locale: frLocale,
-        slotMinTime: '8:00:00',
-        slotMaxTime: '20:00:00',
-        editable: true,
-        events:data.posts,
-        eventClick(evetData) {
-          if (this.connectedUser.role === "superAdmin") {
-            const event_id = evetData.event._def.extendedProps._id;
-            Swal.fire({
-              title: 'Are you sure?',
-              text: 'You won\'t be able to revert this!',
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!',
-              timer: 30000,
-            }).then((result) => {
-              if (result.value) {
-                self.deleteEvent(event_id);
-                Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
-                  'success'
-                );
-                self.getAllEvents();
-              }
+    this.emploisService.getseances().subscribe((response: any) => {
+      console.log(response);
+      this.emploiDuTemps=response;
+      this.events = response.map((event: any) => ({
 
-            }).catch(() => {
-              Swal.fire('Failed!', 'There was something went wrong.');
-            });
+        id:event.id,
+        codeMat:event.matiere.code,
+        title: "matiere: "+event.matiere.nom +'\n salle: '+ event.classe.salle.num,
+        daysOfWeek: [event.jour],
+        startTime: event.heureD,
+        endTime: event.heureF
+      }));
 
-          }else{
-            Swal.fire({
-              title:"seule Ladminstrateur peut modifier",
-              icon: 'error',
-              confirmButtonText: 'ok',
-              showCancelButton: true
-            })
-
-          }
-
-
-
-
-        }
-      };
-    }); */
+      this.calendarOptions.events = this.events;
+      console.log(this.events);
+    });
   }
 
 
-  saveEvent() {
+  addCour(): void {
+    this.submitted = true;
+    console.log(this.addeventform.value);
+    this.result = {
+      heureD: this.addeventform.get('heureD')?.value,
+      heureF: this.addeventform.get('heureF')?.value,
+      jour: this.getDayNumber( this.addeventform.get('jour')?.value),
+      idMatiere:this.addeventform.get('idMat')?.value,
+      idClasse:this.classe.id
+    };
+    console.log(this.result);
+if(this.btnName==="Ajouter"){
+ this.emploisService.createseance(this.result).subscribe(
+       (data:any) => {
+         console.log(data);
+         if (data.response === 'success') {
+           Swal.fire({
+             position: 'center',
+             icon: 'success',
+             title: 'votre données à été ajouté avec success',
+             showConfirmButton: false,
+             timer: 1500
+           }).then(() => {
+            location.reload();
 
-   /*  this.seanceService.addEvent(this.event).subscribe(
-      (data) => {
-        console.log(data.message);
-
-        if (data.message === 'success') {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Your Event has been added successfully',
-            showConfirmButton: false,
-            timer: 1500
           });
-          location.reload();
         }
-      },
-      err => {
+         else {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: 'Something went wrong',
-          showConfirmButton: false,
-          timer: 1500
+          title: data.response,
+          confirmButtonText: 'D\'accord',
         });
+      }
+  });
+  }
+  else{
 
-      }); */
+    this.emploisService.updateseance(this.result,this.idEvent).subscribe(
+      (data:any) => {
+        console.log(data);
+        if (data.response === 'success') {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'votre données à été ajouté avec success',
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => {
+           location.reload();
+
+         });
+       }
+        else {
+       Swal.fire({
+         position: 'center',
+         icon: 'error',
+         title: data.response,
+         confirmButtonText: 'D\'accord',
+       });
+     }
+ });
+  }
+}
+
+  initializeCalendar() {
+    this.calendarOptions = {
+      initialView: 'timeGridWeek',
+      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin, resourceTimelinePlugin],
+      selectable: localStorage.getItem('role')=='ADMINISTRATEUR'?true:false,
+      locale: frLocale,
+      editable:true,
+      headerToolbar: {
+        left: '',
+        center: '',
+        right: ''
+      },
+      slotMinTime: '8:00:00',
+      slotMaxTime: '18:00:00',
+      slotDuration: '00:30:00',
+      weekends: true,
+      height: 'auto',
+      eventBackgroundColor: '#36c2cf',
+      eventBorderColor: '#1e5d7a',
+      firstDay: 1,
+      displayEventTime: false,
+      displayEventEnd: false,
+      events: this.events,
+      select: this.eventSelect.bind(this),
+      eventClick: this.handleEventClick.bind(this)
+
+    };
   }
 
+  getDayNumber(dayName: string): number | undefined {
+    return Jour[dayName as keyof typeof Jour];
+  }
+
+
+
+  eventSelect(eventSelect:any){
+      console.log("jour selected",Object.values(Jour)) ;
+      this.visible=true;
+      this.startDateSelected=eventSelect.startStr;
+      this.endDateSelected=eventSelect.endStr;
+      this.addeventform.get('jour')?.setValue(new Date(eventSelect.startStr).toLocaleDateString('fr-FR', { weekday: 'long' }).toUpperCase());
+      this.addeventform.get('heureD')?.setValue( this.datePipe.transform( eventSelect.start.getTime(), 'HH:mm'));
+      this.addeventform.get('heureF')?.setValue( this.datePipe.transform( eventSelect.end.getTime(), 'HH:mm'));
+  }
+
+  handleEventClick(eventData: any) {
+    const dialogRef = this.dialog.open(EventDialogComponent, {
+      width: '300px',
+      data: {
+        title: eventData.event.title,
+        startTime: eventData.event.start,
+        endTime: eventData.event.end
+      }
+    });
+    this.idEvent= eventData.event._def.publicId;
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (result.action === 'edit') {
+          console.log(eventData);
+          this.btnName="Modifier";
+          this.visible=true;
+          this.addeventform.get('jour')?.setValue(new Date(eventData.event.startStr).toLocaleDateString('fr-FR', { weekday: 'long' }).toUpperCase());
+          this.addeventform.get('heureD')?.setValue( this.datePipe.transform( eventData.event.start.getTime(), 'HH:mm'));
+          this.addeventform.get('heureF')?.setValue( this.datePipe.transform( eventData.event.end.getTime(), 'HH:mm'));
+          this.addeventform.get('idMat')?.setValue( eventData.event._def.extendedProps.codeMat);
+
+        }
+
+
+        else if (result.action === 'delete') {
+          Swal.fire({
+            position: 'center',
+            icon: 'question',
+            title: "Etes-vous sûr de vouloir le supprimer ?",
+            showCancelButton: true,
+            confirmButtonText: 'OUI',
+            cancelButtonText: 'NON'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.emploisService.deleteseance(this.idEvent).subscribe((e => {
+                location.reload();
+              }));
+              Swal.close;
+            }
+          });
+
+        }
+      }
+    });
+  }
+
+  generatePDF() {
+    const doc = new jsPDF('l', 'mm', 'a4');
+
+    const head = [['Titre', 'Jour', 'Heure Début', 'Heure Fin']];
+    const data = this.events;
+
+    autoTable(doc, {
+        head: head,
+        body: data,
+        didDrawCell: (data) => { },
+    });
+
+    doc.save('table.pdf');
+  }
+
+
+  generatePDsF() {
+    const doc = new jsPDF('l', 'mm', 'a4');
+
+
+
+    // Création des en-têtes
+    const head = [['ID', 'Niveau', 'Nom Classe', 'Numéro Salle', 'Jour', 'Heure Début', 'Heure Fin', 'Code Matière', 'Nom Matière']];
+
+    // Création des données à partir de votre exemple
+    const data =this.emploiDuTemps.map((emploi:any) => [
+        emploi.id,
+        emploi.classe.niveau,
+        emploi.classe.nom,
+        emploi.classe.salle.num,
+        this.getJourSemaine(emploi.jour), // Convertir le numéro de jour en nom de jour
+        emploi.heureD,
+        emploi.heureF,
+        emploi.matiere.code,
+        emploi.matiere.nom
+    ]);
+
+    // Génération du tableau dans le PDF
+    autoTable(doc, {
+      head: head,
+      body: data,
+      didDrawCell: (data) => { },
+  });
+
+    // Enregistrement du fichier PDF
+    doc.save('emplois_du_temps.pdf');
 }
-function ViewChild(arg0: string): (target: EmploisTempsComponent, propertyKey: "calendarComponent") => void {
-  throw new Error('Function not implemented.');
+
+public printTable() {
+  const doc = new jsPDF('l', 'mm', 'a4');
+
+  // Définir le titre et les informations supplémentaires
+  const title = "Emplois du Temps";
+  const className = "Classe: " + this.classe.nom;
+  const academicYear = "Année Universitaire: " + this.getCurrentAcademicYear();
+
+  // Ajouter le titre centré
+  doc.setFontSize(18);
+  doc.text(title, doc.internal.pageSize.width / 2, 20, { align: 'center' });
+
+  // Ajouter le nom de la classe
+  doc.setFontSize(12);
+  doc.text(className, doc.internal.pageSize.width / 2, 30, { align: 'center' });
+
+  // Ajouter l'année universitaire
+  doc.setFontSize(12);
+  doc.text(academicYear, doc.internal.pageSize.width / 2, 40, { align: 'center' });
+
+  // Définir la tête du tableau
+  const head = [['Jour', 'Heure Début', 'Heure Fin', 'Matière', 'Salle']];
+
+  // Transformer les données de l'emploi du temps pour le tableau
+  const data = this.emploiDuTemps.map((event: any) => [
+    this.getJourSemaine(event.jour),
+    event.heureD,
+    event.heureF,
+    event.matiere.nom,
+    event.classe.salle.num
+  ]);
+
+  const marginTop = 50;
+
+  autoTable(doc, {
+    head: head,
+    body: data,
+    startY: marginTop,  // Position de départ du tableau
+    didDrawCell: (data) => { },
+  });
+
+  doc.save('emplois_du_temps.pdf');
 }
+
+private getCurrentAcademicYear(): string {
+  const currentYear = new Date().getFullYear();
+  return `${currentYear-1}-${currentYear}`;
+}
+
+getJourSemaine(jour:any) {
+    const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+    return jours[jour];
+
+
+}
+
+
+
+
+
+}
+
+
+
 

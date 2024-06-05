@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { MatiereService } from '../../service/matiereService/matiere.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Niveau } from 'src/app/EduSchoolBackOffice/Tools/Niveau';
 import Swal from 'sweetalert2';
+import { MatiereService } from '../../../services/matiereService/matiere.service';
 
 @Component({
   selector: 'app-add-matiere',
@@ -16,9 +16,8 @@ export class AddMatiereComponent {
   matiereForm !: FormGroup;
   matiere: any = {};
   submitted = false;
+  niveaux = Object.values(Niveau).filter((val:any)=>isNaN(val));
 
-  niveaux = Object.values(Niveau);
-selectedNiveau: string="----selectionner niveau----";
 
   constructor(
     private matiereService: MatiereService,
@@ -31,7 +30,7 @@ selectedNiveau: string="----selectionner niveau----";
    this.matiereForm=new FormGroup({
       nom:new FormControl('',[Validators.required,Validators.minLength(3)]),
       nbHeure:new FormControl(0,[Validators.required,Validators.pattern(/^[0-9]+$/)]),
-      ressources:new FormControl('',[Validators.required]),
+      ressources:new FormControl(''),
       niveau:new FormControl('-- Sélectionner un niveau --',[Validators.required])
 
    });

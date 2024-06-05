@@ -1,0 +1,23 @@
+<div class="container" style="padding-top: 60px">
+  <h3 class="form-title">Type de congé</h3>
+  <form [formGroup]="leaveTypeForm" class="leave-form">
+    <div class="form-group">
+      <label for="newLeaveType" class="form-label">Nom du type de congé :</label>
+      <input type="text" id="newLeaveType" name="newLeaveType" formControlName="type" class="form-input">
+      <small
+        *ngIf="f['type'].invalid && submitted"
+        class="p-error"
+      >type est obligatoire</small
+      >
+    </div>
+    <div class="form-group">
+      <label for="description" class="form-label">Description :</label>
+      <textarea id="description" formControlName="description" class="form-textarea"></textarea>
+    </div>
+    <button id="btnAdd" type="button" class="btn btn-info" (click)="addLeaveType(leaveTypeForm.value)">{{title}}</button>
+    <button mat-flat-button color="warn" mat-dialog-close style="margin-left: 20px">Cancel</button>
+
+  </form>
+</div>
+
+

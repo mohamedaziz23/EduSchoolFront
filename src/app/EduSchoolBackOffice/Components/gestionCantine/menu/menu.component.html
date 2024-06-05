@@ -1,0 +1,68 @@
+<div class="container" style="margin-top:50px ;">
+  <div class="row">
+      <div class="col-md-8">
+        <div class="title-and-button">
+          <div  routerLink="../cantine">
+            <mat-icon>arrow_back_ios</mat-icon>
+          </div>
+        <h1 class="title">Listes Plats de la semaine de <span class="fw-bold">{{dateNow}}</span>  </h1>
+        </div>
+        <div class="table-responsive">
+          <app-table [tableData]="menuList"
+                    [tableColumns]="menusTableColumns"
+                    [isFilterable]="false"
+                    [isPageable]="true"
+                    [isDetailIcon]="false"
+                    [paginationSizes]="[2,4,6]"
+                    [defaultPageSize]="4"
+                    [rowActionDetailIcon]="'detail'"
+                    [rowActionEditIcon]="'edit'"
+                    [rowActionDeleteIcon]="'delete'"
+                    (rowEditAction)="editerMenu($event)"
+                    (rowDeleteAction)="deleteMenu($event)"
+                    (rowDetailAction)="detailMenu($event)">
+      </app-table>
+       </div>
+      </div>
+      <div class="col-md-4" >
+          <form  [formGroup]="menuFormBuilder">
+              <h1>Ajouter Repas </h1>
+              <div class="mb-3">
+                <label for="validationCustom04" class="form-label" >Plat <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" formControlName="nomPlat" >
+                <div *ngIf="validateError('nomPlat','required') && submitted"  >
+                  <div  class="alert alert-danger">Nom du plat est Obligatoire </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="validationCustom04" class="form-label" >Jour de la semaine <span style="color: red;">*</span></label>
+                <select class="form-select" required formControlName="jour">
+                  <option value="-- Sélectionner un jour --"  selected>-- Sélectionner un jour --</option>
+                  <option value="LUNDI">LUNDI</option>
+                  <option value="MARDI">MARDI</option>
+                  <option value="MERCREDI">MERCREDI</option>
+                  <option value="JEUDI">JEUDI</option>
+                  <option value="VENDREDI">VENDREDI</option>
+                  <option value="SAMEDI">SAMEDI</option>
+                </select>
+                <div *ngIf="menuFormBuilder.get('jour')?.value==='-- Sélectionner un jour --' && submitted"  >
+                  <div  class="alert alert-danger">selectionner le jour</div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="validationCustom04" class="form-label" >Quantité <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" formControlName="qte" >
+                <div *ngIf="validateError('qte','required') && submitted"  >
+                  <div  class="alert alert-danger">quantité est Obligatoire </div>
+                </div>
+                <div *ngIf="validateError('qte','min') && submitted"  >
+                  <div  class="alert alert-danger">minimu de la quantité doit étre supérier 3 </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" id="btnAdd" class="btn btn-block create-account" [disabled]="menuFormBuilder.invalid" (click)="addMenu()">Ajouter</button>
+            </div>
+          </form>
+      </div>
+  </div>
+

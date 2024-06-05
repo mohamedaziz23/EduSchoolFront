@@ -1,0 +1,95 @@
+<div class="container" style="margin-top:50px ;">
+  <div class="row-2">
+    <div  class="title-and-button">
+      <div  routerLink="../cantine">
+        <mat-icon>arrow_back_ios</mat-icon>
+      </div>
+    <h1 class="title">Responsable de la cantine  </h1>
+    </div>
+      <div class="col">
+        <div class="card custom-card">
+          <div class="card-body">
+            Nom Responsable Mme <span style="font-weight: bold;">{{ groupCantine.nomResponsable }}   <img *ngIf="this.groupCantine==null" (click)="editerGroupCantine()" src="../../../../../assets/img/edit.png"/></span>
+            <br><br>
+            Téléphone <span style="font-weight: bold;">{{ groupCantine.telephone }}</span>
+          </div>
+        </div>
+       </div>
+       <br>
+ <!--      <div class="col">
+        <div class="form-group">
+          <button type="submit" class="btn  create-account"  (click)="addUser()">Ajouter nouveau </button>
+      </div>
+       <div class="table-responsive">
+        <app-table [tableData]="groupUserList"
+        [tableColumns]="groupUserTableColumns"
+        [isFilterable]="true"
+        [isPageable]="true"
+        [isDetailIcon]="false"
+        [paginationSizes]="[2,4,6]"
+        [defaultPageSize]="4"
+        [rowActionEditIcon]="'edit'"
+        [rowActionDeleteIcon]="'delete'"
+        [rowActionDetailIcon]="'remove_red_eye'"
+        (rowEditAction)="editerGroupUser($event)"
+        (rowDeleteAction)="deleteUser($event)">
+</app-table>
+     </div>
+     </div> -->
+     <br>
+     <!-- Première partie : Liste des souscripteurs en attente -->
+   <div class="row">
+     <div class="col">
+      <h2>Liste des souscripteurs en attente</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Identifiant</th>
+              <th>Nom et Prénom</th>
+              <th>Abonnement</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let souscripteur of souscripteursEnAttente">
+              <td>{{ souscripteur.user.identifiant }}</td>
+              <td>{{ souscripteur.user.nom }} {{ souscripteur.user.prenom }}</td>
+              <td>{{souscripteur.abonnement}}</td>
+              <td>
+                <img  (click)="accepterSouscripteur(souscripteur)" src="../../../../../assets/img/accept.png" />
+                <img  (click)="deleteUser(souscripteur)" src="../../../../../assets/img/reject.png"/>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br>
+
+    <!-- Deuxième partie : Liste finale des souscripteurs -->
+    <div class="col">
+      <h2>Liste finale des souscripteurs</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Identifiant</th>
+              <th>Abonnement</th>
+              <th>Actions</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let souscripteur of souscripteursAcceptes">
+              <td>{{ souscripteur.user.identifiant }}</td>
+              <td>{{ souscripteur.abonnement}}</td>
+              <img  (click)="deleteUser(souscripteur)" src="../../../../../assets/img/reject.png"/>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

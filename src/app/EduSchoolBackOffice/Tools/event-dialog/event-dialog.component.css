@@ -1,0 +1,25 @@
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px; /* Espace entre les icônes */
+}
+
+.dialog-actions mat-icon {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+
+
+.title-and-button {
+  display: flex;
+  justify-content: space-between; /* Pour aligner les éléments à l'extrémité opposée */
+  align-items: center; /* Pour aligner les éléments verticalement */
+}
+.delete-button:hover {
+  color: red; /* Couleur au survol, ajustez selon vos besoins */
+}
+.edit-button:hover {
+  color: rgb(3, 213, 3); /* Couleur au survol, ajustez selon vos besoins */
+}

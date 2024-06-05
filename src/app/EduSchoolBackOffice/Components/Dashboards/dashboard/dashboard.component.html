@@ -1,24 +1,18 @@
 <mat-toolbar>
-
   Dashboard Administrateur
-
   <nav class="navbar navbar-expand bg-blue  navbar-light sticky-top px-4 py-0" >
-
     <div class="navbar-nav align-items-center ms-auto">
-
-
       <div class="nav-item dropdown">
-        <a href="#" class="nav-link " data-bs-toggle="dropdown">
+        <!-- <a href="#" class="nav-link " data-bs-toggle="dropdown">
           <div class=" d-lg-inline-flex align-items-center " >
               <mat-icon class="icon">notifications</mat-icon>
               <span  >Notifications   </span>
           </div>
 
-      </a>
+      </a> -->
         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
           <a class="dropdown-item" >
             <ng-container >
-
               <h6 class="fw-normal mb-0">test</h6>
               <small>test</small> <br>
               <small>date</small> : <small>test</small><br>
@@ -34,7 +28,6 @@
                       >
                 <mat-icon>check_circle</mat-icon>
               </button>
-
             </ng-container>
           </a>
 
@@ -42,7 +35,6 @@
         </div>
       </div>
     </div>
-
   </nav>
   <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
     <mat-icon *ngIf="!sidenav.opened">
@@ -69,27 +61,34 @@
           <mat-icon>school</mat-icon>
           <span>Gestion Pédagogique</span>
           <mat-menu #menu1="matMenu">
-              <button mat-menu-item routerLink="class"  >Classe</button>
-              <button mat-menu-item routerLink="emplois">Emplois du temps</button>
+              <button mat-menu-item routerLink="classe"  >Classe</button>
               <button mat-menu-item routerLink="matiere">Matière</button>
-              <button mat-menu-item routerLink="homework">HomeWork</button>
               <button mat-menu-item routerLink="resultat">Resultat</button>
           </mat-menu>
       </button>
       <mat-divider></mat-divider>
       <button mat-button class="menu-button" [matMenuTriggerFor]="menu">
-          <mat-icon>no_meeting_room</mat-icon>
-          <span>Gestion des Présence</span>
+        <mat-icon><img src="assets/img/absence.png"></mat-icon>
+          <span>Gestion Présence</span>
           <mat-menu #menu="matMenu">
-              <button mat-menu-item routerLink="statuscongesens">Gestion des abscences</button>
-              <button mat-menu-item routerLink="addconges">Gestion des congés</button>
+              <button mat-menu-item routerLink="Add-Absence">Gestion des absences</button>
           </mat-menu>
       </button>
-      <mat-divider></mat-divider>
-      <button mat-button class="menu-button" routerLink="calender">
-          <mat-icon>calendar_today</mat-icon>
-          <span>Emploi de Temps</span>
-      </button>
+    <mat-divider></mat-divider>
+
+    <button mat-button class="menu-button" [matMenuTriggerFor]="menu2">
+      <mat-icon>no_meeting_room</mat-icon>
+      <span>Gestion Des Congés</span>
+      <mat-menu #menu2="matMenu">
+        <button mat-menu-item routerLink="Leave-list">
+          Liste des Congés
+        </button>
+        <button mat-menu-item routerLink="Leave-type-list">
+          Gestion des Types
+        </button>
+      </mat-menu>
+    </button>
+
       <mat-divider></mat-divider>
       <button mat-button class="menu-button" routerLink="transport">
         <mat-icon> directions_bus</mat-icon>
@@ -101,9 +100,20 @@
           <span>Gestion Cantine</span>
       </button>
       <mat-divider></mat-divider>
-      <button mat-button class="menu-button" >
+      <button mat-button class="menu-button" routerLink="salle">
+        <mat-icon> meeting_room</mat-icon>
+          <span>Gestion Salle</span>
+      </button>
+      <mat-divider></mat-divider>
+
+      <button mat-button class="menu-button" routerLink="user_reclamation">
+        <mat-icon> <img src="../../../../../assets/img/claim.png" alt=""></mat-icon>
+          <span> Réclamation</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-button class="menu-button" (click)="navigateToUserList()">
         <mat-icon>person_outline</mat-icon>
-          <span>Gestion Comptes</span>
+        <span>Gestion Comptes</span>
       </button>
       <mat-divider></mat-divider>
       <button mat-button class="menu-button" (click)="logout()">
@@ -118,5 +128,6 @@
           </main>
       </div>
   </mat-sidenav-content>
+
 </mat-sidenav-container>
 

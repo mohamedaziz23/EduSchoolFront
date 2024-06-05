@@ -1,0 +1,8 @@
+export enum Niveau{
+  PREMIERE,
+  DEUXIEME,
+  TROISIEME,
+  QUATRIEME,
+  CINQUIEME,
+  SIXIEME
+}

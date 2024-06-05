@@ -1,0 +1,47 @@
+.title-and-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  margin-right: auto; /* Aligne le titre à gauche en poussant le bouton vers la droite */
+}
+#btnAdd{
+  background-color: #06BBCC;
+  color:white
+}
+.transparent-table {
+  background-color: transparent;
+}
+tr{
+  background-color: white;
+}
+
+form{
+  background-color: #fff;
+  max-width: 600px;
+  margin: auto;
+  padding: 50px 70px;
+
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.form-icon{
+  text-align: center;
+    border-radius: 50%;
+    margin: auto;
+    margin-bottom: 50px;
+    line-height: 100px;
+  }
+
+  .create-account{
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color:#06BBCC;
+    border: none;
+    color: white;
+    margin-top: 20px;
+  }
+

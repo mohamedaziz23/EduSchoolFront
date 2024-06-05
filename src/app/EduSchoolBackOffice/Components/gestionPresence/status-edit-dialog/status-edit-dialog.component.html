@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Modifier le statut</h2>
+<div mat-dialog-content>
+  <p>Sélectionnez un nouveau statut :</p>
+  <mat-form-field>
+    <mat-label>Statut</mat-label>
+    <mat-select [(ngModel)]="selectedStatus">
+      <mat-option *ngFor="let status of statusOptions" [value]="status">{{ status }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Annuler</button>
+  <button mat-button (click)="updateStatus()" cdkFocusInitial>Valider</button>
+</div>
+

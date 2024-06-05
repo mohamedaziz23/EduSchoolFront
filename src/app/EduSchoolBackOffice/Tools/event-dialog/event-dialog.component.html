@@ -1,0 +1,12 @@
+<div class="title-and-button">
+<h1 mat-dialog-title class="fw-bold">Détails de la séance</h1>
+  <mat-icon (click)="onClose()" >close</mat-icon>
+</div>
+<div mat-dialog-content>
+  <p><strong>Title:</strong> {{ data.title }}</p>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <mat-icon class="edit-button" (click)="onEdit()" >edit</mat-icon>
+  <mat-icon class="delete-button" (click)="onDelete()" >delete</mat-icon>
+
+</div>

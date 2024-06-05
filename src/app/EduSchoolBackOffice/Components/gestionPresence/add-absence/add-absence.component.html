@@ -1,0 +1,104 @@
+<div class="content">
+  <div class="container">
+    <h2 class="mb-5">Gestion des absences des éleves</h2>
+
+    <div class="table-responsive">
+      <form [formGroup]="addForm">
+        <input type="datetime-local" class="form-controll" placeholder="Date de journée " formControlName="date" />
+
+        <br>
+        <br>
+
+
+
+        <select class="form-select" formControlName="idGroupe" placeholder="Choisir Groupe" (change)="onSelect($event)"
+                >
+          <option>... Select ...</option>
+          <option *ngFor="let c of classes" value="{{c.id}}">{{c.nom}}
+            </option>
+
+
+        </select>
+
+
+        <br>
+
+        <select class="form-select" formControlName="idMatiere" placeholder="Choisir Matiere"  >
+          <option selected="true">...Select ...</option>
+          <option *ngFor="let m of matieres">{{m.nom}}
+             </option>
+
+
+        </select>
+
+
+
+        <br> <br> <br>
+
+
+
+        <table class="table table-striped custom-table">
+          <thead>
+          <tr>
+            <th scope="col">Nom Eleve</th>
+
+            <th scope="col">Prenom Eleve</th>
+            <th scope="col">Remarque Du Jour</th>
+            <th scope="col">Presence</th>
+
+            <th scope="col">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let e of filetredUser" >
+
+              <td class="pl-0">
+                <input class="form-control" id="inputLast" type="text" [placeholder]="e.nom" disabled="true" />
+              </td>
+
+              <td class="pl-0">
+                <input class="form-control" id="inputfirstName" type="text" [placeholder]="e.prenom"
+                       disabled="true" />
+              </td>
+
+              <td>
+                <div class="col-md-6">
+
+                    <textarea matInput class="form-control" name="" id="" cols="60" rows="1"
+                              placeholder="Notez vos notes de la journée" formControlName="remarque" ></textarea>
+
+                </div>
+              </td>
+
+              <td>
+
+
+                <mat-radio-group aria-label="Select an option" formControlName="presence" >
+                  <mat-radio-button value="Present">Present</mat-radio-button>
+                  <mat-radio-button value="Absent">Absent</mat-radio-button>
+                </mat-radio-group>
+
+              </td>
+              <td>
+
+
+                <button mat-fab color="second" aria-label="Example icon button with a delete icon"
+                        (click)="add()">
+                  <mat-icon>check_circle</mat-icon>
+                </button>
+
+
+
+
+
+              </td>
+
+          </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+
+
+  </div>
+</div>

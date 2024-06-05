@@ -40,7 +40,9 @@ export class LoginComponent implements OnInit {
           console.log('user',localStorage.getItem('user'));
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role); // Store the role
-
+          localStorage.setItem('nom', response.nom);
+          localStorage.setItem('prenom', response.prenom);
+          localStorage.setItem('id', response.id);
           console.log(response);
 
           if (response.role === 'ENSEIGNANT') {

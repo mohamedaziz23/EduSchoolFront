@@ -16,12 +16,15 @@ export class LeaveListComponent implements OnInit{
   leaveRequestList:any=[];
   leaveType:any=[];
   leaveRequestTableColumns:TableColumn[] = [];
+
   constructor(private leaveRequest:LeaveRequestService,
               private leaveService:LeaveRequestService,
               private router:Router,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              ) {
   }
   ngOnInit(): void {
+
     this.initializeColumns()
     this.getAllLeaveType()
    this.getAllLeave();
@@ -33,7 +36,9 @@ export class LeaveListComponent implements OnInit{
         ...item,
         startDate: new Date(item.startDate).toLocaleDateString('fr-FR'),
         endDate: new Date(item.endDate).toLocaleDateString('fr-FR'),
-        leaveTypeName: item.leaveType.type
+        leaveTypeName: item.leaveType.type,
+        employeeName : item.employee.nom,
+        employeeFirstName:item.employee.prenom
       }));
 
       console.log(this.leaveRequestList)
@@ -68,9 +73,16 @@ export class LeaveListComponent implements OnInit{
   initializeColumns(): void {
     this.leaveRequestTableColumns = [
       {
-        name: 'EMPLOYEE',
-        dataKey: 'employee',
-        dataKeySimple:"",
+        name: 'LAST NAME',
+        dataKey: 'employeeName',
+        dataKeySimple: '',
+        position: 'left',
+        isSortable: true
+      },
+      {
+        name: 'FIRST NAME',
+        dataKey: 'employeeFirstName',
+        dataKeySimple: '',
         position: 'left',
         isSortable: true
       },

@@ -45,6 +45,7 @@ const routes: Routes = [
     {path:"user_reclamation",component:GestionReclamationComponent},
 
 
+
     ]
   },
   {path:"Dashboard-eleve",component:DashboardEleveComponent,children:[
@@ -108,6 +109,11 @@ const routes: Routes = [
 
 
   ]},
+  {path:"DashboardEnseignant",component:DashboardEnseignantComponent,children:[
+      {path:"Request-leave",component: LeaveRequestComponent},
+      {path:"My-request",component:MyRequestLeaveComponent}
+    ]},
+  {path:"DashboardStudent",component:DashboardEleveComponent},
 
   {path:"Login",component:LoginComponent},
   {path:"listuser",component:UserListComponent},

@@ -67,6 +67,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatOptionModule, DateAdapter } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MenuUserComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu-user/menu-user.component';
+import { GestionReclamationComponent } from './EduSchoolBackOffice/Components/gestion-reclamation/gestion-reclamation.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -105,7 +107,8 @@ import { MenuUserComponent } from './EduSchoolBackOffice/Components/gestionCanti
     LoginComponent,
     UserListComponent,
     GereRdvComponent,
-    MenuUserComponent
+    MenuUserComponent,
+    GestionReclamationComponent
   ],
   imports: [
     BrowserModule,
@@ -151,7 +154,8 @@ import { MenuUserComponent } from './EduSchoolBackOffice/Components/gestionCanti
     MatOptionModule,
     FullCalendarModule,
     CommonModule,
-    MatRadioModule
+    MatRadioModule,
+    FormsModule
 
   ],
   providers: [DatePipe],

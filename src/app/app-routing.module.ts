@@ -32,6 +32,8 @@ import { UserListComponent } from './EduSchoolBackOffice/Components/Dashboards/u
 import { GereRdvComponent } from './EduSchoolBackOffice/Components/RDV/gere-rdv/gere-rdv.component';
 import { DashboardEnseignantComponent } from './EduSchoolBackOffice/Components/Dashboards/dashboard-enseignant/dashboard-enseignant.component';
 import { MenuUserComponent } from './EduSchoolBackOffice/Components/gestionCantine/menu-user/menu-user.component';
+import { ReclamationService } from './EduSchoolBackOffice/Components/services/reclamationService/reclamation.service';
+import { GestionReclamationComponent } from './EduSchoolBackOffice/Components/gestion-reclamation/gestion-reclamation.component';
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -47,6 +49,7 @@ const routes: Routes = [
     {path:"emplois-temps",component:EmploisTempsComponent},
     {path:"enseignant-classe",component:EnseignantClasseComponent},
     {path:"user_menu",component:MenuUserComponent},
+    {path:"user_reclamation",component:GestionReclamationComponent},
 
 
   ]},
@@ -96,7 +99,11 @@ const routes: Routes = [
 
     // gestion RDV
 
-    { path: 'rdv', component: GereRdvComponent }
+    { path: 'rdv', component: GereRdvComponent },
+
+    // gestion reclamation
+    {path:"user_reclamation",component:GestionReclamationComponent},
+
 
   ]},
 

@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { CantineService } from '../../services/cantineService/cantine.service';
 import { firstValueFrom } from 'rxjs';
 import Swal from 'sweetalert2';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -23,7 +22,7 @@ export class MenuUserComponent implements OnInit {
   userCantine!:[];
   dataCan!:any;
 
-  constructor(private cantineService: CantineService, private router: Router, private dataPipe:DatePipe,private _snackBar: MatSnackBar) { }
+  constructor(private cantineService: CantineService, private router: Router, private dataPipe:DatePipe) { }
 
   async ngOnInit(): Promise<void> {
 

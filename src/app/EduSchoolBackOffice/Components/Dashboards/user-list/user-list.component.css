@@ -35,3 +35,11 @@
     margin-top:60px ;
   }
   
+
+  .qr-code-container {
+    position: absolute; /* Position absolue par rapport au parent */
+    top: 70%; /* Alignement vertical au milieu */
+    right: 20px; /* Marge de 20px à droite */
+    transform: translateY(-50%); /* Décalage vertical de 50% de la hauteur de l'élément */
+  }
+  

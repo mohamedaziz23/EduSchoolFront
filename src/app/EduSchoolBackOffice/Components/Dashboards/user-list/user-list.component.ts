@@ -5,6 +5,8 @@ import { User, UserService } from 'src/app/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
+import * as QRCode from 'qrcode';
+
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -15,6 +17,7 @@ export class UserListComponent implements OnInit {
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
   error: string | null = null;
   displayedColumns: string[] = ['email', 'nom', 'prenom', 'role', 'isApproved', 'actions'];
+  qrCodeImageUrl: string | undefined; // Déclarer la propriété qrCodeImageUrl
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -26,6 +29,7 @@ export class UserListComponent implements OnInit {
         this.users = data;
         this.dataSource.data = data;
         this.dataSource.paginator = this.paginator;
+        this.generateQRCode();
       },
       (error) => {
         this.error = 'Failed to load users';
@@ -71,6 +75,17 @@ export class UserListComponent implements OnInit {
         });
       }
     );
+  }
+
+  generateQRCode(): void {
+    const facebookUrl = 'https://www.facebook.com'; // URL de Facebook
+    QRCode.toDataURL(facebookUrl, (err: any, url: string) => {
+      if (err) {
+        console.error('Error generating QR code:', err);
+        return;
+      }
+      this.qrCodeImageUrl = url;
+    });
   }
 
   rejectUser(userId: number): void {

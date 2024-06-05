@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Homework } from '../../../entities/homework.entitie';
-import { HomeworkService } from '../../../services/homework.service';
+import { HomeworkService } from '../../../../services/homeworkService/homework.service';
 import { CdkTableDataSourceInput } from '@angular/cdk/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -10,7 +10,7 @@ import { UpdateHomeworkComponent } from '../update-homework/update-homework.comp
 import { PopupComponent } from '../../../popup/popup.component';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { AuthService } from 'src/app/auth.service';
+import { AuthService } from 'src/app/EduSchoolBackOffice/Components/services/compteService/auth.service';
 
 @Component({
   selector: 'app-list-homework',
@@ -25,7 +25,7 @@ displayedColumns: string[] = ["sujet", "dateRemis", "dateRecu", "Classe", "matie
 @ViewChild(MatSort) sort !: MatSort;
 user: any;
   constructor(
-    private homeworkService:HomeworkService, 
+    private homeworkService:HomeworkService,
     private dialog: MatDialog,
     private router :Router,
     private authService: AuthService
@@ -33,7 +33,7 @@ user: any;
   ngOnInit(): void {
     this.user = this.authService.getUser();
     this.loadHomework();
-  
+
   }
   isAdmin(): boolean {
     return this.user && this.user.role === 'ADMINISTRATEUR';
@@ -47,7 +47,7 @@ user: any;
   }
   loadHomework(){
     this.homeworkService.getHomework().subscribe(
-       (data) => { 
+       (data) => {
         if (this.user.role === 'ENSEIGNANT'){
           if (Array.isArray(data)) {
             data.forEach((homework: any) => {
@@ -57,7 +57,7 @@ user: any;
             }
             )}
         }else if(this.user.role === 'ELEVE') {
-          this.homeworkService.getUserById(this.user.id).subscribe(eleve => 
+          this.homeworkService.getUserById(this.user.id).subscribe(eleve =>
             {
               if (Array.isArray(data)) {
                 data.forEach((homework: any) => {
@@ -69,7 +69,7 @@ user: any;
                   }
                 }
                 )}
-             
+
             }
           )
         }
@@ -79,10 +79,10 @@ user: any;
         this.dataSource = new MatTableDataSource<Homework>(this.listHomework.reverse());
         this.dataSource.paginator = this.paginatior;
         this.dataSource.sort = this.sort ;
-        
+
       }
     )
-    
+
   }
   deleteHomework(code: any) {
     Swal.fire({
@@ -142,16 +142,16 @@ user: any;
         type: 'homework'
       }
     });
-    _popup.afterClosed().subscribe( 
+    _popup.afterClosed().subscribe(
       item =>
         {
           this.loadHomework();
         }
-      
+
       )
   }
   ajouterHomework(){
     this.router.navigate(['Dashboard/GestionHomeWork']);
   }
-  
+
 }

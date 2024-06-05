@@ -5,9 +5,9 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import Swal from 'sweetalert2';
-import { HomeworkService } from '../../services/homework.service';
+import { HomeworkService } from '../../../services/homeworkService/homework.service';
 import frLocale from '@fullcalendar/core/locales/fr';
-import { AuthService } from 'src/app/auth.service';
+import { AuthService } from '../../../services/compteService/auth.service';
 
 @Component({
   selector: 'app-ajouter-examen',
@@ -50,7 +50,7 @@ export class AjouterExamenComponent implements OnInit {
     )
     this.homeworkService.getAllClasse().subscribe(
       (data) => {
-          this.classes = data;        
+          this.classes = data;
       }
     );
     this.getAllExamen();
@@ -61,13 +61,13 @@ export class AjouterExamenComponent implements OnInit {
           this.examens = data;
           if (this.examens) {
             this.examens.forEach((examen: {id: any; matiere: { nom: any; }; salle: { num: any; }; dateExamen: any; classes: { nom: any; }[] }) => {
-              
+
               const classes: string[] = examen.classes.map((classe: { nom: any; }) => classe.nom);
               const event = {
                 id: examen.id,
-                title: examen.matiere.nom, 
-                salle: examen.salle.num, 
-                date: examen.dateExamen, 
+                title: examen.matiere.nom,
+                salle: examen.salle.num,
+                date: examen.dateExamen,
                 classes: classes
               };
               console.log(event)
@@ -86,11 +86,11 @@ export class AjouterExamenComponent implements OnInit {
             slotMinTime: '08:00:00',
             slotMaxTime: '18:00:00',
             events: this.events,
-            eventClick: this.handleEventClick.bind(this) 
+            eventClick: this.handleEventClick.bind(this)
           };
-        }) 
+        })
     }
-      
+
       handleEventClick(info: { event: any; }) {
         const event = info.event;
         const eventData = {
@@ -98,7 +98,7 @@ export class AjouterExamenComponent implements OnInit {
           Id:event.id,
           otherInfo: {
             Salle: event.extendedProps.salle,
-            Classes: event.extendedProps.classes.join(', ') 
+            Classes: event.extendedProps.classes.join(', ')
           }
         };
         Swal.fire({
@@ -130,7 +130,7 @@ export class AjouterExamenComponent implements OnInit {
                 Swal.fire('Deleted!', 'Examen a étè supprimer', 'success');
               } else if (confirmResult.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire('Annulation', "Votre examen n'est pas supprime :)", 'info');
-                
+
               }
               this.getAllExamen();
             });
@@ -140,12 +140,12 @@ export class AjouterExamenComponent implements OnInit {
   deleteEvent(event: any) {
     this.homeworkService.deleteExamen(event.id).subscribe((data)=> {console.log(data)})
   }
-      
+
   handleDateClick(arg: { dateStr: string; }) {
     alert('date click! ' + arg.dateStr)
   }
   toggleWeekends() {
-    this.calendarOptions.weekends = !this.calendarOptions.weekends 
+    this.calendarOptions.weekends = !this.calendarOptions.weekends
   }
   isAdmin(): boolean {
     return this.user && this.user.role === 'ADMINISTRATEUR';
@@ -166,7 +166,7 @@ export class AjouterExamenComponent implements OnInit {
         confirmButtonText: 'ok',
         showCancelButton: true
       });
-      return; 
+      return;
     }
     console.log(this.examenForm.value)
     this.homeworkService.createExamen(this.examenForm.value).subscribe(
@@ -174,7 +174,7 @@ export class AjouterExamenComponent implements OnInit {
         console.log(data)
       }
       )
-     
+
     Swal.fire({
       position: 'center',
       icon: 'success',

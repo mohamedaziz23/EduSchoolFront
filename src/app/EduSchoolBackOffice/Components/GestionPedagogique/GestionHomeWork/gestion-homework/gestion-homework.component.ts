@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Homework } from '../../entities/homework.entitie';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
-import { HomeworkService } from '../../services/homework.service';
-import { AuthService } from 'src/app/auth.service';
+import { HomeworkService } from '../../../services/homeworkService/homework.service';
 import { switchMap, catchError, of, map } from 'rxjs';
+import { AuthService } from '../../../services/compteService/auth.service';
 
 @Component({
   selector: 'app-gestion-homework',
@@ -22,7 +22,7 @@ export class GestionHomeworkComponent implements OnInit {
   user: any;
   enseignantList: any;
   constructor(
-    private formbuilder: FormBuilder, 
+    private formbuilder: FormBuilder,
     private homeworkService:HomeworkService,
     private authService: AuthService,
     private router :Router){
@@ -37,11 +37,11 @@ export class GestionHomeworkComponent implements OnInit {
       matiereHomework: new FormControl('',Validators.required),
       idEnseignant:new FormControl('')
     });
-    
+
     this.user = this.authService.getUser();
     if (this.user.role === "ENSEIGNANT"){
       this.loadEnseignantAndMatieres();
-       
+
     }else{
       this.homeworkService.getAllMatiere().subscribe(
         (data) => {
@@ -50,11 +50,11 @@ export class GestionHomeworkComponent implements OnInit {
       )
       this.homeworkService.getAllClasse().subscribe(
         (data) => {
-            this.classes = data;        
+            this.classes = data;
         }
       );
     }
-  
+
   }
   loadEnseignantAndMatieres() {
     this.homeworkService.getAllEnseignant().subscribe((data : any) => {
@@ -73,7 +73,7 @@ export class GestionHomeworkComponent implements OnInit {
       }
   })
   }
-  
+
   AddHomework() {
   this.submitted = true;
   this.homeworkForm.get('idEnseignant')?.setValue(this.user.id)
@@ -85,13 +85,13 @@ export class GestionHomeworkComponent implements OnInit {
       confirmButtonText: 'ok',
       showCancelButton: false
     });
-    return; 
+    return;
   }
   this.homeworkService.createHomework(this.homeworkForm.value).subscribe(
     (data) => {
     }
   );
-  
+
   Swal.fire({
     position: 'center',
     icon: 'success',
@@ -101,7 +101,6 @@ export class GestionHomeworkComponent implements OnInit {
   });
   this.router.navigate(['/Dashboard/ListHomework']);
 }
-  
+
 }
 
-  

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { HomeworkService } from '../services/homework.service';
+import { HomeworkService } from '../../services/homeworkService/homework.service';
 
 @Component({
   selector: 'app-popup',
@@ -30,7 +30,7 @@ export class PopupComponent implements OnInit {
         this.service.getNoteByID(this.inputdata.code).subscribe(
           item => {
             this.custdata = item;
-            
+
             console.log(this.custdata)
           }
         )

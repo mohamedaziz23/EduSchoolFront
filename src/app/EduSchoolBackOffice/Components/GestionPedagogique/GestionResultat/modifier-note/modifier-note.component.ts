@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Note } from '../../entities/note.entitie';
-import { HomeworkService } from '../../services/homework.service';
+import { HomeworkService } from '../../../services/homeworkService/homework.service';
 
 @Component({
   selector: 'app-modifier-note',
@@ -25,7 +25,7 @@ export class ModifierNoteComponent implements OnInit{
     }
 
     ngOnInit(): void {
-      this.id = this.route.snapshot.params['id']; 
+      this.id = this.route.snapshot.params['id'];
       this.noteForm = new FormGroup({
         noteOrale : new FormControl('', Validators.required),
         noteExamen : new FormControl('', Validators.required),
@@ -33,7 +33,7 @@ export class ModifierNoteComponent implements OnInit{
     });
 
     this.homeworkService.getNoteByID(this.id).subscribe(
-        (data) => { 
+        (data) => {
             this.note = data;
             if (this.note) {
                 this.noteForm.patchValue({
@@ -44,10 +44,10 @@ export class ModifierNoteComponent implements OnInit{
             }
         }
     );
-    
+
       this.homeworkService.getAllMatiere().subscribe(
         (data) => {
-          
+
           this.matieres = data;
         }
       )
@@ -58,24 +58,24 @@ export class ModifierNoteComponent implements OnInit{
       ) */
       this.homeworkService.getAllClasse().subscribe(
         (data) => {
-            this.classes = data;        
+            this.classes = data;
         }
       );
-     
+
     }
     onClasseChange(event: Event) {
       const classeId = (event.target as HTMLSelectElement).value;
       if (classeId) {
         /* this.homeworkService.getAllEleveParClasse(classeId).subscribe(
           (eleves) => {
-            
+
             this.eleves = eleves;
           }
         ); */
       }
     }
-    
-    
+
+
   AddNote(){
     this.submitted = true;
     if (this.noteForm.invalid) {
@@ -86,7 +86,7 @@ export class ModifierNoteComponent implements OnInit{
         confirmButtonText: 'ok',
         showCancelButton: true
       });
-      return; 
+      return;
     }
     console.log(this.noteForm.value)
     this.homeworkService.updateNOte(this.id,this.noteForm.value).subscribe(
@@ -94,7 +94,7 @@ export class ModifierNoteComponent implements OnInit{
         console.log(data)
       }
       )
-     
+
     Swal.fire({
       position: 'center',
       icon: 'success',
@@ -102,5 +102,5 @@ export class ModifierNoteComponent implements OnInit{
       showConfirmButton: false,
       timer: 1500
     });
-  }  
+  }
 }

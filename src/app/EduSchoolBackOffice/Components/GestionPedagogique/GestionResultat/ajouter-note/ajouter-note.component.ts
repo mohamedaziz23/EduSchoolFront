@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HomeworkService } from '../../services/homework.service';
+import { HomeworkService } from '../../../services/homeworkService/homework.service';
 import { Note } from '../../entities/note.entitie';
 import Swal from 'sweetalert2'
 
@@ -18,7 +18,7 @@ export class AjouterNoteComponent implements OnInit{
   note : Note = new Note();
   noteForm !:FormGroup;
   submitted = false;
-  
+
   constructor(
     private homeworkService:HomeworkService,
     private router :Router){
@@ -35,24 +35,24 @@ export class AjouterNoteComponent implements OnInit{
       });
       this.homeworkService.getAllMatiere().subscribe(
         (data) => {
-          
+
           this.matieres = data;
         }
       )
       this.homeworkService.getAllClasse().subscribe(
         (data) => {
-            this.classes = data;        
+            this.classes = data;
         }
       );
       this.noteForm.get('matiere')?.valueChanges.subscribe(() => {
         this.checkAndFetchEleves();
       });
-  
+
       this.noteForm.get('classe')?.valueChanges.subscribe(() => {
         this.checkAndFetchEleves();
       });
     }
-  
+
     checkAndFetchEleves() {
       const matiereId = this.noteForm.get('matiere')?.value;
     const classeId = this.noteForm.get('classe')?.value;
@@ -62,8 +62,8 @@ export class AjouterNoteComponent implements OnInit{
       });
     }
     }
-    
-    
+
+
   AddNote(){
     this.submitted = true;
     if (this.noteForm.invalid) {
@@ -74,14 +74,14 @@ export class AjouterNoteComponent implements OnInit{
         confirmButtonText: 'ok',
         showCancelButton: true
       });
-      return; 
+      return;
     }
     this.homeworkService.createNote(this.noteForm.value).subscribe(
        (data)=> {
         this.router.navigate(['/Dashboard/ListNote']);
       }
       )
-     
+
     Swal.fire({
       position: 'center',
       icon: 'success',
@@ -89,7 +89,7 @@ export class AjouterNoteComponent implements OnInit{
       showConfirmButton: false,
       timer: 1500
     });
-  }  
+  }
 }
 export function noteValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value;

@@ -2,14 +2,14 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Note } from '../../entities/note.entitie';
 import { Router } from '@angular/router';
-import { HomeworkService } from '../../services/homework.service';
+import { HomeworkService } from '../../../services/homeworkService/homework.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../../popup/popup.component';
 import { NumberInput } from '@angular/cdk/coercion';
 import Swal from 'sweetalert2';
-import { AuthService } from 'src/app/auth.service';
+import { AuthService } from '../../../services/compteService/auth.service';
 
 @Component({
   selector: 'app-liste-resultat',
@@ -17,12 +17,12 @@ import { AuthService } from 'src/app/auth.service';
   styleUrls: ['./liste-resultat.component.css']
 })
 export class ListeResultatComponent implements OnInit{
-  
+
   eleves: any;
   classes: any;
   matieres : any;
   classe:any;
-  tousLesNotes: any; 
+  tousLesNotes: any;
   totalItems : any;
   note : Note = new Note();
   dataSource: any;
@@ -51,7 +51,7 @@ export class ListeResultatComponent implements OnInit{
         this.loadNotes()
       }
     }
-   
+
     this.homeworkService.getAllMatiere().subscribe(
       (data) => {
         this.matieres = data;
@@ -60,7 +60,7 @@ export class ListeResultatComponent implements OnInit{
 
     this.homeworkService.getAllClasse().subscribe(
       (data) => {
-          this.classes = data;        
+          this.classes = data;
       }
     );
     this.loadNotes();
@@ -72,11 +72,11 @@ export class ListeResultatComponent implements OnInit{
         this.dataSource=data
         this.totalItems = this.dataSource.length;
         this.pageChanged({
-          pageIndex: this.currentPage, 
-          pageSize: this.pageSize, 
+          pageIndex: this.currentPage,
+          pageSize: this.pageSize,
           length: this.totalItems
         });
-       
+
       }
     )
 
@@ -87,16 +87,16 @@ export class ListeResultatComponent implements OnInit{
     if(this.user.role != "ELEVE"){
       this.homeworkService.getAllNote().subscribe(
         (data) => {
-          this.dataSource=data  
+          this.dataSource=data
           this.totalItems = this.dataSource.length;
           this.pageChanged({
             pageIndex: this.currentPage, pageSize: this.pageSize, length: this.totalItems
           });
-         
+
         }
       )
     }
-    
+
   }
   isAdmin(): boolean {
     return this.user && this.user.role === 'ADMINISTRATEUR';
@@ -110,20 +110,20 @@ export class ListeResultatComponent implements OnInit{
   }
   onClassChange(selectedClass: any): void {
     this.note.classe = selectedClass.value;
-    this.cdr.detectChanges(); 
+    this.cdr.detectChanges();
     this.loadEleves();
-    
+
   }
   onSubjectChange(selectedSubject: any): void {
     this.note.matiereNote = selectedSubject.value;
-    this.cdr.detectChanges(); 
+    this.cdr.detectChanges();
     this.loadEleves();
   }
   loadEleves(): void {
     if (this.note.matiereNote && this.note.classe) {
       this.homeworkService.getAllEleveParClasseEtMatiere(this.note.classe,this.note.matiereNote).subscribe(
         (data)=> {
-          this.dataSource=data;  
+          this.dataSource=data;
           this.totalItems = this.dataSource.length;
           this.pageChanged({
             pageIndex: this.currentPage, pageSize: this.pageSize, length: this.totalItems
@@ -132,12 +132,12 @@ export class ListeResultatComponent implements OnInit{
         }
       )
     }
-    
+
   }
   editNote(id: any) {
     // Récupérer la note par ID
     this.homeworkService.getNoteByID(id).subscribe(
-      (data) => { 
+      (data) => {
         this.note = data;
         if (this.note) {
           // Mettre à jour les valeurs des champs d'entrée avec les valeurs de la note
@@ -146,7 +146,7 @@ export class ListeResultatComponent implements OnInit{
         }
       }
     );
-  
+
     // Afficher la boîte de dialogue de modification
     Swal.fire({
       title: 'Modifier les notes',
@@ -180,14 +180,14 @@ export class ListeResultatComponent implements OnInit{
       }
     });
   }
-  
-  
-  
+
+
+
   updateNotes(id: any) {
     this.homeworkService.updateNOte(id, this.note).subscribe()
     this.loadNotes();
   }
-  
+
   deleteNote(id: any) {
     Swal.fire({
       title: 'Êtes-vous sûr de vouloir supprimer cette note ?',
@@ -224,15 +224,15 @@ export class ListeResultatComponent implements OnInit{
         type: 'resultat'
       }
     });
-    _popup.afterClosed().subscribe( 
+    _popup.afterClosed().subscribe(
       item =>
         {
           this.loadEleves();
         }
-      
+
       )
   }
- 
+
  ajouterNote(){
   this.router.navigate(['Dashboard/AjouterNote']);
  }

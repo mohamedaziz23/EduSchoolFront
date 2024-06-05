@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Homework } from '../../../entities/homework.entitie';
-import { HomeworkService } from '../../../services/homework.service';
+import { HomeworkService } from '../../../../services/homeworkService/homework.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,23 +20,23 @@ export class UpdateHomeworkComponent implements OnInit {
   id:any;
   matiere:any;
   constructor(
-    private formbuilder: FormBuilder, 
+    private formbuilder: FormBuilder,
     private homeworkService:HomeworkService,
     private router :Router,
     private route: ActivatedRoute){
 
     }
- 
+
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.homeworkService.getHomeworkByID(this.id).subscribe(
-      (data)=> { 
-        this.homework=data; 
+      (data)=> {
+        this.homework=data;
         this.classe=this.homework.classeHomework.nom
         this.matiere=this.homework.matiereHomework.nom
       }
     )
-       
+
     this.homeworkService.getAllMatiere().subscribe(
       (data) => {
         this.matieres = data;
@@ -47,7 +47,7 @@ export class UpdateHomeworkComponent implements OnInit {
           this.classes = data;
       }
     );
-  
+
   }
   updateHomework(){
     this.submitted = true;
@@ -59,10 +59,10 @@ export class UpdateHomeworkComponent implements OnInit {
         confirmButtonText: 'ok',
         showCancelButton: true
       });
-      return; 
+      return;
     }
   this.homeworkService.updateHomework(this.id,this.homework).subscribe();
-  
+
   Swal.fire({
     position: 'center',
     icon: 'success',

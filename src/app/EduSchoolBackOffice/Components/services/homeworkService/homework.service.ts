@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Homework } from '../entities/homework.entitie';
-import { Matiere } from '../entities/matiere.entitie';
-import { Note } from '../entities/note.entitie';
+import { Homework } from '../../gestionPedagogique/entities/homework.entitie';
+import { Matiere } from '../../gestionPedagogique/entities/matiere.entitie';
+import { Note } from '../../gestionPedagogique/entities/note.entitie';
 
 @Injectable({
   providedIn: 'root'
@@ -25,18 +25,18 @@ export class HomeworkService {
     return this.httpClient.post(`${this.baseURl}/ajoute_homework`, homework )
   }
   deleteHomework(id : number):Observable<object>{
-    
+
     return this.httpClient.delete(`${this.baseURl}/supprime_homework/${id}`);
   }
   getHomeworkByID(id : number):Observable<Homework>{
-    
+
     return this.httpClient.get<Homework>(`${this.baseURl}/recupere_homework_par_id/${id}`);
   }
   getByIdClasse(id:number):Observable<any>{
     return this.httpClient.get<any>(`${this.baseURl}/getByClasseId/${id}`)
   }
   updateHomework(id : number, homework:Homework):Observable<object>{
-    
+
     return this.httpClient.put (`${this.baseURl}/modifie_homework/${id}`,homework);
   }
   getAllEnseignant():Observable<object>{
@@ -69,23 +69,23 @@ export class HomeworkService {
     return this.httpClient.get<any[]>(`${this.baseURL_Note}/recupere_tous_les_notes_par_eleves/${id}`)
   }
   updateNOte(id : number, note:any):Observable<object>{
-    
+
     return this.httpClient.put (`${this.baseURL_Note}/modifie_Note/${id}`,note);
   }
   deleteNote(id : number):Observable<object>{
-    
+
     return this.httpClient.delete(`${this.baseURL_Note}/supprime_Note/${id}`);
   }
   getAllEleveParClasseEtMatiere(classe: any, matiere:any):Observable<any[]>{
     return this.httpClient.get<any[]>(`${this.baseURL_Note}/recupere_tous_les_eleves_par_classe_et_matiere/${matiere}/${classe}`)
   }
   getNoteByID(id : number):Observable<any>{
-    
+
     return this.httpClient.get<any>(`${this.baseURL_Note}/recupere_Note_par_id/${id}`);
   }
   getSalle(): Observable<any>{
     return this.httpClient.get<any[]>( `${this.baseURL_Salle}/getAll` ) ;
- }  
+ }
  createExamen(examen:any): Observable<any>{
   return this.httpClient.post(`${this.baseURL_Examen}/ajoute_Examen`, examen )
 }
@@ -93,7 +93,7 @@ getAllExamen():Observable<any[]>{
   return this.httpClient.get<any[]>(`${this.baseURL_Examen}/recupere_tous_les_Examens`)
 }
 deleteExamen(id : number):Observable<object>{
-    
+
   return this.httpClient.delete(`${this.baseURL_Examen}/supprime_Examen/${id}`);
 }
 getAllExamenParClasse(id:any):Observable<any[]>{

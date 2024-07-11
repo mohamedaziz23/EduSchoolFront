@@ -33,6 +33,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     BrowserModule,
     HttpClientModule,
+    MatButtonToggleModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
